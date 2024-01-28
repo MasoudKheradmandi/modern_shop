@@ -9,4 +9,22 @@ services:
       - "8000:8000"
     volumes:
       - ./:/app
+    networks:
+      - postgres-network
+  postgres:
+    image: docker.arvancloud.ir/postgres:16.1-bullseye
+    container_name: db
+    environment:
+      - POSTGRES_DB=admin_db
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    volumes:
+      - postgres-volume:/var/lib/postgresql/data
+    networks:
+      - postgres-network
 
+volumes:
+  postgres-volume:
+
+networks:
+  postgres-network:
