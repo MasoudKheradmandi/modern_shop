@@ -103,3 +103,14 @@ STATICFILES_DIRS = [BASE_DIR / "static",]
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DATABASES = {
+    'default': {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': 'admin_db',
+    'USER': 'admin',
+    'PASSWORD': 'admin',
+    'HOST': 'db',
+    'PORT': 5432,
+    }
+}
