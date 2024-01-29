@@ -12,6 +12,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 ALLOWED_HOSTS = []
 
+DATABASES = {
+    'default': {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': 'admin_db',
+    'USER': 'admin',
+    'PASSWORD': 'admin',
+    'HOST': 'db',
+    'PORT': 5432,
+    }
+}
 
 # Application definition
 
