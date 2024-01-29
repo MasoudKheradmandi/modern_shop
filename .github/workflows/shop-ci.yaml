@@ -11,7 +11,7 @@ jobs:
           - name: Install docker
             run: sudo snap install docker
           - name: up the container
-            run: docker-compose -f docker-compose-dev.yaml
+            run: docker-compose -f docker-compose-dev.yaml up
           - name: run tests
             run: docker exec -it backend bash -c "poetry run python3 core/manage.py test"
 
