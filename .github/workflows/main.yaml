@@ -1,0 +1,14 @@
+name: CI for shop
+on: ['push']
+
+jobs:
+    simple_build:
+      name: Django CI
+      runs-on: ubuntu-latest
+      steps:
+          - name: Checkout code
+            uses: actions/checkout@v4
+          - name: up the container
+            run: docker-compose -f docker-compose-dev.yaml up -d
+          - name: run tests
+            run:  docker exec backend bash -c "cd core && poetry run python3 manage.py test"
