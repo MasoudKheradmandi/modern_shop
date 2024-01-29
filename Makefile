@@ -10,3 +10,6 @@ migrations:
 migrate:
 	poetry run python3 core/manage.py migrate
 
+.PHONY: run-test
+run-test:
+	poetry run python3 core/manage.py test
