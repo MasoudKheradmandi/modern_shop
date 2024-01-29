@@ -1,7 +1,5 @@
 name: CI for shop
-on:
-  workflow_dispatch:
-  
+on: ['push','pull_request']
 
 jobs:
     simple_build:
