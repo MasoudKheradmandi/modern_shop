@@ -1,5 +1,5 @@
 name: CI for shop
-on: ['push','merge']
+on: ['push','pull']
 
 jobs:
     simple_build:
