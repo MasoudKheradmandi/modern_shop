@@ -3,15 +3,15 @@ on: ['push','pull_request']
 
 jobs:
     simple_build:
-    name: Django CI
-    runs-on: ubuntu-latest
-    steps:
-        - name: Checkout code
-          uses: actions/checkout@v2
-        - name: Install docker
-          run: sudo snap install docker
-        - name: up the container
-          run: docker-compose -f docker-compose-dev.yaml
-        - name: run tests
-          run: poetry run python3 core/manage.py test
+      name: Django CI
+      runs-on: ubuntu-latest
+      steps:
+          - name: Checkout code
+            uses: actions/checkout@v2
+          - name: Install docker
+            run: sudo snap install docker
+          - name: up the container
+            run: docker-compose -f docker-compose-dev.yaml
+          - name: run tests
+            run: poetry run python3 core/manage.py test
 
