@@ -1,4 +1,4 @@
-FROM python:3.11.1-slim
+FROM docker.arvancloud.ir/python:3.11.1-slim
 
 ENV PYTHONDONTWRITEBYTECIDE=1
 ENV PTRHONUNBUFFERED=1
