@@ -46,8 +46,6 @@ class UserManagerTest(TestCase):
         self.assertRaises(ValueError,User.objects.create_user,phone_number='09123456789',password='')
 
 
-
-
     def test_create_superuser(self):
         self.user = User.objects.create_superuser(phone_number='09123456789',password='test')
         self.assertEqual(User.objects.count(),1)
@@ -66,14 +64,15 @@ class UserManagerTest(TestCase):
 
 class ProfileModelTest(TestCase):
     def setUp(self) -> None:
-        self.user = User.objects.create_user(phone_number='09123456789',password='test')
+        self.user = User.objects.create_user(id=1,phone_number='09123456789',password='test')
+
 
     def test_profile_existance(self):
         self.assertTrue(Profile.objects.filter(id=1).exists())
 
 
-    # def test_str_obj(self):
-    #     profile = Profile.objects.get(id=1)
-    #     self.assertEqual(str(profile),"09123456789")
+    def test_str_obj(self):
+        profile = Profile.objects.get(id=1)
+        self.assertEqual(str(profile),"09123456789")
 
 
