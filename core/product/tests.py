@@ -1,6 +1,6 @@
 from django.test import TestCase
 from model_bakery import baker
-from .models import Product,Category,DiscountCode,TvSize
+from .models import Product,Category,DiscountCode,TvSize,Comment
 
 
 # Create your tests here.
@@ -33,3 +33,11 @@ class TvSizeTest(TestCase):
 
     def test_str_obj(self):
         self.assertEqual(str(self.tv),'TV1 32')
+
+
+class CommentTest(TestCase):
+    def setUp(self):
+        self.comm = baker.make(Comment,product__name='TV1',title='test',is_show=bool(True))
+
+    def test_str_obj(self):
+        self.assertEqual(str(self.comm),'test TV1 '+ self.is_show)

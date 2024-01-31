@@ -59,3 +59,14 @@ class Product(models.Model):
     
     def __str__(self):
         return self.name
+
+class Comment(models.Model):
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    author = models.ForeignKey("account.Profile",on_delete=models.CASCADE)
+    title = models.CharField(max_length=150) 
+    text = models.TextField()
+    created_date = models.DateTimeField(auto_now_add=True)
+    is_show = models.BooleanField(default=False,verbose_name='نمایش داده شود؟')
+    
+    def __str__(self):
+        return self.title + " " + self.product.name +" "+self.is_show
