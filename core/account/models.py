@@ -16,6 +16,7 @@ class UserManager(BaseUserManager):
             raise ValueError(_("the phone_number must be set"))
         if not password:
             raise ValueError(_("the password must be set"))
+
         user = User(phone_number=phone_number,**extra_fields)
         user.set_password(password)
         user.save()
@@ -29,6 +30,13 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault('is_staff',True)
         extra_fields.setdefault('is_verified',True)
 
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError(_("Staffuser must have is_staff=True."))
+
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError(_("Superuser must have is_superuser=True."))
+
         return self.create_user(phone_number,password,**extra_fields)
 
     def create_staffuser(self,phone_number,password,**extra_fields):
@@ -37,6 +45,10 @@ class UserManager(BaseUserManager):
         """
         extra_fields.setdefault('is_staff',True)
         extra_fields.setdefault('is_verified',True)
+
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError(_("Staffuser must have is_staff=True."))
 
         return self.create_user(phone_number,password,**extra_fields)
 
@@ -47,6 +59,7 @@ def validate_phone_number(value,*args,custom_regex=None,**kwargs):
     if custom regex not provided use defalut iranian phone number regex pattern.
     raise ValidationError if did not match.
     """
+    
     iran_phone_number_regex_pattern = "^(?:0|\+98)?(9\d{9})$"
     regex_pattern = custom_regex if custom_regex is not None else iran_phone_number_regex_pattern
     if  not bool(re.compile(regex_pattern).match(value)):
@@ -80,6 +93,7 @@ class Profile(models.Model):
     email = models.EmailField(null=True)
     shop_point = models.PositiveIntegerField(default=0)
     address = models.TextField(null=True)
+
     postalcode = models.CharField(max_length=20)
     recive_newsletter = models.BooleanField(default=False)
     recive_events = models.BooleanField(default=False)
