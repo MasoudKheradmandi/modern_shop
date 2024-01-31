@@ -14,6 +14,9 @@ class UserManager(BaseUserManager):
         """
         if not phone_number:
             raise ValueError(_("the phone_number must be set"))
+        if not password:
+            raise ValueError(_("the password must be set"))
+
         user = User(phone_number=phone_number,**extra_fields)
         user.set_password(password)
         user.save()
@@ -26,6 +29,7 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault('is_superuser',True)
         extra_fields.setdefault('is_staff',True)
         extra_fields.setdefault('is_verified',True)
+
 
         if extra_fields.get('is_staff') is not True:
             raise ValueError(_("Staffuser must have is_staff=True."))
@@ -42,6 +46,7 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault('is_staff',True)
         extra_fields.setdefault('is_verified',True)
 
+
         if extra_fields.get('is_staff') is not True:
             raise ValueError(_("Staffuser must have is_staff=True."))
 
@@ -54,7 +59,8 @@ def validate_phone_number(value,*args,custom_regex=None,**kwargs):
     if custom regex not provided use defalut iranian phone number regex pattern.
     raise ValidationError if did not match.
     """
-    iran_phone_number_regex_pattern = "^(?:0|98|\+98|\+980|0098|098|00980)?(9\d{9})$"
+    
+    iran_phone_number_regex_pattern = "^(?:0|\+98)?(9\d{9})$"
     regex_pattern = custom_regex if custom_regex is not None else iran_phone_number_regex_pattern
     if  not bool(re.compile(regex_pattern).match(value)):
         raise ValidationError(
@@ -84,9 +90,10 @@ class User(AbstractBaseUser,PermissionsMixin):
 class Profile(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     full_name  = models.CharField(max_length=400)
-    email = models.EmailField()
-    shop_point = models.PositiveIntegerField()
-    address = models.TextField()
+    email = models.EmailField(null=True)
+    shop_point = models.PositiveIntegerField(default=0)
+    address = models.TextField(null=True)
+
     postalcode = models.CharField(max_length=20)
     recive_newsletter = models.BooleanField(default=False)
     recive_events = models.BooleanField(default=False)
