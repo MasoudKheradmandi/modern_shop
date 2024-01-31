@@ -15,7 +15,7 @@ class DiscountCode(models.Model):
     discountـpercent= models.PositiveIntegerField(validators=[MaxValueValidator(100),MinValueValidator(0)]) # درصد تخفیف
     
     def __str__(self):
-        return self.name + " " + self.count
+        return self.code_name + " " + str(self.count)
 
 
 class TvSize(models.Model):
