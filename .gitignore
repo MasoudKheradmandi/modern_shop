@@ -30,3 +30,6 @@ todo.txt
 
 #SETTINGS 
 settings.dev.py
+
+# SQLITE
+*.sqlite3
