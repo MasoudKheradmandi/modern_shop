@@ -37,7 +37,7 @@ class TvSizeTest(TestCase):
 
 class CommentTest(TestCase):
     def setUp(self):
-        self.comm = baker.make(Comment,product__name='TV1',title='test',is_show=bool(True))
+        self.comm = baker.make(Comment,product__name='TV1',title='test',is_show=True)
 
     def test_str_obj(self):
-        self.assertEqual(str(self.comm),'test TV1 '+ self.is_show)
+        self.assertEqual(str(self.comm),'test TV1 True')

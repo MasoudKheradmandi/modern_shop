@@ -69,4 +69,4 @@ class Comment(models.Model):
     is_show = models.BooleanField(default=False,verbose_name='نمایش داده شود؟')
     
     def __str__(self):
-        return self.title + " " + self.product.name +" "+self.is_show
+        return self.title + " " + self.product.name +" "+str(self.is_show)
