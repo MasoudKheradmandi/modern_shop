@@ -8,14 +8,14 @@ from account.models import User
 
 class LoginView(View):
     def get(self,request):
-        # if request.user.is_authenticated:
-        #     return redirect('/')
+        if request.user.is_authenticated:
+            return redirect('/')
         context = {}
         return render(request,'login.html',context)
 
     def post(self,request):
-        # if request.user.is_authenticated:
-        #     return redirect('/')
+        if request.user.is_authenticated:
+            return redirect('/')
         form = LoginForm(request.POST)
         if form.is_valid():
             phone_number = form.cleaned_data.get('phone_number')

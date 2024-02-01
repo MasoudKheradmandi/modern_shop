@@ -73,5 +73,3 @@ class ProfileModelTest(TestCase):
     def test_str_obj(self):
         profile = Profile.objects.get(user=self.user)
         self.assertEqual(str(profile),"09123456789")
-
-
