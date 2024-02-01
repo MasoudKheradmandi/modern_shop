@@ -6,17 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
     name='viewport'/>
-    <title>verify-code</title>
+    <title>welcome</title>
     <!--    font------------------------------------>
     <link rel="stylesheet" href="{% static 'assets/css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/materialdesignicons.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/materialdesignicons.css.map' %}">
-    <!--    bootstrap------------------------------->
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
     <!--    owl.carousel---------------------------->
     <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
-    <!--swiper--------------------------------------->
-    <link rel="stylesheet" href="{% static 'assets/css/swiper.css' %}">
+    <!--    responsive------------------------------>
+    <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
     <!--    main style------------------------------>
     <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
 </head>
@@ -28,23 +27,28 @@
                     <section class="page-account-box">
                         <div class="col-lg-7 col-md-7 col-xs-12 mx-auto">
                             <div class="account-box">
-                                <a href="#" class="account-box-logo">digistore</a>
-                                <div class="account-box-headline remembers-passwords">
-                                    کد تایید را وارد نمایید.
+                                <a href="#" class="account-box-logo">digismart</a>
+                                <div class="account-box-headline welcome-headline">
+                                    <span class="account-headline-title">به دیجی اسمارت خوش آمدید</span>
                                 </div>
                                 <div class="account-box-content">
-                                    <form action="{% url "account:login-verification-page" %}" method="post" class="form-account">
-                                        {% csrf_token %}
-                                        <div class="form-account-title">
-                                            <input name="verify_code" type="text" class="number-email-input" id="email-phone" placeholder="کد تایید 4 یا 5 رقمی">
-                                            <span class="mdi mdi-account-outline"></span>
+                                    <form action="#" class="form-account">
+                                        <div class="user-account-welcome">
+                                            <span class="mdi mdi-account-circle-outline"></span>
                                         </div>
-                                        <div class="parent-btn">
+                                        <div class="made-account">
+                                            <h2>حساب کاربری شما در دیجی اسمارت ساخته شد</h2>
+                                            <p>اکنون می‌توانید به صفحه‌ای که در آن بودید بازگردید و یا با تکمیل اطلاعات حساب کاربری
+                                            خود به کلیه امکانات و
+                                            سرویس‌های دیجی اسمارت و سرویس‌های وابسته به آن دسترسی داشته باشید</p>
+                                        </div>
+                                        <div class="parent-btn lr-ds w-ds">
                                             <button class="dk-btn dk-btn-info">
-                                                    تایید
-                                                <i class="mdi mdi-lock"></i>
+                                                    تکمیل حساب کاربری
+                                                <i class="mdi mdi-account-outline"></i>
                                             </button>
                                         </div>
+                                        
                                     </form>
                                 </div>
                             </div>
@@ -72,22 +76,5 @@
 <script src="{% static 'assets/js/jquery-3.2.1.min.js' %}"></script>
 <script src="{% static 'assets/js/bootstrap.js' %}"></script>
 <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
-<script src="{% static 'assets/js/swiper.js' %}"></script>
 <script src="{% static 'assets/js/main.js' %}"></script>
-<script src="{% static 'assets/js/sweetalert2.all.min.js' %}"></script>
-<script>
-{% for message in messages %}
-    {% if message.level == 40 %}
-    Swal.fire({
-        icon: 'error',
-        html: '{{message}}',
-    })
-    {% else %}
-    Swal.fire({
-        icon: 'success',
-        html: '{{message}}',
-    })
-    {% endif %}
-{% endfor %}
-</script>
 </html>

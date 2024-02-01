@@ -8,23 +8,20 @@ import re
 # Create your models here.
 
 class UserManager(BaseUserManager):
-    def create_user(self,phone_number,password,**extra_fields):
+    def create_user(self,phone_number,**extra_fields):
         """
-        Creates and saves a User with the given phone_number , password and extra fields.
+        Creates and saves a User with the given phone_number  and extra fields.
         """
         if not phone_number:
             raise ValueError(_("the phone_number must be set"))
-        if not password:
-            raise ValueError(_("the password must be set"))
 
         user = User(phone_number=phone_number,**extra_fields)
-        user.set_password(password)
         user.save()
         return user
 
-    def create_superuser(self,phone_number,password,**extra_fields):
+    def create_superuser(self,phone_number,**extra_fields):
         """
-        Creates and saves a superuser with the given phone_number , password and extra fields.
+        Creates and saves a superuser with the given phone_number and extra fields.
         """
         extra_fields.setdefault('is_superuser',True)
         extra_fields.setdefault('is_staff',True)
@@ -37,11 +34,11 @@ class UserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError(_("Superuser must have is_superuser=True."))
 
-        return self.create_user(phone_number,password,**extra_fields)
+        return self.create_user(phone_number,**extra_fields)
 
-    def create_staffuser(self,phone_number,password,**extra_fields):
+    def create_staffuser(self,phone_number,**extra_fields):
         """
-        Creates and saves a staffuser with the given phone_number , password and extra fields.
+        Creates and saves a staffuser with the given phone_number and extra fields.
         """
         extra_fields.setdefault('is_staff',True)
         extra_fields.setdefault('is_verified',True)
@@ -50,7 +47,7 @@ class UserManager(BaseUserManager):
         if extra_fields.get('is_staff') is not True:
             raise ValueError(_("Staffuser must have is_staff=True."))
 
-        return self.create_user(phone_number,password,**extra_fields)
+        return self.create_user(phone_number,**extra_fields)
 
 
 def validate_phone_number(value,*args,custom_regex=None,**kwargs):
@@ -59,12 +56,19 @@ def validate_phone_number(value,*args,custom_regex=None,**kwargs):
     if custom regex not provided use defalut iranian phone number regex pattern.
     raise ValidationError if did not match.
     """
-    
+
     iran_phone_number_regex_pattern = "^(?:0|\+98)?(9\d{9})$"
     regex_pattern = custom_regex if custom_regex is not None else iran_phone_number_regex_pattern
     if  not bool(re.compile(regex_pattern).match(value)):
         raise ValidationError(
             _('number is not valid'),
+        )
+
+
+def validate_verification_code(value,*args,**kwargs):
+    if value <= 1000 or value >= 100000:
+        raise ValidationError(
+            _('code is not valid'),
         )
 
 
