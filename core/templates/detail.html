@@ -1,0 +1,1538 @@
+{% extends "base.html" %}
+{% load static %}
+{% block main %}
+
+
+    <div class="container-main">
+        <div class="col-12">
+            <div class="breadcrumb-container">
+                <ul class="js-breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="#" class="breadcrumb-link">خانه</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="#" class="breadcrumb-link">کالای دیجیتال</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="#" class="breadcrumb-link active-breadcrumb">موبایل</a>
+                    </li>
+                </ul>
+            </div>
+            <article class="product">
+                <div class="col-lg-4 col-xs-12 pb-5 pull-right">
+                    <!-- Product Options-->
+                    <ul class="gallery-options">
+                        <li>
+                            <button class="options-item add-favorites"><i class="mdi mdi-heart"></i></button>
+                            <span class="tooltip-option">افزودن به علاقمندی</span>
+                        </li>
+                        <li>
+                            <a href="product-comparison.html" class="options-item add-compare mr-2"><i
+                                    class="mdi mdi-compare"></i></a>
+                            <span class="tooltip-option">مقایسه</span>
+                        </li>
+                        <li>
+                            <button class="options-item btn-option-social" data-toggle="modal"
+                                data-target="#exampleModalCenter">
+                                <i class="mdi mdi-share-outline"></i>
+                                <span class="tooltip-option">اشتراک گذاری</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="options-item btn-option-alarm" data-toggle="modal"
+                                data-target="#exampleModalCenteralarm">
+                                <i class="mdi mdi-bell-outline"></i>
+                                <span class="tooltip-option">اطلاع‌رسانی</span>
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="product-timeout position-relative pt-5 mb-3">
+                        <div class="promotion-badge">
+                            فروش ویژه
+                        </div>
+                        <div class="countdown countdown-style-3 h4" data-date-time="10/10/2025 24:00"
+                            data-labels='{"label-second": "", "label-minute": "", "label-hour": ""}'>
+                        </div>
+                    </div>
+                    <div class="product-gallery">
+                        <span class="badge">پر فروش</span>
+                        <div class="product-gallery-carousel owl-carousel">
+                            <div class="item">
+                                <a class="gallery-item" href="{{obj.image_2.url}}"
+                                    data-fancybox="gallery1" data-hash="one">
+                                    <img src="{{obj.image_2.url}}" alt="Product">
+                                </a>
+                            </div>
+                            <div class="item">
+                                <a class="gallery-item" href="{{obj.image_1.url}}"
+                                    data-fancybox="gallery1" data-hash="two">
+                                    <img src="{{obj.image_1.url}}" alt="Product">
+                                </a>
+                            </div>
+                            <div class="item">
+                                <a class="gallery-item" href="{{obj.image_3.url}}"
+                                    data-fancybox="gallery1" data-hash="three">
+                                    <img src="{{obj.image_3.url}}" alt="Product">
+                                </a>
+                            </div>
+                            <div class="item">
+                                <a class="gallery-item" href="{{obj.image.url}}"
+                                    data-fancybox="gallery1" data-hash="four">
+                                    <img src="{{obj.image.url}}" alt="Product">
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Modal social-->
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalCenterTitle">اشتراک گذاری</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="form-share-title">ارسال به ایمیل</div>
+                            <form for="#" class="send-to-email">
+                                <div class="form-share-row mb-0">
+                                    <div class="form-share-col">
+                                        <input name="email" class="input-send-to-email" type="email"
+                                            placeholder="آدرس ایمیل را وارد نمایید.">
+                                    </div>
+                                </div>
+                                <div class="form-share-row mb-1">
+                                    <div class="form-share-col">
+                                        <div class="btn-send-email">ارسال</div>
+
+                                        <ul class="btn-group-share">
+                                            <li>
+                                                <a href="#" class="btn-share btn-share-telegram">
+                                                    <i class="fa fa-telegram"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="btn-share btn-share-facebook">
+                                                    <i class="fa fa-facebook"></i>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="btn-share btn-share-whatsapp">
+                                                    <i class="fa fa-whatsapp"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="form-share-row">
+                                <div class="form-share-col">
+                                    <input class="ui-url-field" type="url"
+                                        value="https://www.digismart.com/product/dkp-1672478" readonly="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal social-->
+                <!-- Modal alarm -->
+                <div class="modal fade" id="exampleModalCenteralarm" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalCenterTitle">
+                                    اطلاع رسانی
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="#" class="form-notification">
+                                    <div class="form-notification-title">از طریق:</div>
+                                    <div class="form-notification-row">
+                                        <div class="form-notification-col">
+                                            <ul class="form-notification-params">
+                                                <li>
+                                                    <div class="form-auth-row">
+                                                        <label class="ui-checkbox">
+                                                            <input type="checkbox" value="1" name="login"
+                                                                id="remember1">
+                                                            <span class="ui-checkbox-check"></span>
+                                                        </label>
+                                                        <label for="remember1" class="remember-me">ایمیل به
+                                                            <span class="js-observed-user-email">09911234567</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-auth-row">
+                                                        <label class="ui-checkbox">
+                                                            <input type="checkbox" value="1" name="login"
+                                                                id="remember2">
+                                                            <span class="ui-checkbox-check"></span>
+                                                        </label>
+                                                        <label for="remember2" class="remember-me">پیامک به
+                                                            <span class="js-observed-user-email">09911234567</span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="form-auth-row">
+                                                        <label class="ui-checkbox">
+                                                            <input type="checkbox" value="1" name="login"
+                                                                id="remember3">
+                                                            <span class="ui-checkbox-check"></span>
+                                                        </label>
+                                                        <label for="remember3" class="remember-me">به من اطلاع
+                                                            بده</label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer d-block text-left">
+                                <button type="button" class="btn btn-primary ml-2">ثبت</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">بازگشت</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal alarm -->
+                <div class="col-lg-8 col-xs-12 pull-right">
+                    <section class="product-info">
+                        <div class="product-headline">
+                            <h1 class="product-title">
+                               {{obj.name}}
+
+                            </h1>
+                        </div>
+                        <div class="product-attributes">
+                            <div class="col-lg-6 col-xs-12 pull-right">
+                                <div class="product-config">
+                                    <div class="product-config-wrapper">
+                                        <div class="product-directory">
+                                            <ul>
+                                                <li>
+                                                    <span>برند</span>
+                                                    :
+                                                    <a href="#" class="product-brand-title">{{obj.category.name}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="product-variants">
+                                            <span>انتخاب رنگ: </span>
+                                            <ul class="js-product-variants">
+                                                <li class="ui-variant">
+                                                    <label for="#" class="ui-variant-color">
+                                                        <span class="ui-variant-shape"
+                                                            style="background-color: #2196f3"></span>
+                                                        <input type="radio" value="4" name="color" id="variant"
+                                                            class="js-variant-selector" checked="">
+                                                        <span class="ui-variant-check">آبی</span>
+                                                    </label>
+                                                </li>
+                                                <li class="ui-variant">
+                                                    <label for="#" class="ui-variant-color">
+                                                        <span class="ui-variant-shape"
+                                                            style="background-color: #fff"></span>
+                                                        <input type="radio" value="4" name="color" id="variant"
+                                                            class="js-variant-selector">
+                                                        <span class="ui-variant-check">سفید</span>
+                                                    </label>
+                                                </li>
+                                                <li class="ui-variant">
+                                                    <label for="#" class="ui-variant-color">
+                                                        <span class="ui-variant-shape"
+                                                            style="background-color: #212121"></span>
+                                                        <input type="radio" value="4" name="color" id="variant"
+                                                            class="js-variant-selector">
+                                                        <span class="ui-variant-check">مشکی</span>
+                                                    </label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="product-params">
+                                            <ul>ویژگی‌های محصول
+                                                <li>
+                                                  {{obj.specification}}
+                                                </li>
+                                               
+                                              
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-xs-12 pull-left">
+                                <div class="product-summary">
+                                    <div class="product-seller-info">
+                                        <div class="seller-info-changable">
+                                            <div class="product-seller-row vendor">
+                                                <span class="title"> فروشنده:</span>
+                                                <a href="#" class="product-name">دیجی اسمارت</a>
+                                            </div>
+                                            <div class="product-seller-row guarantee">
+                                                <span class="title"> گارانتی:</span>
+                                                <a href="#" class="product-name">۱۸ ماهه دیجی اسمارت</a>
+                                            </div>
+                                            <div class="product-seller-row guarantee">
+                                                <span class="title"> تعداد:</span>
+                                                <a href="#" class="product-name">3</a>
+                                            </div>
+                                            <div class="product-seller-row price">
+                                                <div class="product-seller-price-info price-value mb-3">
+                                                    <span class="title"> قیمت:</span>
+                                                    <span class="amount text-danger">
+                                                        ۳,۲۵۹,۰۰۰
+                                                        <span>تومان</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="parent-btn">
+                                                <button class="dk-btn dk-btn-info at-c as-c">
+                                                    افزودن به سبد خرید
+                                                    <i class="mdi mdi-cart"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </article>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-xs-12 pull-right">
+            <div class="section-slider-product mb-4">
+                <div class="widget widget-product card">
+                    <header class="card-header">
+                        <span class="title-one">محصولات مرتبط</span>
+                        <h3 class="card-title">مشاهده همه</h3>
+                    </header>
+                    <div class="product-carousel owl-carousel owl-theme owl-rtl owl-loaded owl-drag">
+                        <div class="owl-stage-outer">
+                            <div class="owl-stage"
+                                style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2234px;">
+                                <div class="owl-item active" style="width: 309.083px; margin-left: 10px;">
+                                    <div class="item">
+                                        <div class="stars-plp">
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                        </div>
+                                        <a href="#" class="d-inline-block">
+                                            <img src="{{obj.image.url}}" class="img-fluid" alt="">
+                                        </a>
+                                        <h2 class="post-title">
+                                            <a href="#">
+                                                تلویزیون ال ای دی هوشمند سامسونگ مدل 82NU8900 سایز 82 اینچ
+                                            </a>
+                                        </h2>
+                                        <div class="price">
+                                            <ins>
+                                                <span>۳,۳۹۵,۰۰۰
+                                                    <span>تومان</span>
+                                                </span>
+                                            </ins>
+                                            <del>
+                                                <span>۴,۵۳۰,۰۰۰
+                                                    <span>تومان</span>
+                                                </span>
+                                            </del>
+                                        </div>
+                                        <div class="actions">
+                                            <ul>
+                                                <li class="action-item like">
+                                                    <button class="btn btn-light add-favorites add-product-wishes"
+                                                        type="submit" title="علاقه مندی">
+                                                        <i class="mdi mdi-heart"></i>
+                                                    </button>
+                                                </li>
+                                                <li class="action-item compare">
+                                                    <button class="btn btn-light btn-compare" type="submit"
+                                                        title="مقایسه">
+                                                        <i class="mdi mdi-compare"></i>
+                                                    </button>
+                                                </li>
+                                                <li class="action-item add-to-cart">
+                                                    <button class="btn btn-light btn-add-to-cart" type="submit"
+                                                        title="سبد خرید">
+                                                        <i class="mdi mdi-shopping"></i>
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="owl-item active" style="width: 309.083px; margin-left: 10px;">
+                                    <div class="item">
+                                        <div class="stars-plp">
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                        </div>
+                                        <a href="#" class="d-inline-block">
+                                            <img src="assets/images/slider-product/tev-2.jpg" class="img-fluid" alt="">
+                                        </a>
+                                        <h2 class="post-title">
+                                            <a href="#">
+                                                تلویزیون ال ای دی هوشمند ایکس ویژن مدل 55XT515 سایز 55 اینچ
+                                            </a>
+                                        </h2>
+                                        <div class="price">
+                                            <ins>
+                                                <span>۳,۳۹۵,۰۰۰
+                                                    <span>تومان</span>
+                                                </span>
+                                            </ins>
+                                            <del>
+                                                <span>۴,۵۳۰,۰۰۰
+                                                    <span>تومان</span>
+                                                </span>
+                                            </del>
+                                        </div>
+                                        <div class="actions">
+                                            <ul>
+                                                <li class="action-item like">
+                                                    <button class="btn btn-light add-favorites add-product-wishes"
+                                                        type="submit" title="علاقه مندی">
+                                                        <i class="mdi mdi-heart"></i>
+                                                    </button>
+                                                </li>
+                                                <li class="action-item compare">
+                                                    <button class="btn btn-light btn-compare" type="submit"
+                                                        title="مقایسه">
+                                                        <i class="mdi mdi-compare"></i>
+                                                    </button>
+                                                </li>
+                                                <li class="action-item add-to-cart">
+                                                    <button class="btn btn-light btn-add-to-cart" type="submit"
+                                                        title="سبد خرید">
+                                                        <i class="mdi mdi-shopping"></i>
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="owl-item active" style="width: 309.083px; margin-left: 10px;">
+                                    <div class="item">
+                                        <div class="stars-plp">
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                        </div>
+                                        <a href="#" class="d-inline-block">
+                                            <img src="assets/images/slider-product/tev-3.jpg" class="img-fluid" alt="">
+                                        </a>
+                                        <h2 class="post-title">
+                                            <a href="#">
+                                                تلویزیون ال ای دی هوشمند مجیک تی وی مدل MT65D2400 سایز 65 اینچ
+                                            </a>
+                                        </h2>
+                                        <div class="price">
+                                            <ins>
+                                                <span>۳,۳۹۵,۰۰۰
+                                                    <span>تومان</span>
+                                                </span>
+                                            </ins>
+                                            <del>
+                                                <span>۴,۵۳۰,۰۰۰
+                                                    <span>تومان</span>
+                                                </span>
+                                            </del>
+                                        </div>
+                                        <div class="actions">
+                                            <ul>
+                                                <li class="action-item like">
+                                                    <button class="btn btn-light add-favorites add-product-wishes"
+                                                        type="submit" title="علاقه مندی">
+                                                        <i class="mdi mdi-heart"></i>
+                                                    </button>
+                                                </li>
+                                                <li class="action-item compare">
+                                                    <button class="btn btn-light btn-compare" type="submit"
+                                                        title="مقایسه">
+                                                        <i class="mdi mdi-compare"></i>
+                                                    </button>
+                                                </li>
+                                                <li class="action-item add-to-cart">
+                                                    <button class="btn btn-light btn-add-to-cart" type="submit"
+                                                        title="سبد خرید">
+                                                        <i class="mdi mdi-shopping"></i>
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="owl-item active" style="width: 309.083px; margin-left: 10px;">
+                                    <div class="item">
+                                        <div class="stars-plp">
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                        </div>
+                                        <a href="#" class="d-inline-block">
+                                            <img src="assets/images/slider-product/tev-4.jpg" class="img-fluid" alt="">
+                                        </a>
+                                        <h2 class="post-title">
+                                            <a href="#">
+                                                تلویزیون ال ای دی ال جی مدل 43LJ52100 سایز 43 اینچ
+                                            </a>
+                                        </h2>
+                                        <div class="price">
+                                            <ins>
+                                                <span>۳,۳۹۵,۰۰۰
+                                                    <span>تومان</span>
+                                                </span>
+                                            </ins>
+                                            <del>
+                                                <span>۴,۵۳۰,۰۰۰
+                                                    <span>تومان</span>
+                                                </span>
+                                            </del>
+                                        </div>
+                                        <div class="actions">
+                                            <ul>
+                                                <li class="action-item like">
+                                                    <button class="btn btn-light add-favorites add-product-wishes"
+                                                        type="submit" title="علاقه مندی">
+                                                        <i class="mdi mdi-heart"></i>
+                                                    </button>
+                                                </li>
+                                                <li class="action-item compare">
+                                                    <button class="btn btn-light btn-compare" type="submit"
+                                                        title="مقایسه">
+                                                        <i class="mdi mdi-compare"></i>
+                                                    </button>
+                                                </li>
+                                                <li class="action-item add-to-cart">
+                                                    <button class="btn btn-light btn-add-to-cart" type="submit"
+                                                        title="سبد خرید">
+                                                        <i class="mdi mdi-shopping"></i>
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="owl-item" style="width: 309.083px; margin-left: 10px;">
+                                    <div class="item">
+                                        <div class="stars-plp">
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                        </div>
+                                        <a href="#" class="d-inline-block">
+                                            <img src="assets/images/slider-product/tev-5.jpg" class="img-fluid" alt="">
+                                        </a>
+                                        <h2 class="post-title">
+                                            <a href="#">
+                                                تلویزیون ال ای دی هوشمند ایکس ویژن مدل 49XTU725 سایز 49 اینچ
+                                            </a>
+                                        </h2>
+                                        <div class="price">
+                                            <ins>
+                                                <span>۳,۳۹۵,۰۰۰
+                                                    <span>تومان</span>
+                                                </span>
+                                            </ins>
+                                            <del>
+                                                <span>۴,۵۳۰,۰۰۰
+                                                    <span>تومان</span>
+                                                </span>
+                                            </del>
+                                        </div>
+                                        <div class="actions">
+                                            <ul>
+                                                <li class="action-item like">
+                                                    <button class="btn btn-light add-favorites add-product-wishes"
+                                                        type="submit" title="علاقه مندی">
+                                                        <i class="mdi mdi-heart"></i>
+                                                    </button>
+                                                </li>
+                                                <li class="action-item compare">
+                                                    <button class="btn btn-light btn-compare" type="submit"
+                                                        title="مقایسه">
+                                                        <i class="mdi mdi-compare"></i>
+                                                    </button>
+                                                </li>
+                                                <li class="action-item add-to-cart">
+                                                    <button class="btn btn-light btn-add-to-cart" type="submit"
+                                                        title="سبد خرید">
+                                                        <i class="mdi mdi-shopping"></i>
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="owl-item" style="width: 309.083px; margin-left: 10px;">
+                                    <div class="item">
+                                        <div class="stars-plp">
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                        </div>
+                                        <a href="#" class="d-inline-block">
+                                            <img src="assets/images/slider-product/tev-6.jpg" class="img-fluid" alt="">
+                                        </a>
+                                        <h2 class="post-title">
+                                            <a href="#">
+                                                تلویزیون ال ای دی هوشمند ایکس ویژن مدل 43XT725 سایز 43 اینچ
+                                            </a>
+                                        </h2>
+                                        <div class="price">
+                                            <ins>
+                                                <span>۳,۳۹۵,۰۰۰
+                                                    <span>تومان</span>
+                                                </span>
+                                            </ins>
+                                            <del>
+                                                <span>۴,۵۳۰,۰۰۰
+                                                    <span>تومان</span>
+                                                </span>
+                                            </del>
+                                        </div>
+                                        <div class="actions">
+                                            <ul>
+                                                <li class="action-item like">
+                                                    <button class="btn btn-light add-favorites add-product-wishes"
+                                                        type="submit" title="علاقه مندی">
+                                                        <i class="mdi mdi-heart"></i>
+                                                    </button>
+                                                </li>
+                                                <li class="action-item compare">
+                                                    <button class="btn btn-light btn-compare" type="submit"
+                                                        title="مقایسه">
+                                                        <i class="mdi mdi-compare"></i>
+                                                    </button>
+                                                </li>
+                                                <li class="action-item add-to-cart">
+                                                    <button class="btn btn-light btn-add-to-cart" type="submit"
+                                                        title="سبد خرید">
+                                                        <i class="mdi mdi-shopping"></i>
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="owl-item" style="width: 309.083px; margin-left: 10px;">
+                                    <div class="item">
+                                        <div class="stars-plp">
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                            <span class="mdi mdi-star active"></span>
+                                        </div>
+                                        <a href="#" class="d-inline-block">
+                                            <img src="assets/images/slider-product/tev-7.jpg" class="img-fluid" alt="">
+                                        </a>
+                                        <h2 class="post-title">
+                                            <a href="#">
+                                                تلویزیون ال ای دی هوشمند ایکس ویژن مدل 55XTU725 سایز 55 اینچ
+                                            </a>
+                                        </h2>
+                                        <div class="price">
+                                            <ins>
+                                                <span>۳,۳۹۵,۰۰۰
+                                                    <span>تومان</span>
+                                                </span>
+                                            </ins>
+                                            <del>
+                                                <span>۴,۵۳۰,۰۰۰
+                                                    <span>تومان</span>
+                                                </span>
+                                            </del>
+                                        </div>
+                                        <div class="actions">
+                                            <ul>
+                                                <li class="action-item like">
+                                                    <button class="btn btn-light add-favorites add-product-wishes"
+                                                        type="submit" title="علاقه مندی">
+                                                        <i class="mdi mdi-heart"></i>
+                                                    </button>
+                                                </li>
+                                                <li class="action-item compare">
+                                                    <button class="btn btn-light btn-compare" type="submit"
+                                                        title="مقایسه">
+                                                        <i class="mdi mdi-compare"></i>
+                                                    </button>
+                                                </li>
+                                                <li class="action-item add-to-cart">
+                                                    <button class="btn btn-light btn-add-to-cart" type="submit"
+                                                        title="سبد خرید">
+                                                        <i class="mdi mdi-shopping"></i>
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="tabs mt-4 pt-3 mb-5">
+                <div class="tabs-product">
+                    <div class="tab-wrapper">
+                        <ul class="box-tabs nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="box-tab-item nav-link active" id="review-tab" data-toggle="tab" href="#review"
+                                    role="tab" aria-controls="review" aria-selected="true">
+                                    <i class="mdi mdi-glasses"></i>
+                                    نقد و بررسی</a>
+                            </li>
+                            <li class="box-tabs-tab nav-item">
+                                <a class="box-tab-item nav-link" id="specifications-tab" data-toggle="tab"
+                                    href="#specifications" role="tab" aria-controls="specifications"
+                                    aria-selected="false">
+                                    <i class="mdi mdi-format-list-checks"></i>
+                                    مشخصات</a>
+                            </li>
+                            <li class="box-tabs-tab nav-item">
+                                <a class="box-tab-item nav-link" id="userComments-tab" data-toggle="tab"
+                                    href="#userComments" role="tab" aria-controls="userComments" aria-selected="false">
+                                    <i class="mdi mdi-comment-text-multiple-outline"></i>
+                                    نظرات کاربران</a>
+                            </li>
+                            <li class="box-tabs-tab nav-item">
+                                <a class="box-tab-item nav-link" id="question-tab" data-toggle="tab" href="#question"
+                                    role="tab" aria-controls="question" aria-selected="false">
+                                    <i class="mdi mdi-comment-question-outline"></i>
+                                    پرسش و پاسخ</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tabs-content tab-content" id="myTabContent">
+                        <div class="tab-content-wrapper tab-pane fade show active" id="review" role="tabpanel"
+                            aria-labelledby="review-tab">
+                            <article>
+                                <h2 class="params-headline">نقد و بررسی
+                                    <span>Samsung Galaxy A50s SM-A507FN/DS Dual SIM 128GB Mobile Phone</span>
+                                </h2>
+                                <section class="-summary">
+                                    <div class="mask pm-3">
+                                        <div class="mask-text">
+                                            <p>گوشی موبایل Galaxy A50s با رم 6 گیگابایتی روانه بازار شده است. این
+                                                محصول دارای صفحه‌نمایش سوپر آمولد است و ظاهر زیبایی دارد. این محصول
+                                                نسخه ارتقاع یافته A50 است که در دوربین و طراحی بدنه تغییراتی پیدا
+                                                کرده است. سامسونگ تلاش کرده است حاشیه را در این تولید جدید خود تا حد
+                                                امکان کم کند. این گوشی قاب پشتی از جنس پلاستیک دارد و قاب جلویی آن
+                                                را شیشه پوشانده که البته جلوه‌ی زیبایی به گوشی داده است. این محصول
+                                                سامسونگ با جدیدترین نسخه از سیستم‌عامل اندروید (Pie) روانه بازار شده
+                                                است تا از هر نظر گوشی مدرن به‌حساب بیاید. صفحه‌نمایش استفاده‌شده در
+                                                این گوشی 6.4&nbsp;اینچ با رزولوشن FullHD+ &nbsp;است که با استفاده از
+                                                فناوری Super AMOLED و پنل OLED تصاویر شفاف و بی‌نظیری را به نمایش
+                                                می‌گذارد. این صفحه‌نمایش در هر اینچ 403 پیکسل را نشان می‌دهد که این
+                                                یعنی جزئیات و وضوح تصویر عالی است. تراشه‌ی این محصول، Exynos
+                                                9611&nbsp; از تراشه‌های 10 نانومتری سامسونگ است که به همراه&nbsp; 6
+                                                گیگابایت رم سخت‌افزار این محصول را تشکیل داده است. این تراشه یکی از
+                                                قوی‌ترین تراشه‌های موجود در حال حاضر است و برای انجام بازی‌های سنگین
+                                                و بازکردن چندین برنامه به صورت هم‌زمان و تماشای ویدئو کاملا مناسب
+                                                است و کم نمی‌آورد. تراشه‌ی گرافیکی Mali-G72 MP3 هم برای پخش ویدئو و
+                                                بازی مناسب است. این گوشی در دو ظرفیت 64 و 128 گیگابایتی عرضه شده است
+                                                و با استفاده از یک کارت حافظه‌ی جانبی قادر خواهید بود حافظه داخلی را
+                                                تا یک ترابایت دیگر هم افزایش دهید. دوربین اصلی &nbsp;A50s سنسور
+                                                48مگاپیکسلی دارد و از نوع عریض (Wide) است. دو سنسور 8 &nbsp;و 5
+                                                مگاپیکسلی دیگر هم در کنار این دوربین اصلی مجموعه دوربین‌های قاب پشتی
+                                                A50s را تشکیل داده‌اند. دوربین سلفی 32مگاپیکسلی هم در قاب جلویی این
+                                                گوشی به کار گرفته شده است. باتری 4000 میلی‌آمپرساعتی، پشتیبانی از
+                                                فناوری شارژ سریع 15 واتی، درگاه USB Type-C و حسگر اثرانگشت در زیر
+                                                قاب اصلی هم از دیگر ویژگی‌های این تازه‌وارد است. سامسونگ در ساخت این
+                                                گوشی از جدیدترین فناوری‌های ساخت گوشی استفاده کرده است تا
+                                                میان‌رده‌ای با قابلیت‌های نزدیک به یک بالارده خوش‌ساخت را روانه
+                                                بازار کند.</p>
+                                        </div>
+                                        <a href="#" class="mask-handler">
+                                            <span class="show-more">+ ادامه مطلب</span>
+                                            <span class="show-less">- بستن</span>
+                                        </a>
+                                        <div class="shadow-box"></div>
+                                    </div>
+                                </section>
+                                <div class="content-short-review">
+                                    <h2 class="params-headline">
+                                        نقد و بررسی تخصصی
+                                    </h2>
+                                    <p>گوشی A50s جدیدترین گوشی میان رده شرکت سامسونگ است که در ماه آگوست سال 2019
+                                        معرفی شدو این گوشی در واقع جانشینی برای گوشی A50 است که تنها چند ماه از
+                                        معرفی آن گذشته است؛ شاید این چند ماه زمان کمی به نظر برسد اما در دنیای گوشی
+                                        های هوشمند که هر روز از فناوری های جدیدتری بهره می برند، این زمان زیادی به
+                                        حساب می آید.</p>
+                                </div>
+                                <div class="-articles">
+                                    <section class="-article">
+                                        <button class="-button">
+                                            <span class="show-more"><i class="fa fa-plus"></i></span>
+                                            <span class="show-less"><i class="fa fa-minus"></i></span>
+                                        </button>
+                                        <h3 class="-title">معرفی</h3>
+                                        <div class="-text">
+                                            <p style="text-align:right">گوشی‎های سری A شرکت سامسونگ از گوشی‎های
+                                                میان‎رده این شرکت هستند. اولین گوشی تولید شده این سری گوشی‎های
+                                                موبایل سامسونگ، Galaxy Alpha &nbsp;بود که در سال 2014 روانه بازار
+                                                شد. پس از آن اولین نسل گوشی‎های موبایل A3 و A5 در دسامبر سال 2014
+                                                معرفی شدند. گوشی‌های موبایل سری A سامسونگ، ویژگی‌های خاص و تجملاتی
+                                                گوشی‌های سری S را ندارند. این سری از گوشی‌های سامسونگ را می‌توان
+                                                رقبای اصلی برای محصولات مقرون‌به‌صرفه شرکت‌هایی مانند هوآوی و
+                                                شیائومی دانست. شرکت سامسونگ با ساخت گوشی موبایل مدل A50s بار دیگر
+                                                سعی کرده است تا سهم بازار خود را در گوشی‎های میان رده حفظ کند. گوشی
+                                                A50s شباهت زیادی به گوشی A50 دارد اما با بهبودهایی هم همراه شده است؛
+                                                شرکت سامسونگ در &nbsp;این محصول خود، دوربین های اصلی قاب پشتی و سلفی
+                                                خود را تغییر داده و از لنزها با رزولوشن بالاتری استفاده کرده است.
+                                                پردازنده Exynos هم در این گوشی کمی جدیدتر شده و در حالی که طراحی آن
+                                                تغییر زیادی نداشته سامسونگ سعی کرده است تا &nbsp;رنگ و لعاب بیشتری
+                                                به آن بدهد. به طور کلی A50s با گذشت 6 ماه از معرفی A50، با آپدیت های
+                                                کوچکی هم همراه شده است.</p>
+                                            <div class="-img">
+                                                <img src="assets/images/single/tabs-product/1.jpg">
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <section class="-article">
+                                        <button class="-button">
+                                            <span class="show-more"><i class="fa fa-plus"></i></span>
+                                            <span class="show-less"><i class="fa fa-minus"></i></span>
+                                        </button>
+                                        <h3 class="-title">طراحی</h3>
+                                        <div class="-text">
+                                            <p style="text-align:right">گلکسی A50s از بدنه مشابه با گوشی &nbsp;A50
+                                                بهره می برد. در قاب جلو، یک صفحه نمایش تمام صفحه با یک بریدگی U شکل
+                                                برای دوربین سلفی قرار گرفته است. برای پایین صفحه نمایش کمی حاشیه در
+                                                نظر گرفته شده است که البته این طراحی نسبت به 6 ماه گذشته، قدیمی نشده
+                                                است و همچنان در بسیاری از گوشی های میان رده دیگر هم دیده می شود. در
+                                                قسمت پایین گوشی وروددی هدفون 3.5 میلی‎متری و درگاه پورت USB-C قرار
+                                                گرفته است. قاب پشتی A50s جایی است که سامسونگ تصمیم گرفته تا آن را
+                                                تغییر دهد؛ بافت زیبای پشت گوشی با بازتابی رنگین‌کمان شکل همچنان حفظ
+                                                شده استاما حالا شکل های هندسی هم روی آن ها قرار گرفته است که هر کدام
+                                                نور را با شدت مختلفی منعکس می کنند. همانطور که از قیمت این گوشی می
+                                                توان انتظار داشت، Galaxy A50s هم در برابر آب و گرد و خاک مقاوم نیست.
+                                                اگر این ویژگی برای شما مهم است می توانید با صرف هزینه بیشتر&nbsp;
+                                                گوشی OnePlus 7 را مد نظر خود قرار دهید.</p>
+                                            <div class="-img">
+                                                <img src="assets/images/single/tabs-product/2.jpg">
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <section class="-article">
+                                        <button class="-button">
+                                            <span class="show-more"><i class="fa fa-plus"></i></span>
+                                            <span class="show-less"><i class="fa fa-minus"></i></span>
+                                        </button>
+                                        <h3 class="-title">صفحه نمایش</h3>
+                                        <div class="-text">
+                                            <p style="text-align:right">اولین چیزی که در گوشی A50s توجه شما را به
+                                                خود جلب می کند، نمایشگر Super AMOLED روشن و خیره کننده آن است. صفحه
+                                                نمایش 6.4 اینچی سوپر آمولد در گلکسی A50s بسیار زیبا و بلند به نظر
+                                                می‎رسد. این پنل در کمتر گوشی در این گستره قیمتی دیده می‎شود. فاصله
+                                                صفحه نمایش تا لبه‎های گوشی بسیار کم است به طوری که نسبت صفحه نمایش
+                                                به بدنه برای گلکسی A50 چیزی در حدود 85.1 درصد است. صفحه نمایش A50s
+                                                هم مانند A50 دارای تراکم 403 پیکسل در هر اینچ است تا از کیفیت بالایی
+                                                برخوردار باشد. به صورت پیش فرض، برای گوشی حالت Natural انتخاب شده
+                                                است که از دقت رنگ خوبی برخوردار است و برای فضای رنگی sRGB مورد هدف
+                                                قرار داده شده است. با این حال شما می تواند پروفایل Vivid&nbsp; را
+                                                انتخاب کنید تا رنگ های اشباع شده را شاهد باشید و یا دمای رنگ ها را
+                                                به دلخواه خود تغییر دهید.</p>
+                                            <div class="-img">
+                                                <img src="assets/images/single/tabs-product/3.jpg">
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <section class="-article">
+                                        <button class="-button">
+                                            <span class="show-more"><i class="fa fa-plus"></i></span>
+                                            <span class="show-less"><i class="fa fa-minus"></i></span>
+                                        </button>
+                                        <h3 class="-title">دوربین</h3>
+                                        <div class="-text">
+                                            <p style="text-align:right">در قاب پشتی این گوشی سه لنز دوربین قرار
+                                                گرفته است &nbsp;که شامل یک لنز اصلی 48 مگاپیکسلی از نوع عریض، یک لنز
+                                                فوق عریض 8 مگاپیکسلی و سنسور عمق 5 مگاپیکسلی است. در قاب جلوی گوشی
+                                                هم یک دوربین 32 مگاپیکسلی قرار گرفته است. هر دو لنز اصلی قابلیت ضبط
+                                                تصاویر با کیفیت 4K را دارند اما لتز فوق عریض تنها امکان ضبط ویدیوها
+                                                با کیفیت 1080p را دارد. دوربین Galaxy A50s در نور کافی عملکرد بسیار
+                                                مطلوبی دارند و رنگ های طبیعی با جزئیات فراوان را برای کاربر به همراه
+                                                دارند اما در نور کم عملکرد آن پایین‎تر از حد انتظار است. سامسونگ
+                                                تمرکز در طراحی دوربین این مدل بر روی کاهش نویز تمرکز داشته است که در
+                                                بعضی موارد با کاهش جزئیات عکس ها همراه می شود؛ البته این تغییرات در
+                                                حالتی مشخص می شود که عکس ها را با دقت خیلی زیادی مشاهده کنید. از
+                                                جزئیات که بگذریم، عکس ها از رنگ، کنتراست و گستره داینامیک (Dynamic
+                                                Range)خوبی برخوردار است. استفاده از سنسور عمق برای عکاسی‎های پرتره
+                                                کاربرد دارد که باعث می‎شود تصویر پشت سوژه محو&nbsp; (Bukeh)به نظر
+                                                برسد؛ چیزی که سامسونگ آن را Live Focus می‎نامد. عکس های ثبت شده در
+                                                نور کم هم همچنان از کیفیت مطلوبی برخوردارند و برای به اشتراک گذاشتن
+                                                در فضای مجازی کاملا مناسب هستند.</p>
+                                            <div class="-img">
+                                                <img src="assets/images/single/tabs-product/4.jpg">
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </article>
+                        </div>
+                        <div class="tab-content-wrapper tab-pane fade" id="specifications" role="tabpanel"
+                            aria-labelledby="specifications-tab">
+                            <article>
+                                <h2 class="params-headline">مشخصات فنی
+                                    <span>Samsung Galaxy A50s SM-A507FN/DS Dual SIM 128GB Mobile Phone</span>
+                                </h2>
+                                <section>
+                                    <h3 class="params-title">مشخصات کلی</h3>
+                                    <ul class="params-list">
+                                        <li class="params-list-item">
+                                            <div class="params-list-key">
+                                                <span class="block">ابعاد</span>
+                                            </div>
+                                            <div class="params-list-value">
+                                                <span class="block">
+                                                    7.7 × 74.7 × 158.5 میلی‌متر
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li class="params-list-item">
+                                            <div class="params-list-key">
+                                                <span class="block">توضیحات سیم کارت</span>
+                                            </div>
+                                            <div class="params-list-value">
+                                                <span class="block">
+                                                    سایز نانو (8.8 × 12.3 میلی‌متر)
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li class="params-list-item">
+                                            <div class="params-list-key">
+                                                <span class="block">وزن</span>
+                                            </div>
+                                            <div class="params-list-value">
+                                                <span class="block">
+                                                    166 گرم
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li class="params-list-item">
+                                            <div class="params-list-key">
+                                                <span class="block">ساختار بدنه</span>
+                                            </div>
+                                            <div class="params-list-value">
+                                                <span class="block">
+                                                    قاب جلو شیشه
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </section>
+                                <section>
+                                    <h3 class="params-title">پردازنده</h3>
+                                    <ul class="params-list">
+                                        <li class="params-list-item">
+                                            <div class="params-list-key">
+                                                <span class="block">تراشه</span>
+                                            </div>
+                                            <div class="params-list-value">
+                                                <span class="block">
+                                                    Exynos 9610 (10nm) CPU
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li class="params-list-item">
+                                            <div class="params-list-key">
+                                                <span class="block">نوع پردازنده</span>
+                                            </div>
+                                            <div class="params-list-value">
+                                                <span class="block">
+                                                    64 بیت
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li class="params-list-item">
+                                            <div class="params-list-key">
+                                                <span class="block">فرکانس پردازنده‌ی مرکزی</span>
+                                            </div>
+                                            <div class="params-list-value">
+                                                <span class="block">
+                                                    2.3 و 1.7 گیگاهرتز
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </section>
+                                <section>
+                                    <h3 class="params-title">حافظه</h3>
+                                    <ul class="params-list">
+                                        <li class="params-list-item">
+                                            <div class="params-list-key">
+                                                <span class="block">حافظه داخلی</span>
+                                            </div>
+                                            <div class="params-list-value">
+                                                <span class="block">
+                                                    128 گیگابایت
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li class="params-list-item">
+                                            <div class="params-list-key">
+                                                <span class="block">مقدار RAM</span>
+                                            </div>
+                                            <div class="params-list-value">
+                                                <span class="block">
+                                                    4 گیگابایت
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li class="params-list-item">
+                                            <div class="params-list-key">
+                                                <span class="block">پشتیبانی از کارت حافظه جانبی</span>
+                                            </div>
+                                            <div class="params-list-value">
+                                                <span class="block">
+                                                    microSD
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li class="params-list-item">
+                                            <div class="params-list-key">
+                                                <span class="block">حداکثر ظرفیت کارت حافظه</span>
+                                            </div>
+                                            <div class="params-list-value">
+                                                <span class="block">
+                                                    1 ترابایت
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </section>
+                                <section>
+                                    <h3 class="params-title">صفحه نمایش</h3>
+                                    <ul class="params-list">
+                                        <li class="params-list-item">
+                                            <div class="params-list-key">
+                                                <span class="block">صفحه نمایش رنگی</span>
+                                            </div>
+                                            <div class="params-list-value">
+                                                <span class="block"> بله </span>
+                                            </div>
+                                        </li>
+                                        <li class="params-list-item">
+                                            <div class="params-list-key">
+                                                <span class="block">صفحه نمایش لمسی</span>
+                                            </div>
+                                            <div class="params-list-value">
+                                                <span class="block">بله</span>
+                                            </div>
+                                        </li>
+                                        <li class="params-list-item">
+                                            <div class="params-list-key">
+                                                <span class="block">فناوری</span>
+                                            </div>
+                                            <div class="params-list-value">
+                                                <span class="block">Super AMOLED</span>
+                                            </div>
+                                        </li>
+                                        <li class="params-list-item">
+                                            <div class="params-list-key">
+                                                <span class="block">بازه‌ی اندازه صفحه نمایش</span>
+                                            </div>
+                                            <div class="params-list-value">
+                                                <span class="block">6.0 اینچ و بزرگتر</span>
+                                            </div>
+                                        </li>
+                                        <li class="params-list-item">
+                                            <div class="params-list-key">
+                                                <span class="block">اندازه</span>
+                                            </div>
+                                            <div class="params-list-value">
+                                                <span class="block">6.4 اینچ</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </section>
+                            </article>
+                        </div>
+                        <div class="tab-content-wrapper tab-pane fade" id="userComments" role="tabpanel"
+                            aria-labelledby="userComments-tab">
+                            <div class="comments">
+                                <h2 class="comments-headline">امتیاز کاربران به:
+                                    <span>
+                                        گوشی موبایل سامسونگ مدل Galaxy A50s SM-A507FN/DS دو سیم
+                                        کارت ظرفیت 128گیگابایت
+                                    </span>
+                                </h2>
+                                <div class="comments-summary">
+                                    <div class="comments-summary-box">
+                                        <ul class="comments-item-rating">
+                                            <li>
+                                                <div class="cell">کیفیت ساخت:</div>
+                                                <div class="cell">
+                                                    <div class="rating-general" data-rate-digit="خوب">
+                                                        <div class="rating-rate" style="width:75%;"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="cell">ارزش خرید به نسبت قیمت:</div>
+                                                <div class="cell">
+                                                    <div class="rating-general" data-rate-digit="خوب">
+                                                        <div class="rating-rate" style="width:70%;"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="cell">نوآوری:</div>
+                                                <div class="cell">
+                                                    <div class="rating-general" data-rate-digit="خوب">
+                                                        <div class="rating-rate" style="width:80%;"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="cell">امکانات و قابلیت ها:</div>
+                                                <div class="cell">
+                                                    <div class="rating-general" data-rate-digit="خوب">
+                                                        <div class="rating-rate" style="width:65%;"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="cell">سهولت استفاده:</div>
+                                                <div class="cell">
+                                                    <div class="rating-general" data-rate-digit="خوب">
+                                                        <div class="rating-rate" style="width:70%;"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="cell">طراحی و ظاهر:</div>
+                                                <div class="cell">
+                                                    <div class="rating-general" data-rate-digit="خوب">
+                                                        <div class="rating-rate" style="width:85%;"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="comments-summary-note">
+                                        <p>
+                                            برای ثبت نظر، لازم است ابتدا وارد حساب کاربری خود شوید. اگر این محصول را
+                                            قبلا از دیجی‌کالا خریده باشید،
+                                            نظر
+                                            شما به عنوان مالک محصول ثبت خواهد شد.
+                                        </p>
+                                        <div class="parent-btn lr-ds">
+                                            <button class="dk-btn dk-btn-info">
+                                                افزودن نظر جدید
+                                                <i class="mdi mdi-comment-text-multiple-outline"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <section class="comment-body">
+                                <div class="col-lg-4 col-md-4 col-xs-12 pull-right">
+                                    <div class="aside">
+                                        <ul class="comments-user-shopping pt-1">
+                                            <li class="mb-3">
+                                                <div class="cell cell-name">حسن شجاعی</div>
+                                                <div class="comments-buyer-badge"><span
+                                                        class="mdi mdi-cart"></span>خریدار محصول</div>
+                                            </li>
+                                            <li>
+                                                <div class="cell">
+                                                    در تاریخ ۱۴ بهمن ۱۳۹۸
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="message-light-opinion-positive"><span
+                                                class="fa fa-thumbs-o-up"></span>خرید این
+                                            محصول را توصیه می‌کنم</div>
+                                        <ul class="comments-user-shopping pt-1">
+                                            <li class="mb-3">
+                                                <div class="cell cell-title">رنگ محصول :</div>
+                                                <div class="cell color-cell"><span class="shopping-color-value"
+                                                        style="background-color: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.25);"></span>
+                                                    سفید
+                                                </div>
+                                            </li>
+                                            <li class="mb-3">
+                                                <div class="cell cell-title">فروشنده محصول :</div>
+                                                <div class="cell seller-cell">
+                                                    <a href="#" class="btn-link-spoiler">دیجی کالا</a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-xs-12 pull-left">
+                                    <div class="article">
+                                        <div class="header">
+                                            <div>در کل گوشی خوبیه</div>
+                                        </div>
+                                        <p>دو روزی که گوشی رو خریدم راضی ام. فقط دوربینش نسبت به تبلیغ و تعریفی که
+                                            داره عکسهای واضحی نمیگیره تار هستش ولی در کل راضی ام</p>
+                                        <div class="comments-evaluation">
+                                            <div class="comments-evaluation-positive">
+                                                <span>نقاط قوت</span>
+                                                <ul>
+                                                    <li>
+                                                        کیفت عالی صفحه
+                                                    </li>
+                                                    <li>
+                                                        قفل چهره سریع
+                                                    </li>
+                                                    <li>
+                                                        بازکردن سریع برنامه ها
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="comments-evaluation-negative">
+                                                <span>نقاط ضعف</span>
+                                                <ul>
+                                                    <li>
+                                                        دیر باز کردن اثر انگشت
+                                                    </li>
+                                                    <li>
+                                                        گرم شدن زیاد
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="footer">
+                                            <div class="comments-likes">آیا این نظر برایتان مفید بود؟
+                                                <button class="btn-like js-comment-like" data-counter="12">بله</button>
+                                                <button class="btn-like js-comment-dislike"
+                                                    data-counter="7">خیر</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class="comment-body">
+                                <div class="col-lg-4 col-md-4 col-xs-12 pull-right">
+                                    <div class="aside">
+                                        <ul class="comments-user-shopping pt-1">
+                                            <li class="mb-3">
+                                                <div class="cell cell-name">حسن شجاعی</div>
+                                                <div class="comments-buyer-badge"><span
+                                                        class="mdi mdi-cart"></span>خریدار محصول</div>
+                                            </li>
+                                            <li>
+                                                <div class="cell">
+                                                    در تاریخ ۱۴ بهمن ۱۳۹۸
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="message-light-opinion-positive"><span
+                                                class="fa fa-thumbs-o-up"></span>خرید این
+                                            محصول را توصیه می‌کنم</div>
+                                        <ul class="comments-user-shopping pt-1">
+                                            <li class="mb-3">
+                                                <div class="cell cell-title">رنگ محصول :</div>
+                                                <div class="cell color-cell"><span class="shopping-color-value"
+                                                        style="background-color: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.25);"></span>
+                                                    سفید
+                                                </div>
+                                            </li>
+                                            <li class="mb-3">
+                                                <div class="cell cell-title">فروشنده محصول :</div>
+                                                <div class="cell seller-cell">
+                                                    <a href="#" class="btn-link-spoiler">دیجی کالا</a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-xs-12 pull-left">
+                                    <div class="article">
+                                        <div class="header">
+                                            <div>در کل گوشی خوبیه</div>
+                                        </div>
+                                        <p>دو روزی که گوشی رو خریدم راضی ام. فقط دوربینش نسبت به تبلیغ و تعریفی که
+                                            داره عکسهای واضحی نمیگیره تار هستش ولی در کل راضی ام</p>
+                                        <div class="comments-evaluation">
+                                            <div class="comments-evaluation-positive">
+                                                <span>نقاط قوت</span>
+                                                <ul>
+                                                    <li>
+                                                        کیفت عالی صفحه
+                                                    </li>
+                                                    <li>
+                                                        قفل چهره سریع
+                                                    </li>
+                                                    <li>
+                                                        بازکردن سریع برنامه ها
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="comments-evaluation-negative">
+                                                <span>نقاط ضعف</span>
+                                                <ul>
+                                                    <li>
+                                                        دیر باز کردن اثر انگشت
+                                                    </li>
+                                                    <li>
+                                                        گرم شدن زیاد
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="footer">
+                                            <div class="comments-likes">آیا این نظر برایتان مفید بود؟
+                                                <button class="btn-like js-comment-like" data-counter="12">بله</button>
+                                                <button class="btn-like js-comment-dislike"
+                                                    data-counter="7">خیر</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class="comment-body">
+                                <div class="col-lg-4 col-md-4 col-xs-12 pull-right">
+                                    <div class="aside">
+                                        <ul class="comments-user-shopping pt-1">
+                                            <li class="mb-3">
+                                                <div class="cell cell-name">حسن شجاعی</div>
+                                                <div class="comments-buyer-badge"><span
+                                                        class="mdi mdi-cart"></span>خریدار محصول</div>
+                                            </li>
+                                            <li>
+                                                <div class="cell">
+                                                    در تاریخ ۱۴ بهمن ۱۳۹۸
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="message-light-opinion-positive"><span
+                                                class="fa fa-thumbs-o-up"></span>خرید این
+                                            محصول را توصیه می‌کنم</div>
+                                        <ul class="comments-user-shopping pt-1">
+                                            <li class="mb-3">
+                                                <div class="cell cell-title">رنگ محصول :</div>
+                                                <div class="cell color-cell"><span class="shopping-color-value"
+                                                        style="background-color: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.25);"></span>
+                                                    سفید
+                                                </div>
+                                            </li>
+                                            <li class="mb-3">
+                                                <div class="cell cell-title">فروشنده محصول :</div>
+                                                <div class="cell seller-cell">
+                                                    <a href="#" class="btn-link-spoiler">دیجی کالا</a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-xs-12 pull-left">
+                                    <div class="article">
+                                        <div class="header">
+                                            <div>در کل گوشی خوبیه</div>
+                                        </div>
+                                        <p>دو روزی که گوشی رو خریدم راضی ام. فقط دوربینش نسبت به تبلیغ و تعریفی که
+                                            داره عکسهای واضحی نمیگیره تار هستش ولی در کل راضی ام</p>
+                                        <div class="comments-evaluation">
+                                            <div class="comments-evaluation-positive">
+                                                <span>نقاط قوت</span>
+                                                <ul>
+                                                    <li>
+                                                        کیفت عالی صفحه
+                                                    </li>
+                                                    <li>
+                                                        قفل چهره سریع
+                                                    </li>
+                                                    <li>
+                                                        بازکردن سریع برنامه ها
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="comments-evaluation-negative">
+                                                <span>نقاط ضعف</span>
+                                                <ul>
+                                                    <li>
+                                                        دیر باز کردن اثر انگشت
+                                                    </li>
+                                                    <li>
+                                                        گرم شدن زیاد
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="footer">
+                                            <div class="comments-likes">آیا این نظر برایتان مفید بود؟
+                                                <button class="btn-like js-comment-like" data-counter="12">بله</button>
+                                                <button class="btn-like js-comment-dislike"
+                                                    data-counter="7">خیر</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="tab-content-wrapper tab-pane fade" id="question" role="tabpanel"
+                            aria-labelledby="question-tab">
+                            <div class="faq-headline">
+                                پرسش و پاسخ
+                                <span>پرسش خود را در مورد محصول مطرح نمایید</span>
+                            </div>
+                            <div class="form-faq">
+                                <div class="form-faq-row mt-3">
+                                    <div class="form-faq-col">
+                                        <div class="ui-textarea">
+                                            <textarea title="متن سوال" class="ui-textarea-field"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-faq-row mt-3">
+                                    <div class="form-faq-col form-faq-col-submit">
+                                        <button class="btn-tertiary">ثبت پرسش</button>
+                                    </div>
+                                    <div class="form-faq-col form-faq-col-agreement">
+                                        <div class="form-auth-row">
+                                            <label for="#" class="ui-checkbox">
+                                                <input type="checkbox" value="1" name="login" id="remember">
+                                                <span class="ui-checkbox-check"></span>
+                                            </label>
+                                            <label for="remember" class="remember-me">اولین پاسخی که به پرسش من داده
+                                                شد، از طریق ایمیل به من اطلاع دهید. </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="product-questions-list">
+                                <div class="questions-list">
+                                    <ul class="faq-list">
+                                        <li class="is-question">
+                                            <div class="section">
+                                                <div class="faq-header">
+                                                    <span class="icon-faq">?</span>
+                                                    <p class="h5">
+                                                        پرسش :
+                                                        <span>جلال</span>
+                                                    </p>
+                                                </div>
+                                                <p>لورم ایپسوم متن ساختگی</p>
+                                                <div class="faq-date">
+                                                    <em>۱۴ بهمن ۱۳۹۸</em>
+                                                </div>
+                                                <a href="#" class="js-add-answer-btn">به این پرسش پاسخ
+                                                    دهید </a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="questions-list answer-questions">
+                                    <ul class="faq-list">
+                                        <li class="is-question">
+                                            <div class="section">
+                                                <div class="faq-header">
+                                                    <span class="icon-faq"><i class="mdi mdi-storefront"></i></span>
+                                                    <p class="h5">
+                                                        پاسخ فروشنده :
+                                                        <span>حسن</span>
+                                                    </p>
+                                                </div>
+                                                <p>لورم ایپسوم متن ساختگی</p>
+                                                <div class="faq-date">
+                                                    <em>۱۴ بهمن ۱۳۹۸</em>
+                                                </div>
+                                                <a href="#" class="js-add-answer-btn">به این پرسش پاسخ
+                                                    دهید </a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="questions-list">
+                                    <ul class="faq-list">
+                                        <li class="is-question">
+                                            <div class="section">
+                                                <div class="faq-header">
+                                                    <span class="icon-faq">?</span>
+                                                    <p class="h5">
+                                                        پرسش :
+                                                        <span>اشکان</span>
+                                                    </p>
+                                                </div>
+                                                <p>لورم ایپسوم متن ساختگی</p>
+                                                <div class="faq-date">
+                                                    <em>۱۴ بهمن ۱۳۹۸</em>
+                                                </div>
+                                                <a href="#" class="js-add-answer-btn">به این پرسش پاسخ
+                                                    دهید </a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="questions-list answer-questions">
+                                    <ul class="faq-list">
+                                        <li class="is-question">
+                                            <div class="section">
+                                                <div class="faq-header">
+                                                    <span class="icon-faq"><i class="mdi mdi-storefront"></i></span>
+                                                    <p class="h5">
+                                                        پاسخ فروشنده :
+                                                        <span>جواد</span>
+                                                    </p>
+                                                </div>
+                                                <p>لورم ایپسوم متن ساختگی</p>
+                                                <div class="faq-date">
+                                                    <em>۱۴ بهمن ۱۳۹۸</em>
+                                                </div>
+                                                <a href="#" class="js-add-answer-btn">به این پرسش پاسخ
+                                                    دهید </a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="questions-list">
+                                    <ul class="faq-list">
+                                        <li class="is-question">
+                                            <div class="section">
+                                                <div class="faq-header">
+                                                    <span class="icon-faq">?</span>
+                                                    <p class="h5">
+                                                        پرسش :
+                                                        <span>رضا</span>
+                                                    </p>
+                                                </div>
+                                                <p>لورم ایپسوم متن ساختگی</p>
+                                                <div class="faq-date">
+                                                    <em>۱۴ بهمن ۱۳۹۸</em>
+                                                </div>
+                                                <a href="#" class="js-add-answer-btn">به این پرسش پاسخ
+                                                    دهید </a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
