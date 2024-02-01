@@ -21,7 +21,7 @@ class LoginView(View):
             phone_number = form.cleaned_data.get('phone_number')
             user_obj = User.objects.get(phone_number=phone_number)
             self._set_user_token(user_obj)
-            redirect('account:login-verfication')
+            redirect('account:login-verification-page')
         else:
             errors = form.errors
             messages.error(request,errors)

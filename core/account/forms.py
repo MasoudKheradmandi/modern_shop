@@ -1,9 +1,7 @@
 from django import forms
 
-from account.models import User
+from account.models import validate_phone_number
 
-class LoginForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ('phone_number',)
+class LoginForm(forms.Form):
+    phone_number = forms.CharField()
 
