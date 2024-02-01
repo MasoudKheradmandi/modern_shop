@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+    name='viewport'/>
+    <title>login</title>
+    <link rel="stylesheet" href="{% static 'assets/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/materialdesignicons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/materialdesignicons.css.map' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+</head>
+<body>
+<!--page-login-------------------------->
+        <div class="container-main">
+            <div class="col-12">
+                <div class="semi-modal-layout">
+                    <section class="page-account-box">
+                        <div class="col-lg-7 col-md-7 col-xs-12 mx-auto">
+                            <div class="account-box">
+                                <a href="#" class="account-box-logo">digistore</a>
+                                <div class="account-box-headline">
+                                    <a href="login.html" class="login-ds active-account">ورود</a>
+                                    <a href="register.html" class="register-ds">ثبت نام</a>
+                                </div>
+                                <div class="account-box-content">
+                                    <form action="{% url "account:login-page" %}" method="post" class="form-account">
+                                        {% csrf_token %}
+                                        <div class="form-account-title">
+                                            <label for="email-phone">شماره موبایل</label>
+                                            <input name="phone_number" type="text" class="number-email-input" id="email-phone" placeholder="شماره موبایل خود را وارد نمایید">
+                                            <span class="mdi mdi-account-outline"></span>
+                                        </div>
+                                        {% comment %} <div class="form-auth-row">
+                                            <label for="#" class="ui-checkbox">
+                                                <input type="checkbox" value="1" name="login" checked="" id="remember">
+                                                <span class="ui-checkbox-check"></span>
+                                            </label>
+                                        </div> {% endcomment %}
+                                        <div class="parent-btn lr-ds">
+                                            <button class="dk-btn dk-btn-info" type="submit">
+                                                    ورود به دیجی اسمارت
+                                                <i class="fa fa-sign-in sign-in"></i>
+                                            </button>
+                                        </div>
+                                        <div class="forget-password">
+                                            <a href="#" class="account-link-password">رمز خود را فراموش کرده ام</a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <footer class="footer-light">
+                        <div class="container">
+                            <ul class="footer-light-link">
+                                <li><a href="#">درباره دیجی اسمارت</a></li>
+                                <li><a href="#">فرصت‌های شغلی</a></li>
+                                <li><a href="#">تماس با ما</a></li>
+                                <li><a href="#">همکاری با سازمان‌ها</a></li>
+                            </ul>
+
+                            <p class="title-footer">استفاده از مطالب فروشگاه اینترنتی دیجی‌اسمارت فقط برای مقاصد غیرتجاری و با ذکر منبع بلامانع است. کلیه حقوق این سایت متعلق به شرکت نوآوران فن آوازه (فروشگاه آنلاین دیجی‌اسمارت) می‌باشد.</p>
+
+                            <p class="copy-right-footer-light">Copyright © 2006 - 2019 DigiSmart.com</p>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+<!--page-login-------------------------->
+</body>
+<script src="{% static 'assets/js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.js' %}"></script>
+<script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'assets/js/main.js' %}"></script>
+</html>

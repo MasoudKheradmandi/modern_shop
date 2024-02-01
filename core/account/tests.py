@@ -64,7 +64,7 @@ class UserManagerTest(TestCase):
 
 class ProfileModelTest(TestCase):
     def setUp(self) -> None:
-        self.user = User.objects.create_user(id=1,phone_number='09123456789',password='test')
+        self.user = User.objects.create_user(phone_number='09123456789',password='test')
 
 
     def test_profile_existance(self):
