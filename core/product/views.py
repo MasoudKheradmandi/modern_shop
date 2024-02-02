@@ -19,8 +19,9 @@ class ProductListView(View):
 class ProductDetailView(View):
     def get(self,request,category,id):
         obj = Product.objects.get(id=id,is_show=True)
+        obj_size = TvSize.objects.filter(product=obj)
         context = {
-            'obj':obj
+            'obj':obj,'obj_size':obj_size
         }
         return render(request,'detail.html',context)
 

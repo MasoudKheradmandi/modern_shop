@@ -11,10 +11,10 @@
                         <a href="#" class="breadcrumb-link">خانه</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="#" class="breadcrumb-link">کالای دیجیتال</a>
+                        <a href="#" class="breadcrumb-link">{{obj.category}}</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="#" class="breadcrumb-link active-breadcrumb">موبایل</a>
+                        <a href="#" class="breadcrumb-link active-breadcrumb">{{obj.name}}</a>
                     </li>
                 </ul>
             </div>
@@ -58,9 +58,9 @@
                         <span class="badge">پر فروش</span>
                         <div class="product-gallery-carousel owl-carousel">
                             <div class="item">
-                                <a class="gallery-item" href="{{obj.image_2.url}}"
+                                <a class="gallery-item" href="{{obj.image.url}}"
                                     data-fancybox="gallery1" data-hash="one">
-                                    <img src="{{obj.image_2.url}}" alt="Product">
+                                    <img src="{{obj.image.url}}" alt="Product">
                                 </a>
                             </div>
                             <div class="item">
@@ -208,7 +208,7 @@
                 <div class="col-lg-8 col-xs-12 pull-right">
                     <section class="product-info">
                         <div class="product-headline">
-                            <h1 class="product-title">
+                            <h1 data-obj="{{obj.price}}" id="base-price" class="product-title">
                                {{obj.name}}
 
                             </h1>
@@ -224,44 +224,32 @@
                                                     :
                                                     <a href="#" class="product-brand-title">{{obj.category.name}}</a>
                                                 </li>
+                                                <li>
+                                                    <span>کد محصول</span>
+                                                    :
+                                                    <a href="javascript:void(0)" class="product-brand-title">{{obj.id}}</a>
+                                                </li>
                                             </ul>
                                         </div>
                                         <div class="product-variants">
-                                            <span>انتخاب رنگ: </span>
+                                            <span>انتخاب سایز: </span>
                                             <ul class="js-product-variants">
+                                                {% for size in obj_size %}
                                                 <li class="ui-variant">
                                                     <label for="#" class="ui-variant-color">
-                                                        <span class="ui-variant-shape"
-                                                            style="background-color: #2196f3"></span>
-                                                        <input type="radio" value="4" name="color" id="variant"
-                                                            class="js-variant-selector" checked="">
-                                                        <span class="ui-variant-check">آبی</span>
+                                                        
+                                                        <input data-price="{{size.price_difference}}" data-count="{{size.count}}" type="radio" value="4" name="color" id="variant"
+                                                            class="js-variant-selector size-input">
+                                                        <span class="ui-variant-check">{{size.size}}</span>
                                                     </label>
                                                 </li>
-                                                <li class="ui-variant">
-                                                    <label for="#" class="ui-variant-color">
-                                                        <span class="ui-variant-shape"
-                                                            style="background-color: #fff"></span>
-                                                        <input type="radio" value="4" name="color" id="variant"
-                                                            class="js-variant-selector">
-                                                        <span class="ui-variant-check">سفید</span>
-                                                    </label>
-                                                </li>
-                                                <li class="ui-variant">
-                                                    <label for="#" class="ui-variant-color">
-                                                        <span class="ui-variant-shape"
-                                                            style="background-color: #212121"></span>
-                                                        <input type="radio" value="4" name="color" id="variant"
-                                                            class="js-variant-selector">
-                                                        <span class="ui-variant-check">مشکی</span>
-                                                    </label>
-                                                </li>
+                                               {% endfor %}
                                             </ul>
                                         </div>
                                         <div class="product-params">
                                             <ul>ویژگی‌های محصول
                                                 <li>
-                                                  {{obj.specification}}
+                                                  {{ obj.specification|linebreaks }}
                                                 </li>
                                                
                                               
@@ -284,13 +272,13 @@
                                             </div>
                                             <div class="product-seller-row guarantee">
                                                 <span class="title"> تعداد:</span>
-                                                <a href="#" class="product-name">3</a>
+                                                <a href="#" class="product-name" id="size-container">سایز مورد نظر را انتخاب کنید</a>
                                             </div>
                                             <div class="product-seller-row price">
                                                 <div class="product-seller-price-info price-value mb-3">
                                                     <span class="title"> قیمت:</span>
-                                                    <span class="amount text-danger">
-                                                        ۳,۲۵۹,۰۰۰
+                                                    <span id="total-price" class="amount text-danger">
+                                                       سایز مورد نظر را انتخاب کنید
                                                         <span>تومان</span>
                                                     </span>
                                                 </div>
@@ -736,40 +724,12 @@
                             aria-labelledby="review-tab">
                             <article>
                                 <h2 class="params-headline">نقد و بررسی
-                                    <span>Samsung Galaxy A50s SM-A507FN/DS Dual SIM 128GB Mobile Phone</span>
+                                    <span>{{obj.name}}</span>
                                 </h2>
                                 <section class="-summary">
                                     <div class="mask pm-3">
                                         <div class="mask-text">
-                                            <p>گوشی موبایل Galaxy A50s با رم 6 گیگابایتی روانه بازار شده است. این
-                                                محصول دارای صفحه‌نمایش سوپر آمولد است و ظاهر زیبایی دارد. این محصول
-                                                نسخه ارتقاع یافته A50 است که در دوربین و طراحی بدنه تغییراتی پیدا
-                                                کرده است. سامسونگ تلاش کرده است حاشیه را در این تولید جدید خود تا حد
-                                                امکان کم کند. این گوشی قاب پشتی از جنس پلاستیک دارد و قاب جلویی آن
-                                                را شیشه پوشانده که البته جلوه‌ی زیبایی به گوشی داده است. این محصول
-                                                سامسونگ با جدیدترین نسخه از سیستم‌عامل اندروید (Pie) روانه بازار شده
-                                                است تا از هر نظر گوشی مدرن به‌حساب بیاید. صفحه‌نمایش استفاده‌شده در
-                                                این گوشی 6.4&nbsp;اینچ با رزولوشن FullHD+ &nbsp;است که با استفاده از
-                                                فناوری Super AMOLED و پنل OLED تصاویر شفاف و بی‌نظیری را به نمایش
-                                                می‌گذارد. این صفحه‌نمایش در هر اینچ 403 پیکسل را نشان می‌دهد که این
-                                                یعنی جزئیات و وضوح تصویر عالی است. تراشه‌ی این محصول، Exynos
-                                                9611&nbsp; از تراشه‌های 10 نانومتری سامسونگ است که به همراه&nbsp; 6
-                                                گیگابایت رم سخت‌افزار این محصول را تشکیل داده است. این تراشه یکی از
-                                                قوی‌ترین تراشه‌های موجود در حال حاضر است و برای انجام بازی‌های سنگین
-                                                و بازکردن چندین برنامه به صورت هم‌زمان و تماشای ویدئو کاملا مناسب
-                                                است و کم نمی‌آورد. تراشه‌ی گرافیکی Mali-G72 MP3 هم برای پخش ویدئو و
-                                                بازی مناسب است. این گوشی در دو ظرفیت 64 و 128 گیگابایتی عرضه شده است
-                                                و با استفاده از یک کارت حافظه‌ی جانبی قادر خواهید بود حافظه داخلی را
-                                                تا یک ترابایت دیگر هم افزایش دهید. دوربین اصلی &nbsp;A50s سنسور
-                                                48مگاپیکسلی دارد و از نوع عریض (Wide) است. دو سنسور 8 &nbsp;و 5
-                                                مگاپیکسلی دیگر هم در کنار این دوربین اصلی مجموعه دوربین‌های قاب پشتی
-                                                A50s را تشکیل داده‌اند. دوربین سلفی 32مگاپیکسلی هم در قاب جلویی این
-                                                گوشی به کار گرفته شده است. باتری 4000 میلی‌آمپرساعتی، پشتیبانی از
-                                                فناوری شارژ سریع 15 واتی، درگاه USB Type-C و حسگر اثرانگشت در زیر
-                                                قاب اصلی هم از دیگر ویژگی‌های این تازه‌وارد است. سامسونگ در ساخت این
-                                                گوشی از جدیدترین فناوری‌های ساخت گوشی استفاده کرده است تا
-                                                میان‌رده‌ای با قابلیت‌های نزدیک به یک بالارده خوش‌ساخت را روانه
-                                                بازار کند.</p>
+                                            <p>{{obj.description}}</p>
                                         </div>
                                         <a href="#" class="mask-handler">
                                             <span class="show-more">+ ادامه مطلب</span>
@@ -778,302 +738,62 @@
                                         <div class="shadow-box"></div>
                                     </div>
                                 </section>
-                                <div class="content-short-review">
-                                    <h2 class="params-headline">
-                                        نقد و بررسی تخصصی
-                                    </h2>
-                                    <p>گوشی A50s جدیدترین گوشی میان رده شرکت سامسونگ است که در ماه آگوست سال 2019
-                                        معرفی شدو این گوشی در واقع جانشینی برای گوشی A50 است که تنها چند ماه از
-                                        معرفی آن گذشته است؛ شاید این چند ماه زمان کمی به نظر برسد اما در دنیای گوشی
-                                        های هوشمند که هر روز از فناوری های جدیدتری بهره می برند، این زمان زیادی به
-                                        حساب می آید.</p>
-                                </div>
-                                <div class="-articles">
-                                    <section class="-article">
-                                        <button class="-button">
-                                            <span class="show-more"><i class="fa fa-plus"></i></span>
-                                            <span class="show-less"><i class="fa fa-minus"></i></span>
-                                        </button>
-                                        <h3 class="-title">معرفی</h3>
-                                        <div class="-text">
-                                            <p style="text-align:right">گوشی‎های سری A شرکت سامسونگ از گوشی‎های
-                                                میان‎رده این شرکت هستند. اولین گوشی تولید شده این سری گوشی‎های
-                                                موبایل سامسونگ، Galaxy Alpha &nbsp;بود که در سال 2014 روانه بازار
-                                                شد. پس از آن اولین نسل گوشی‎های موبایل A3 و A5 در دسامبر سال 2014
-                                                معرفی شدند. گوشی‌های موبایل سری A سامسونگ، ویژگی‌های خاص و تجملاتی
-                                                گوشی‌های سری S را ندارند. این سری از گوشی‌های سامسونگ را می‌توان
-                                                رقبای اصلی برای محصولات مقرون‌به‌صرفه شرکت‌هایی مانند هوآوی و
-                                                شیائومی دانست. شرکت سامسونگ با ساخت گوشی موبایل مدل A50s بار دیگر
-                                                سعی کرده است تا سهم بازار خود را در گوشی‎های میان رده حفظ کند. گوشی
-                                                A50s شباهت زیادی به گوشی A50 دارد اما با بهبودهایی هم همراه شده است؛
-                                                شرکت سامسونگ در &nbsp;این محصول خود، دوربین های اصلی قاب پشتی و سلفی
-                                                خود را تغییر داده و از لنزها با رزولوشن بالاتری استفاده کرده است.
-                                                پردازنده Exynos هم در این گوشی کمی جدیدتر شده و در حالی که طراحی آن
-                                                تغییر زیادی نداشته سامسونگ سعی کرده است تا &nbsp;رنگ و لعاب بیشتری
-                                                به آن بدهد. به طور کلی A50s با گذشت 6 ماه از معرفی A50، با آپدیت های
-                                                کوچکی هم همراه شده است.</p>
-                                            <div class="-img">
-                                                <img src="assets/images/single/tabs-product/1.jpg">
-                                            </div>
-                                        </div>
-                                    </section>
-                                    <section class="-article">
-                                        <button class="-button">
-                                            <span class="show-more"><i class="fa fa-plus"></i></span>
-                                            <span class="show-less"><i class="fa fa-minus"></i></span>
-                                        </button>
-                                        <h3 class="-title">طراحی</h3>
-                                        <div class="-text">
-                                            <p style="text-align:right">گلکسی A50s از بدنه مشابه با گوشی &nbsp;A50
-                                                بهره می برد. در قاب جلو، یک صفحه نمایش تمام صفحه با یک بریدگی U شکل
-                                                برای دوربین سلفی قرار گرفته است. برای پایین صفحه نمایش کمی حاشیه در
-                                                نظر گرفته شده است که البته این طراحی نسبت به 6 ماه گذشته، قدیمی نشده
-                                                است و همچنان در بسیاری از گوشی های میان رده دیگر هم دیده می شود. در
-                                                قسمت پایین گوشی وروددی هدفون 3.5 میلی‎متری و درگاه پورت USB-C قرار
-                                                گرفته است. قاب پشتی A50s جایی است که سامسونگ تصمیم گرفته تا آن را
-                                                تغییر دهد؛ بافت زیبای پشت گوشی با بازتابی رنگین‌کمان شکل همچنان حفظ
-                                                شده استاما حالا شکل های هندسی هم روی آن ها قرار گرفته است که هر کدام
-                                                نور را با شدت مختلفی منعکس می کنند. همانطور که از قیمت این گوشی می
-                                                توان انتظار داشت، Galaxy A50s هم در برابر آب و گرد و خاک مقاوم نیست.
-                                                اگر این ویژگی برای شما مهم است می توانید با صرف هزینه بیشتر&nbsp;
-                                                گوشی OnePlus 7 را مد نظر خود قرار دهید.</p>
-                                            <div class="-img">
-                                                <img src="assets/images/single/tabs-product/2.jpg">
-                                            </div>
-                                        </div>
-                                    </section>
-                                    <section class="-article">
-                                        <button class="-button">
-                                            <span class="show-more"><i class="fa fa-plus"></i></span>
-                                            <span class="show-less"><i class="fa fa-minus"></i></span>
-                                        </button>
-                                        <h3 class="-title">صفحه نمایش</h3>
-                                        <div class="-text">
-                                            <p style="text-align:right">اولین چیزی که در گوشی A50s توجه شما را به
-                                                خود جلب می کند، نمایشگر Super AMOLED روشن و خیره کننده آن است. صفحه
-                                                نمایش 6.4 اینچی سوپر آمولد در گلکسی A50s بسیار زیبا و بلند به نظر
-                                                می‎رسد. این پنل در کمتر گوشی در این گستره قیمتی دیده می‎شود. فاصله
-                                                صفحه نمایش تا لبه‎های گوشی بسیار کم است به طوری که نسبت صفحه نمایش
-                                                به بدنه برای گلکسی A50 چیزی در حدود 85.1 درصد است. صفحه نمایش A50s
-                                                هم مانند A50 دارای تراکم 403 پیکسل در هر اینچ است تا از کیفیت بالایی
-                                                برخوردار باشد. به صورت پیش فرض، برای گوشی حالت Natural انتخاب شده
-                                                است که از دقت رنگ خوبی برخوردار است و برای فضای رنگی sRGB مورد هدف
-                                                قرار داده شده است. با این حال شما می تواند پروفایل Vivid&nbsp; را
-                                                انتخاب کنید تا رنگ های اشباع شده را شاهد باشید و یا دمای رنگ ها را
-                                                به دلخواه خود تغییر دهید.</p>
-                                            <div class="-img">
-                                                <img src="assets/images/single/tabs-product/3.jpg">
-                                            </div>
-                                        </div>
-                                    </section>
-                                    <section class="-article">
-                                        <button class="-button">
-                                            <span class="show-more"><i class="fa fa-plus"></i></span>
-                                            <span class="show-less"><i class="fa fa-minus"></i></span>
-                                        </button>
-                                        <h3 class="-title">دوربین</h3>
-                                        <div class="-text">
-                                            <p style="text-align:right">در قاب پشتی این گوشی سه لنز دوربین قرار
-                                                گرفته است &nbsp;که شامل یک لنز اصلی 48 مگاپیکسلی از نوع عریض، یک لنز
-                                                فوق عریض 8 مگاپیکسلی و سنسور عمق 5 مگاپیکسلی است. در قاب جلوی گوشی
-                                                هم یک دوربین 32 مگاپیکسلی قرار گرفته است. هر دو لنز اصلی قابلیت ضبط
-                                                تصاویر با کیفیت 4K را دارند اما لتز فوق عریض تنها امکان ضبط ویدیوها
-                                                با کیفیت 1080p را دارد. دوربین Galaxy A50s در نور کافی عملکرد بسیار
-                                                مطلوبی دارند و رنگ های طبیعی با جزئیات فراوان را برای کاربر به همراه
-                                                دارند اما در نور کم عملکرد آن پایین‎تر از حد انتظار است. سامسونگ
-                                                تمرکز در طراحی دوربین این مدل بر روی کاهش نویز تمرکز داشته است که در
-                                                بعضی موارد با کاهش جزئیات عکس ها همراه می شود؛ البته این تغییرات در
-                                                حالتی مشخص می شود که عکس ها را با دقت خیلی زیادی مشاهده کنید. از
-                                                جزئیات که بگذریم، عکس ها از رنگ، کنتراست و گستره داینامیک (Dynamic
-                                                Range)خوبی برخوردار است. استفاده از سنسور عمق برای عکاسی‎های پرتره
-                                                کاربرد دارد که باعث می‎شود تصویر پشت سوژه محو&nbsp; (Bukeh)به نظر
-                                                برسد؛ چیزی که سامسونگ آن را Live Focus می‎نامد. عکس های ثبت شده در
-                                                نور کم هم همچنان از کیفیت مطلوبی برخوردارند و برای به اشتراک گذاشتن
-                                                در فضای مجازی کاملا مناسب هستند.</p>
-                                            <div class="-img">
-                                                <img src="assets/images/single/tabs-product/4.jpg">
-                                            </div>
-                                        </div>
-                                    </section>
-                                </div>
+                                
+
                             </article>
                         </div>
                         <div class="tab-content-wrapper tab-pane fade" id="specifications" role="tabpanel"
                             aria-labelledby="specifications-tab">
                             <article>
                                 <h2 class="params-headline">مشخصات فنی
-                                    <span>Samsung Galaxy A50s SM-A507FN/DS Dual SIM 128GB Mobile Phone</span>
+                                    <span>{{obj.name}}</span>
                                 </h2>
                                 <section>
                                     <h3 class="params-title">مشخصات کلی</h3>
                                     <ul class="params-list">
                                         <li class="params-list-item">
                                             <div class="params-list-key">
-                                                <span class="block">ابعاد</span>
+                                                <span class="block">کیفیت</span>
                                             </div>
                                             <div class="params-list-value">
                                                 <span class="block">
-                                                    7.7 × 74.7 × 158.5 میلی‌متر
+                                                    {{obj.quality}}
                                                 </span>
                                             </div>
                                         </li>
                                         <li class="params-list-item">
                                             <div class="params-list-key">
-                                                <span class="block">توضیحات سیم کارت</span>
+                                                <span class="block">نوع صفحه نمایش</span>
                                             </div>
                                             <div class="params-list-value">
                                                 <span class="block">
-                                                    سایز نانو (8.8 × 12.3 میلی‌متر)
+                                                   {{obj.pannel_type}}
                                                 </span>
                                             </div>
                                         </li>
                                         <li class="params-list-item">
                                             <div class="params-list-key">
-                                                <span class="block">وزن</span>
+                                                <span class="block">port</span>
                                             </div>
                                             <div class="params-list-value">
                                                 <span class="block">
-                                                    166 گرم
+                                                    {{obj.port}}
                                                 </span>
                                             </div>
                                         </li>
                                         <li class="params-list-item">
                                             <div class="params-list-key">
-                                                <span class="block">ساختار بدنه</span>
+                                                <span class="block">برند</span>
                                             </div>
                                             <div class="params-list-value">
                                                 <span class="block">
-                                                    قاب جلو شیشه
-                                                </span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </section>
-                                <section>
-                                    <h3 class="params-title">پردازنده</h3>
-                                    <ul class="params-list">
-                                        <li class="params-list-item">
-                                            <div class="params-list-key">
-                                                <span class="block">تراشه</span>
-                                            </div>
-                                            <div class="params-list-value">
-                                                <span class="block">
-                                                    Exynos 9610 (10nm) CPU
-                                                </span>
-                                            </div>
-                                        </li>
-                                        <li class="params-list-item">
-                                            <div class="params-list-key">
-                                                <span class="block">نوع پردازنده</span>
-                                            </div>
-                                            <div class="params-list-value">
-                                                <span class="block">
-                                                    64 بیت
-                                                </span>
-                                            </div>
-                                        </li>
-                                        <li class="params-list-item">
-                                            <div class="params-list-key">
-                                                <span class="block">فرکانس پردازنده‌ی مرکزی</span>
-                                            </div>
-                                            <div class="params-list-value">
-                                                <span class="block">
-                                                    2.3 و 1.7 گیگاهرتز
+                                                    {{obj.category}}
                                                 </span>
                                             </div>
                                         </li>
                                     </ul>
                                 </section>
-                                <section>
-                                    <h3 class="params-title">حافظه</h3>
-                                    <ul class="params-list">
-                                        <li class="params-list-item">
-                                            <div class="params-list-key">
-                                                <span class="block">حافظه داخلی</span>
-                                            </div>
-                                            <div class="params-list-value">
-                                                <span class="block">
-                                                    128 گیگابایت
-                                                </span>
-                                            </div>
-                                        </li>
-                                        <li class="params-list-item">
-                                            <div class="params-list-key">
-                                                <span class="block">مقدار RAM</span>
-                                            </div>
-                                            <div class="params-list-value">
-                                                <span class="block">
-                                                    4 گیگابایت
-                                                </span>
-                                            </div>
-                                        </li>
-                                        <li class="params-list-item">
-                                            <div class="params-list-key">
-                                                <span class="block">پشتیبانی از کارت حافظه جانبی</span>
-                                            </div>
-                                            <div class="params-list-value">
-                                                <span class="block">
-                                                    microSD
-                                                </span>
-                                            </div>
-                                        </li>
-                                        <li class="params-list-item">
-                                            <div class="params-list-key">
-                                                <span class="block">حداکثر ظرفیت کارت حافظه</span>
-                                            </div>
-                                            <div class="params-list-value">
-                                                <span class="block">
-                                                    1 ترابایت
-                                                </span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </section>
-                                <section>
-                                    <h3 class="params-title">صفحه نمایش</h3>
-                                    <ul class="params-list">
-                                        <li class="params-list-item">
-                                            <div class="params-list-key">
-                                                <span class="block">صفحه نمایش رنگی</span>
-                                            </div>
-                                            <div class="params-list-value">
-                                                <span class="block"> بله </span>
-                                            </div>
-                                        </li>
-                                        <li class="params-list-item">
-                                            <div class="params-list-key">
-                                                <span class="block">صفحه نمایش لمسی</span>
-                                            </div>
-                                            <div class="params-list-value">
-                                                <span class="block">بله</span>
-                                            </div>
-                                        </li>
-                                        <li class="params-list-item">
-                                            <div class="params-list-key">
-                                                <span class="block">فناوری</span>
-                                            </div>
-                                            <div class="params-list-value">
-                                                <span class="block">Super AMOLED</span>
-                                            </div>
-                                        </li>
-                                        <li class="params-list-item">
-                                            <div class="params-list-key">
-                                                <span class="block">بازه‌ی اندازه صفحه نمایش</span>
-                                            </div>
-                                            <div class="params-list-value">
-                                                <span class="block">6.0 اینچ و بزرگتر</span>
-                                            </div>
-                                        </li>
-                                        <li class="params-list-item">
-                                            <div class="params-list-key">
-                                                <span class="block">اندازه</span>
-                                            </div>
-                                            <div class="params-list-value">
-                                                <span class="block">6.4 اینچ</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </section>
+
                             </article>
                         </div>
                         <div class="tab-content-wrapper tab-pane fade" id="userComments" role="tabpanel"
@@ -1535,4 +1255,31 @@
             </div>
         </div>
     </div>
+
+
+{% endblock %}
+
+{% block js %}
+
+<script>
+    $(document).ready(function() {
+       $('.size-input').click(function(){
+        input_count= $(this).data('count');
+        $('#size-container').text(input_count);
+       })
+    });
+    
+    
+    </script>
+    <script>
+    $(document).ready(function() {
+       $('.size-input').click(function(){
+        input_price= $(this).data('price');
+        base_price = $('#base-price').data('obj');
+        total_price = base_price + input_price;
+        $('#total-price').text(total_price)
+    })
+    });
+    
+    </script>
 {% endblock %}

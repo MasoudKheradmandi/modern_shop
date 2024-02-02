@@ -28,6 +28,7 @@ class TvSize(models.Model):
     def __str__(self):
         return self.product.name + " " + self.size
     
+    
 
 
 class Product(models.Model):
