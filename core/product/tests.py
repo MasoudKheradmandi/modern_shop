@@ -60,9 +60,11 @@ class ProductListViewTest(TestCase):
 
 
 class ProductDetailViewTest(TestCase):
+    loop = 3
     def setUp(self):
         self.product =  baker.make(Product,name='TV1',id=1000,is_show=True,_fill_optional=True,_create_files=True)
-
+        self.tv_size = baker.make(TvSize,product = self.product)
+        self.tv_size2 = baker.make(TvSize,product = self.product)
     def test_detail_view_obj(self):
 
         resp = self.client.get(reverse('product:detail',args=[self.product.category.name,self.product.id]))
@@ -72,3 +74,8 @@ class ProductDetailViewTest(TestCase):
         self.assertTemplateUsed(resp,'detail.html')
         
         self.assertIn('obj',resp.context)
+
+        self.assertIn(self.tv_size,resp.context['obj_size'])
+        
+        for x in resp.context.get('obj_size'):
+            self.assertEqual(self.tv_size.product.name,x.product.name)
