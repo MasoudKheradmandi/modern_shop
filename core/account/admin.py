@@ -12,7 +12,7 @@ class CustomUserAdmin(UserAdmin):
     fieldsets = (
         ('Authentication',{
             'fields':(
-                'phone_number','password'
+                'phone_number','token'
             ),
         }),
         ('Permissions',{
@@ -34,7 +34,7 @@ class CustomUserAdmin(UserAdmin):
     add_fieldsets = (
         (None,{
             'classes':('wide',),
-            'fields':('phone_number','password1','password2','is_staff','is_superuser','is_verified')
+            'fields':('phone_number','is_staff','is_superuser','is_verified','token')
         }),
     )
 

@@ -37,17 +37,16 @@ class ValidatePhoneNumber(SimpleTestCase):
 
 class UserManagerTest(TestCase):
     def test_create_user(self):
-        self.user = User.objects.create_user(phone_number='09123456789',password='test')
+        self.user = User.objects.create_user(phone_number='09123456789')
         self.assertEqual(User.objects.count(),1)
         self.assertFalse(self.user.is_superuser)
         self.assertFalse(self.user.is_staff)
         self.assertFalse(self.user.is_verified)
-        self.assertRaises(ValueError,User.objects.create_user,phone_number='',password='test')
-        self.assertRaises(ValueError,User.objects.create_user,phone_number='09123456789',password='')
+        self.assertRaises(ValueError,User.objects.create_user,phone_number='')
 
 
     def test_create_superuser(self):
-        self.user = User.objects.create_superuser(phone_number='09123456789',password='test')
+        self.user = User.objects.create_superuser(phone_number='09123456789')
         self.assertEqual(User.objects.count(),1)
         self.assertTrue(self.user.is_superuser)
         self.assertTrue(self.user.is_staff)
@@ -55,7 +54,7 @@ class UserManagerTest(TestCase):
 
 
     def test_create_staffuser(self):
-        self.user = User.objects.create_staffuser(phone_number='09123456789',password='test')
+        self.user = User.objects.create_staffuser(phone_number='09123456789')
         self.assertEqual(User.objects.count(),1)
         self.assertFalse(self.user.is_superuser)
         self.assertTrue(self.user.is_staff)
@@ -64,7 +63,7 @@ class UserManagerTest(TestCase):
 
 class ProfileModelTest(TestCase):
     def setUp(self) -> None:
-        self.user = User.objects.create_user(phone_number='09123456789',password='test')
+        self.user = User.objects.create_user(phone_number='09123456789')
 
 
     def test_profile_existance(self):
@@ -74,5 +73,3 @@ class ProfileModelTest(TestCase):
     def test_str_obj(self):
         profile = Profile.objects.get(user=self.user)
         self.assertEqual(str(profile),"09123456789")
-
-
