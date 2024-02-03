@@ -1,22 +1,17 @@
-from django.test import TestCase , RequestFactory
+from django.test import TestCase , LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.urls import reverse
+
 from selenium.webdriver.chrome.webdriver import WebDriver
+from selenium.webdriver.common.keys import Keys
 
 from account.models import User
-class LoginViewTest(TestCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.url = reverse('account:login-page')
-        cls.success_url = reverse('account:login-verification-page')
-        cls.test_user = User.objects.create_user(phone_number='09123456789')
-        cls.selenium = WebDriver()
-        cls.selenium.implicitly_wait(5)
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.selenium.quit()
-        super().tearDownClass()
+class LoginViewUnitTest(TestCase):
+    def setUp(self) -> None:
+        self.url = reverse('account:login-page')
+        self.success_url = reverse('account:login-verification-page')
+        self.test_user = User.objects.create_user(phone_number='09123456789')
 
 
     def test_get_method(self):
@@ -24,6 +19,7 @@ class LoginViewTest(TestCase):
         response = client.get(self.url)
         self.assertTemplateUsed(response,'login.html')
 
+        # login user should return to home page
         client.force_login(self.test_user)
         response = client.get(self.url)
         self.assertRedirects(response,reverse('home:index-page'))
