@@ -23,10 +23,11 @@ class TvSize(models.Model):
     size = models.CharField(max_length=4,verbose_name='سایز')
     price_difference = models.IntegerField(verbose_name='اختلاف قیمت',default=0)
     count = models.PositiveIntegerField() # تعداد تلویزیون با سایز مشخص یا همون موجودی انبار
-    discount = models.OneToOneField(DiscountCode,on_delete=models.SET_NULL,null=True)
+    discount = models.OneToOneField(DiscountCode,on_delete=models.SET_NULL,null=True,blank=True)
     
     def __str__(self):
         return self.product.name + " " + self.size
+    
     
 
 
