@@ -32,17 +32,20 @@ class ProductDetailView(View):
         return render(request,'detail.html',context)
 
     def post(self,request,category,id):
-        obj = Product.objects.get(id=id,is_show=True)
-        profile =Profile.objects.get(user=request.user)
-        if Comment.objects.filter(author=profile).count() > 2:
-            messages.error(request,'شما نمیتوانید بیشتر از سه کامنت برای یک محصول ثبت کنید')
-            return redirect('product:detail',category,id)
+        if request.user.is_authenticated:
+            obj = Product.objects.get(id=id,is_show=True)
+            profile =Profile.objects.get(user=request.user)
+            if Comment.objects.filter(author=profile).count() > 2:
+                messages.error(request,'شما نمیتوانید بیشتر از سه کامنت برای یک محصول ثبت کنید')
+                return redirect('product:detail',category,id)
+            else:
+                text = request.POST.get('text')
+                Comment.objects.create(product=obj,author=profile,text=text)
+                messages.success(request,'پیام شما با موفقیت دریافت شد')
+                return redirect('product:detail',category,id)
         else:
-            text = request.POST.get('text')
-            Comment.objects.create(product=obj,author=profile,text=text)
-            messages.success(request,'پیام شما با موفقیت دریافت شد')
+            messages.error(request,'لطفا ابتدا وارد حساب کاربری خود شوید')
             return redirect('product:detail',category,id)
-        
         
 
 def login_view(request):
