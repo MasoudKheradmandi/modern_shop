@@ -3,8 +3,8 @@ from http.cookies import SimpleCookie
 from django.test import TestCase
 from django.urls import reverse
 
-
 from account.models import User
+
 
 class LoginViewUnitTest(TestCase):
     def setUp(self) -> None:
@@ -58,6 +58,7 @@ class LoginViewUnitTest(TestCase):
         self.assertRedirects(response,self.success_url)
         self.assertEqual(User.objects.count(),2)
         self.assertEqual(response.cookies.get('user_phone_number').coded_value,user_phone_number)
+        self.assertIsNotNone(user_new_token)
 
 
 class LoginVerificationTest(TestCase):
@@ -106,7 +107,6 @@ class LoginVerificationTest(TestCase):
         self.assertFalse(user_is_verified)
 
 
-
     def test_post_method_existing_user_right_token(self):
         self.client.cookies = SimpleCookie({'user_phone_number':self.user_phone_number})
         response = self.client.post(self.url,data={'verify_code':12345})
@@ -115,7 +115,6 @@ class LoginVerificationTest(TestCase):
 
         self.assertRedirects(response,self.success_url)
         self.assertTrue(user_is_verified)
-
 
 
     def test_post_method_none_existing_user(self):
