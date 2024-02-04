@@ -25,8 +25,7 @@
                             <div class="account-box">
                                 <a href="#" class="account-box-logo">digistore</a>
                                 <div class="account-box-headline">
-                                    <a href="login.html" class="login-ds active-account">ورود</a>
-                                    <a href="register.html" class="register-ds">ثبت نام</a>
+                                    <a href="#" class="login-ds active-account">ورود یا ثبت نام</a>
                                 </div>
                                 <div class="account-box-content">
                                     <form action="{% url "account:login-page" %}" method="post" class="form-account">
@@ -49,7 +48,7 @@
                                             </button>
                                         </div>
                                         <div class="forget-password">
-                                            <a href="#" class="account-link-password">رمز خود را فراموش کرده ام</a>
+                                            {% comment %} <a href="#" class="account-link-password">رمز خود را فراموش کرده ام</a> {% endcomment %}
                                         </div>
                                     </form>
                                 </div>
