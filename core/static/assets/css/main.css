@@ -2830,7 +2830,7 @@ footer.footer .footer-copyright-text{
 }
 
 .account-box .account-box-headline a.login-ds,.register-ds{
-    width: 50%;
+    width: 100%;
     height: 100%;
     border-radius: 50px;
     color: #727272;
@@ -2842,7 +2842,7 @@ footer.footer .footer-copyright-text{
 }
 
 .account-box .account-box-headline a.register-ds{
-    width: 50%;
+    width: 100%;
     height: 100%;
     border-radius: 50px;
     color: #727272;

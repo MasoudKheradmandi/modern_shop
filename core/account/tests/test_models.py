@@ -1,6 +1,6 @@
 from django.test import TestCase , SimpleTestCase
 from django.core.exceptions import ValidationError
-from account.models import User ,Profile , validate_phone_number
+from account.models import User ,Profile ,validate_phone_number ,validate_verification_code
 # Create your tests here.
 
 class UserModelTest(SimpleTestCase):
@@ -12,7 +12,7 @@ class UserModelTest(SimpleTestCase):
         self.assertEqual(str(self.user),"09123456789")
 
 
-class ValidatePhoneNumber(SimpleTestCase):
+class ValidatePhoneNumberTest(SimpleTestCase):
     def test_regex_validation(self):
         # start with optional 0|\+98 followed by 9 digits starts with 9
         iran_phone_number_regex_pattern = "^(?:0|\+98)?(9\d{9})$"
@@ -34,6 +34,12 @@ class ValidatePhoneNumber(SimpleTestCase):
         wrong_phone_number = "123456789"
         self.assertRaises(ValidationError,validate_phone_number,wrong_phone_number)
 
+class ValidateVerificationCodeTest(SimpleTestCase):
+    def test_validation(self):
+        self.assertRaises(ValidationError,validate_verification_code,100001)
+        self.assertRaises(ValidationError,validate_verification_code,999)
+
+
 
 class UserManagerTest(TestCase):
     def test_create_user(self):
@@ -51,6 +57,8 @@ class UserManagerTest(TestCase):
         self.assertTrue(self.user.is_superuser)
         self.assertTrue(self.user.is_staff)
         self.assertTrue(self.user.is_verified)
+        self.assertRaises(ValueError,User.objects.create_superuser,phone_number='09123456788',is_staff=False)
+        self.assertRaises(ValueError,User.objects.create_superuser,phone_number='09123456788',is_superuser=False)
 
 
     def test_create_staffuser(self):
@@ -59,6 +67,8 @@ class UserManagerTest(TestCase):
         self.assertFalse(self.user.is_superuser)
         self.assertTrue(self.user.is_staff)
         self.assertTrue(self.user.is_verified)
+        self.assertRaises(ValueError,User.objects.create_staffuser,phone_number='09123456788',is_staff=False)
+
 
 
 class ProfileModelTest(TestCase):
