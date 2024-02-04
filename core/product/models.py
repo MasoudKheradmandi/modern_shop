@@ -60,14 +60,29 @@ class Product(models.Model):
     
     def __str__(self):
         return self.name
+    
+
+    def save(self, *args, **kwargs):
+        if  Product.objects.last():
+            last_id = Product.objects.last().id
+            self.id = last_id + 1
+        super(Product, self).save(*args, **kwargs)
+    
+
 
 class Comment(models.Model):
     product = models.ForeignKey(Product,on_delete=models.CASCADE)
     author = models.ForeignKey("account.Profile",on_delete=models.CASCADE)
-    title = models.CharField(max_length=150) 
     text = models.TextField()
+    answer = models.TextField(blank=True,null=True)
     created_date = models.DateTimeField(auto_now_add=True)
     is_show = models.BooleanField(default=False,verbose_name='نمایش داده شود؟')
+
+    def _answer(self):
+        if self.answer:
+            return 'جواب داده شد'
+        else:
+            return 'جواب داده نشد'
     
     def __str__(self):
-        return self.title + " " + self.product.name +" "+str(self.is_show)
+        return str(self.is_show)+" "+self.product.name + " "+ str(self._answer())
