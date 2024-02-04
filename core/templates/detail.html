@@ -47,9 +47,11 @@
                         </li>
                     </ul>
                     <div class="product-timeout position-relative pt-5 mb-3">
+                        {% if obj.is_special %}
                         <div class="promotion-badge">
                             فروش ویژه
                         </div>
+                        {% endif %}
                         <div class="countdown countdown-style-3 h4" data-date-time="10/10/2025 24:00"
                             data-labels='{"label-second": "", "label-minute": "", "label-hour": ""}'>
                         </div>
@@ -705,12 +707,7 @@
                                     <i class="mdi mdi-format-list-checks"></i>
                                     مشخصات</a>
                             </li>
-                            <li class="box-tabs-tab nav-item">
-                                <a class="box-tab-item nav-link" id="userComments-tab" data-toggle="tab"
-                                    href="#userComments" role="tab" aria-controls="userComments" aria-selected="false">
-                                    <i class="mdi mdi-comment-text-multiple-outline"></i>
-                                    نظرات کاربران</a>
-                            </li>
+                            
                             <li class="box-tabs-tab nav-item">
                                 <a class="box-tab-item nav-link" id="question-tab" data-toggle="tab" href="#question"
                                     role="tab" aria-controls="question" aria-selected="false">
@@ -796,333 +793,20 @@
 
                             </article>
                         </div>
-                        <div class="tab-content-wrapper tab-pane fade" id="userComments" role="tabpanel"
-                            aria-labelledby="userComments-tab">
-                            <div class="comments">
-                                <h2 class="comments-headline">امتیاز کاربران به:
-                                    <span>
-                                        گوشی موبایل سامسونگ مدل Galaxy A50s SM-A507FN/DS دو سیم
-                                        کارت ظرفیت 128گیگابایت
-                                    </span>
-                                </h2>
-                                <div class="comments-summary">
-                                    <div class="comments-summary-box">
-                                        <ul class="comments-item-rating">
-                                            <li>
-                                                <div class="cell">کیفیت ساخت:</div>
-                                                <div class="cell">
-                                                    <div class="rating-general" data-rate-digit="خوب">
-                                                        <div class="rating-rate" style="width:75%;"></div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="cell">ارزش خرید به نسبت قیمت:</div>
-                                                <div class="cell">
-                                                    <div class="rating-general" data-rate-digit="خوب">
-                                                        <div class="rating-rate" style="width:70%;"></div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="cell">نوآوری:</div>
-                                                <div class="cell">
-                                                    <div class="rating-general" data-rate-digit="خوب">
-                                                        <div class="rating-rate" style="width:80%;"></div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="cell">امکانات و قابلیت ها:</div>
-                                                <div class="cell">
-                                                    <div class="rating-general" data-rate-digit="خوب">
-                                                        <div class="rating-rate" style="width:65%;"></div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="cell">سهولت استفاده:</div>
-                                                <div class="cell">
-                                                    <div class="rating-general" data-rate-digit="خوب">
-                                                        <div class="rating-rate" style="width:70%;"></div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="cell">طراحی و ظاهر:</div>
-                                                <div class="cell">
-                                                    <div class="rating-general" data-rate-digit="خوب">
-                                                        <div class="rating-rate" style="width:85%;"></div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="comments-summary-note">
-                                        <p>
-                                            برای ثبت نظر، لازم است ابتدا وارد حساب کاربری خود شوید. اگر این محصول را
-                                            قبلا از دیجی‌کالا خریده باشید،
-                                            نظر
-                                            شما به عنوان مالک محصول ثبت خواهد شد.
-                                        </p>
-                                        <div class="parent-btn lr-ds">
-                                            <button class="dk-btn dk-btn-info">
-                                                افزودن نظر جدید
-                                                <i class="mdi mdi-comment-text-multiple-outline"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <section class="comment-body">
-                                <div class="col-lg-4 col-md-4 col-xs-12 pull-right">
-                                    <div class="aside">
-                                        <ul class="comments-user-shopping pt-1">
-                                            <li class="mb-3">
-                                                <div class="cell cell-name">حسن شجاعی</div>
-                                                <div class="comments-buyer-badge"><span
-                                                        class="mdi mdi-cart"></span>خریدار محصول</div>
-                                            </li>
-                                            <li>
-                                                <div class="cell">
-                                                    در تاریخ ۱۴ بهمن ۱۳۹۸
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <div class="message-light-opinion-positive"><span
-                                                class="fa fa-thumbs-o-up"></span>خرید این
-                                            محصول را توصیه می‌کنم</div>
-                                        <ul class="comments-user-shopping pt-1">
-                                            <li class="mb-3">
-                                                <div class="cell cell-title">رنگ محصول :</div>
-                                                <div class="cell color-cell"><span class="shopping-color-value"
-                                                        style="background-color: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.25);"></span>
-                                                    سفید
-                                                </div>
-                                            </li>
-                                            <li class="mb-3">
-                                                <div class="cell cell-title">فروشنده محصول :</div>
-                                                <div class="cell seller-cell">
-                                                    <a href="#" class="btn-link-spoiler">دیجی کالا</a>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-8 col-md-8 col-xs-12 pull-left">
-                                    <div class="article">
-                                        <div class="header">
-                                            <div>در کل گوشی خوبیه</div>
-                                        </div>
-                                        <p>دو روزی که گوشی رو خریدم راضی ام. فقط دوربینش نسبت به تبلیغ و تعریفی که
-                                            داره عکسهای واضحی نمیگیره تار هستش ولی در کل راضی ام</p>
-                                        <div class="comments-evaluation">
-                                            <div class="comments-evaluation-positive">
-                                                <span>نقاط قوت</span>
-                                                <ul>
-                                                    <li>
-                                                        کیفت عالی صفحه
-                                                    </li>
-                                                    <li>
-                                                        قفل چهره سریع
-                                                    </li>
-                                                    <li>
-                                                        بازکردن سریع برنامه ها
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="comments-evaluation-negative">
-                                                <span>نقاط ضعف</span>
-                                                <ul>
-                                                    <li>
-                                                        دیر باز کردن اثر انگشت
-                                                    </li>
-                                                    <li>
-                                                        گرم شدن زیاد
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="footer">
-                                            <div class="comments-likes">آیا این نظر برایتان مفید بود؟
-                                                <button class="btn-like js-comment-like" data-counter="12">بله</button>
-                                                <button class="btn-like js-comment-dislike"
-                                                    data-counter="7">خیر</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <section class="comment-body">
-                                <div class="col-lg-4 col-md-4 col-xs-12 pull-right">
-                                    <div class="aside">
-                                        <ul class="comments-user-shopping pt-1">
-                                            <li class="mb-3">
-                                                <div class="cell cell-name">حسن شجاعی</div>
-                                                <div class="comments-buyer-badge"><span
-                                                        class="mdi mdi-cart"></span>خریدار محصول</div>
-                                            </li>
-                                            <li>
-                                                <div class="cell">
-                                                    در تاریخ ۱۴ بهمن ۱۳۹۸
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <div class="message-light-opinion-positive"><span
-                                                class="fa fa-thumbs-o-up"></span>خرید این
-                                            محصول را توصیه می‌کنم</div>
-                                        <ul class="comments-user-shopping pt-1">
-                                            <li class="mb-3">
-                                                <div class="cell cell-title">رنگ محصول :</div>
-                                                <div class="cell color-cell"><span class="shopping-color-value"
-                                                        style="background-color: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.25);"></span>
-                                                    سفید
-                                                </div>
-                                            </li>
-                                            <li class="mb-3">
-                                                <div class="cell cell-title">فروشنده محصول :</div>
-                                                <div class="cell seller-cell">
-                                                    <a href="#" class="btn-link-spoiler">دیجی کالا</a>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-8 col-md-8 col-xs-12 pull-left">
-                                    <div class="article">
-                                        <div class="header">
-                                            <div>در کل گوشی خوبیه</div>
-                                        </div>
-                                        <p>دو روزی که گوشی رو خریدم راضی ام. فقط دوربینش نسبت به تبلیغ و تعریفی که
-                                            داره عکسهای واضحی نمیگیره تار هستش ولی در کل راضی ام</p>
-                                        <div class="comments-evaluation">
-                                            <div class="comments-evaluation-positive">
-                                                <span>نقاط قوت</span>
-                                                <ul>
-                                                    <li>
-                                                        کیفت عالی صفحه
-                                                    </li>
-                                                    <li>
-                                                        قفل چهره سریع
-                                                    </li>
-                                                    <li>
-                                                        بازکردن سریع برنامه ها
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="comments-evaluation-negative">
-                                                <span>نقاط ضعف</span>
-                                                <ul>
-                                                    <li>
-                                                        دیر باز کردن اثر انگشت
-                                                    </li>
-                                                    <li>
-                                                        گرم شدن زیاد
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="footer">
-                                            <div class="comments-likes">آیا این نظر برایتان مفید بود؟
-                                                <button class="btn-like js-comment-like" data-counter="12">بله</button>
-                                                <button class="btn-like js-comment-dislike"
-                                                    data-counter="7">خیر</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <section class="comment-body">
-                                <div class="col-lg-4 col-md-4 col-xs-12 pull-right">
-                                    <div class="aside">
-                                        <ul class="comments-user-shopping pt-1">
-                                            <li class="mb-3">
-                                                <div class="cell cell-name">حسن شجاعی</div>
-                                                <div class="comments-buyer-badge"><span
-                                                        class="mdi mdi-cart"></span>خریدار محصول</div>
-                                            </li>
-                                            <li>
-                                                <div class="cell">
-                                                    در تاریخ ۱۴ بهمن ۱۳۹۸
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <div class="message-light-opinion-positive"><span
-                                                class="fa fa-thumbs-o-up"></span>خرید این
-                                            محصول را توصیه می‌کنم</div>
-                                        <ul class="comments-user-shopping pt-1">
-                                            <li class="mb-3">
-                                                <div class="cell cell-title">رنگ محصول :</div>
-                                                <div class="cell color-cell"><span class="shopping-color-value"
-                                                        style="background-color: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.25);"></span>
-                                                    سفید
-                                                </div>
-                                            </li>
-                                            <li class="mb-3">
-                                                <div class="cell cell-title">فروشنده محصول :</div>
-                                                <div class="cell seller-cell">
-                                                    <a href="#" class="btn-link-spoiler">دیجی کالا</a>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-lg-8 col-md-8 col-xs-12 pull-left">
-                                    <div class="article">
-                                        <div class="header">
-                                            <div>در کل گوشی خوبیه</div>
-                                        </div>
-                                        <p>دو روزی که گوشی رو خریدم راضی ام. فقط دوربینش نسبت به تبلیغ و تعریفی که
-                                            داره عکسهای واضحی نمیگیره تار هستش ولی در کل راضی ام</p>
-                                        <div class="comments-evaluation">
-                                            <div class="comments-evaluation-positive">
-                                                <span>نقاط قوت</span>
-                                                <ul>
-                                                    <li>
-                                                        کیفت عالی صفحه
-                                                    </li>
-                                                    <li>
-                                                        قفل چهره سریع
-                                                    </li>
-                                                    <li>
-                                                        بازکردن سریع برنامه ها
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="comments-evaluation-negative">
-                                                <span>نقاط ضعف</span>
-                                                <ul>
-                                                    <li>
-                                                        دیر باز کردن اثر انگشت
-                                                    </li>
-                                                    <li>
-                                                        گرم شدن زیاد
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="footer">
-                                            <div class="comments-likes">آیا این نظر برایتان مفید بود؟
-                                                <button class="btn-like js-comment-like" data-counter="12">بله</button>
-                                                <button class="btn-like js-comment-dislike"
-                                                    data-counter="7">خیر</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
+
                         <div class="tab-content-wrapper tab-pane fade" id="question" role="tabpanel"
                             aria-labelledby="question-tab">
                             <div class="faq-headline">
                                 پرسش و پاسخ
                                 <span>پرسش خود را در مورد محصول مطرح نمایید</span>
                             </div>
+                        <form method='post' action=''>
+                            {% csrf_token %}
                             <div class="form-faq">
                                 <div class="form-faq-row mt-3">
                                     <div class="form-faq-col">
                                         <div class="ui-textarea">
-                                            <textarea title="متن سوال" class="ui-textarea-field"></textarea>
+                                            <textarea name='text' title="متن سوال" class="ui-textarea-field"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -1142,7 +826,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="product-questions-list">
+                        </form>
+                        {% for com in comments %}
+                        <div id="product-questions-list">
                                 <div class="questions-list">
                                     <ul class="faq-list">
                                         <li class="is-question">
@@ -1151,19 +837,19 @@
                                                     <span class="icon-faq">?</span>
                                                     <p class="h5">
                                                         پرسش :
-                                                        <span>جلال</span>
+                                                        <span>{{com.profile.full_name}}</span>
                                                     </p>
                                                 </div>
-                                                <p>لورم ایپسوم متن ساختگی</p>
+                                                <p>{{com.text}}</p>
                                                 <div class="faq-date">
-                                                    <em>۱۴ بهمن ۱۳۹۸</em>
+                                                    <em>{{com.created_date}}</em>
                                                 </div>
-                                                <a href="#" class="js-add-answer-btn">به این پرسش پاسخ
-                                                    دهید </a>
+                                                
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
+                                {% if com.answer %}
                                 <div class="questions-list answer-questions">
                                     <ul class="faq-list">
                                         <li class="is-question">
@@ -1172,82 +858,18 @@
                                                     <span class="icon-faq"><i class="mdi mdi-storefront"></i></span>
                                                     <p class="h5">
                                                         پاسخ فروشنده :
-                                                        <span>حسن</span>
+                                                       
                                                     </p>
                                                 </div>
-                                                <p>لورم ایپسوم متن ساختگی</p>
-                                                <div class="faq-date">
-                                                    <em>۱۴ بهمن ۱۳۹۸</em>
-                                                </div>
-                                                <a href="#" class="js-add-answer-btn">به این پرسش پاسخ
-                                                    دهید </a>
+                                                <p>{{com.answer}}</p>
+                                            
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="questions-list">
-                                    <ul class="faq-list">
-                                        <li class="is-question">
-                                            <div class="section">
-                                                <div class="faq-header">
-                                                    <span class="icon-faq">?</span>
-                                                    <p class="h5">
-                                                        پرسش :
-                                                        <span>اشکان</span>
-                                                    </p>
-                                                </div>
-                                                <p>لورم ایپسوم متن ساختگی</p>
-                                                <div class="faq-date">
-                                                    <em>۱۴ بهمن ۱۳۹۸</em>
-                                                </div>
-                                                <a href="#" class="js-add-answer-btn">به این پرسش پاسخ
-                                                    دهید </a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="questions-list answer-questions">
-                                    <ul class="faq-list">
-                                        <li class="is-question">
-                                            <div class="section">
-                                                <div class="faq-header">
-                                                    <span class="icon-faq"><i class="mdi mdi-storefront"></i></span>
-                                                    <p class="h5">
-                                                        پاسخ فروشنده :
-                                                        <span>جواد</span>
-                                                    </p>
-                                                </div>
-                                                <p>لورم ایپسوم متن ساختگی</p>
-                                                <div class="faq-date">
-                                                    <em>۱۴ بهمن ۱۳۹۸</em>
-                                                </div>
-                                                <a href="#" class="js-add-answer-btn">به این پرسش پاسخ
-                                                    دهید </a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="questions-list">
-                                    <ul class="faq-list">
-                                        <li class="is-question">
-                                            <div class="section">
-                                                <div class="faq-header">
-                                                    <span class="icon-faq">?</span>
-                                                    <p class="h5">
-                                                        پرسش :
-                                                        <span>رضا</span>
-                                                    </p>
-                                                </div>
-                                                <p>لورم ایپسوم متن ساختگی</p>
-                                                <div class="faq-date">
-                                                    <em>۱۴ بهمن ۱۳۹۸</em>
-                                                </div>
-                                                <a href="#" class="js-add-answer-btn">به این پرسش پاسخ
-                                                    دهید </a>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
+                                {% endif %}
+
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
