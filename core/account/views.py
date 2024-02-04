@@ -26,7 +26,7 @@ class LoginView(View):
             response.set_cookie('user_phone_number',phone_number,1000)
             return response
         else:
-            errors = form.errors
+            errors = 'لطفا یک شماره معتبر وارد کنید'
             messages.error(request,errors)
             return redirect('account:login-page')
 
