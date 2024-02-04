@@ -11,6 +11,9 @@ services:
       - ./:/app
     networks:
       - postgres-network
+    depends_on:
+      - postgres
+      
   postgres:
     image: docker.arvancloud.ir/postgres:16.1-bullseye
     container_name: db
