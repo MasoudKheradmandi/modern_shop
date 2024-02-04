@@ -35,14 +35,15 @@
                     </div>
                 </div>
                 <div class="profile-stats">
-                    <div class="profile-stats-row">
+                    <form class="profile-stats-row" method='post' action="{% url "account:profile-add-info-page" %}">
+                        {% csrf_token %}
                         <fieldset class="form-legal-fieldset">
                             <h4 class="form-legal-headline">حساب شخصی</h4>
                             <div class="form-legal-center">
                                 <div class="profile-stats-col">
                                     <div class="profile-stats-content">
                                         <span class="profile-first-title"> نام و نام خوانوادگی:</span>
-                                        <input class="ui-input-field" type="text" name="" value=""
+                                        <input class="ui-input-field" type="text" name="full_name" value="{{profile.full_name}}"
                                             placeholder="نام خود را وارد کنید">
                                     </div>
                                 </div>
@@ -51,75 +52,9 @@
                                 <div class="profile-stats-col">
                                     <div class="profile-stats-content">
                                         <span class="profile-first-title"> روز تولد:</span>
-                                        <select name="" id="day">
-                                            <option value="date-desc" selected="selected">18</option>
-                                            <option value="">1</option>
-                                            <option value="">2</option>
-                                            <option value="">3</option>
-                                            <option value="">5</option>
-                                            <option value="">6</option>
-                                            <option value="">7</option>
-                                            <option value="">8</option>
-                                            <option value="">9</option>
-                                            <option value="">10</option>
-                                            <option value="">11</option>
-                                            <option value="">12</option>
-                                            <option value="">13</option>
-                                            <option value="">14</option>
-                                            <option value="">15</option>
-                                            <option value="">16</option>
-                                            <option value="">17</option>
-                                            <option value="">18</option>
-                                            <option value="">19</option>
-                                            <option value="">20</option>
-                                            <option value="">21</option>
-                                            <option value="">22</option>
-                                            <option value="">23</option>
-                                            <option value="">24</option>
-                                            <option value="">25</option>
-                                            <option value="">26</option>
-                                            <option value="">27</option>
-                                            <option value="">28</option>
-                                            <option value="">29</option>
-                                            <option value="">30</option>
-                                        </select>
-                                        <select name="" id="month">
-                                            <option value="date-desc" selected="selected">مرداد</option>
-                                            <option value="">فروردین</option>
-                                            <option value="">اردیبهشت</option>
-                                            <option value="">خرداد</option>
-                                            <option value="">تیر</option>
-                                            <option value="">مرداد</option>
-                                            <option value="">شهریور</option>
-                                            <option value="">مهر</option>
-                                            <option value="">آبان</option>
-                                            <option value="">آذر</option>
-                                            <option value="">دی</option>
-                                            <option value="">بهمن</option>
-                                            <option value="">اسفند</option>
-                                        </select>
-                                        <select name="" id="year">
-                                            <option value="date-desc" selected="selected">1380</option>
-                                            <option value="">1380</option>
-                                            <option value="">1381</option>
-                                            <option value="">1382</option>
-                                            <option value="">1383</option>
-                                            <option value="">1384</option>
-                                            <option value="">1385</option>
-                                            <option value="">1386</option>
-                                            <option value="">1387</option>
-                                            <option value="">1388</option>
-                                            <option value="">1389</option>
-                                            <option value="">1390</option>
-                                            <option value="">1391</option>
-                                            <option value="">1392</option>
-                                            <option value="">1393</option>
-                                            <option value="">1394</option>
-                                            <option value="">1395</option>
-                                            <option value="">1396</option>
-                                            <option value="">1397</option>
-                                            <option value="">1398</option>
-                                        </select>
+                                        <input class="ui-input-field" type="text" name="birth_date" placeholder="مثال : 1-1-1390"
+                                               value="{{profile.birth_date.year}}-{{profile.birth_date.month}}-{{profile.birth_date.day}}"
+                                            >
                                     </div>
                                 </div>
                             </div>
@@ -127,8 +62,8 @@
                                 <div class="profile-stats-col">
                                     <div class="profile-stats-content">
                                         <span class="profile-first-title"> شماره موبایل</span>
-                                        <input class="ui-input-field" type="text" name="" value="{{user.phone_number}}"
-                                            placeholder="شماره موبایل خود را وارد کنید">
+                                        <input class="ui-input-field" id="'phone-number-input" type="text" value="{{user.phone_number}}"
+                                            placeholder="شماره موبایل خود را وارد کنید" disable>
                                     </div>
                                 </div>
                             </div>
@@ -136,7 +71,7 @@
                                 <div class="profile-stats-col">
                                     <div class="profile-stats-content">
                                         <span class="profile-first-title">آدرس ایمیل</span>
-                                        <input class="ui-input-field" type="email" name="" value=""
+                                        <input class="ui-input-field" type="email" name="email" value="{{profile.email}}"
                                             placeholder="آدرس ایمیل خود را وارد کنید">
                                     </div>
                                 </div>
@@ -145,7 +80,7 @@
                                 <div class="profile-stats-col">
                                     <div class="profile-stats-content">
                                         <span class="profile-first-title">کد پستی</span>
-                                        <input class="ui-input-field" type="text" name="" value=""
+                                        <input class="ui-input-field" type="number" name="postalcode" value="{{profile.postalcode}}"
                                             placeholder="کد پستی خود را وارد کنید">
                                     </div>
                                 </div>
@@ -154,29 +89,28 @@
                                 <div class="profile-stats-col">
                                     <div class="profile-stats-content">
                                         <span class="profile-first-title">ادرس محل سکونت</span>
-                                        <input class="ui-input-field" type="text" name="" value=""
+                                        <input class="ui-input-field" type="text" name="address" value="{{profile.address}}"
                                             placeholder="ادرس محل سکونت را وارد کنید">
                                     </div>
                                 </div>
                             </div>
-                            
                             <div class="form-legal-center">
                                 <div class="profile-stats-col has-diviter">
                                     <div class="profile-stats-content">
                                         <div class="form-auth-row">
-                                            <label for="#" class="ui-checkbox">
-                                                <input type="checkbox" value="1" name="login" id="remember">
+                                            <label for="remember" class="ui-checkbox">
+                                                <input type="checkbox" value="1" name="recive_newsletter" id="remember" {% if profile.recive_newsletter %}checked{% endif %}>
                                                 <span class="ui-checkbox-check"></span>
                                             </label>
                                             <label for="remember" class="remember-me">اشتراک در خبرنامه
                                                 دیجی‌ استور</label>
                                         </div>
                                         <div class="form-auth-row">
-                                            <label for="#" class="ui-checkbox">
-                                                <input type="checkbox" value="1" name="login" id="remember">
+                                            <label for="remember-2" class="ui-checkbox">
+                                                <input type="checkbox" value="1" name="recive_events" id="remember-2" {% if profile.recive_events %}checked{% endif %}>
                                                 <span class="ui-checkbox-check"></span>
                                             </label>
-                                            <label for="remember" class="remember-me">اشتراک در مناسبات
+                                            <label for="remember-2" class="remember-me">اشتراک در مناسبات
                                                 دیجی‌ استور</label>
                                         </div>
                                     </div>
@@ -186,15 +120,15 @@
                         <div class="col-12" style="padding:0;">
                             <div class="profile-stats-row form-legal-row-submit">
                                 <div class="parent-btn parent-store">
-                                    <button class="dk-btn dk-btn-info btn-store">
+                                    <button class="dk-btn dk-btn-info btn-store" type='submit'>
                                         ثبت اطلاعات کاربری
                                         <i class="fa fa-sign-in"></i>
                                     </button>
                                 </div>
-                                <a href="#" class="btn btn-default-gray">انصراف</a>
+                                <a href="{% url "account:profile-page" %}" class="btn btn-default-gray">انصراف</a>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </section>

@@ -33,7 +33,7 @@
                             <div class="profile-stats-col">
                                 <div class="profile-stats-content">
                                     <span class="profile-first-title"> نام و نام خانوادگی :</span>
-                                    <span class="profile-second-title">حسن شجاعی</span>
+                                    <span class="profile-second-title">{{profile.full_name}}</span>
                                 </div>
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                             <div class="profile-stats-col">
                                 <div class="profile-stats-content">
                                     <span class="profile-first-title"> پست الکترونیک :</span>
-                                    <span class="profile-second-title">info@digismart.com</span>
+                                    <span class="profile-second-title">{{profile.email}}</span>
                                 </div>
                             </div>
                         </div>
@@ -49,15 +49,15 @@
                             <div class="profile-stats-col">
                                 <div class="profile-stats-content">
                                     <span class="profile-first-title"> شماره تلفن همراه :</span>
-                                    <span class="profile-second-title">*******0991</span>
+                                    <span class="profile-second-title">{{user.phone_number}}</span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-xs-12 pull-right">
                             <div class="profile-stats-col">
                                 <div class="profile-stats-content">
-                                    <span class="profile-first-title"> کد ملی :</span>
-                                    <span class="profile-second-title">-</span>
+                                    <span class="profile-first-title"> کد پستی:</span>
+                                    <span class="profile-second-title">{{profile.postalcode}}</span>
                                 </div>
                             </div>
                         </div>
@@ -65,15 +65,15 @@
                             <div class="profile-stats-col">
                                 <div class="profile-stats-content">
                                     <span class="profile-first-title"> دریافت خبرنامه :</span>
-                                    <span class="profile-second-title">بله</span>
+                                    <span class="profile-second-title">{% if profile.recive_newsletter %}بله {% else %}خیر{% endif %}</span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-xs-12 pull-right">
                             <div class="profile-stats-col">
                                 <div class="profile-stats-content">
-                                    <span class="profile-first-title"> شماره کارت :</span>
-                                    <span class="profile-second-title">-</span>
+                                    <span class="profile-first-title"> دریافت مناسبات :</span>
+                                    <span class="profile-second-title">{% if profile.recive_events %}بله {% else %}خیر{% endif %}</span>
                                 </div>
                             </div>
                         </div>
