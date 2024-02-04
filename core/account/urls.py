@@ -1,7 +1,7 @@
 
-from django.urls import path
-from account.views import (LoginView , LoginVerificationView , WelcomePageView , LogoutView,
-                           ProfileView,ProfileAddInfoView)
+from django.urls import path , include
+from account.views import (LoginView , LoginVerificationView, ProfileOrderListView, ProfileWishListView
+                           , WelcomePageView, LogoutView, ProfileView, ProfileAddInfoView,ProfileSideBarView)
 
 
 app_name="account"
@@ -15,8 +15,12 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(),name='logout-page'),
 
     # profile
+    path('profile-sidebar/', ProfileSideBarView.as_view(),name='profile-sidebar'),
     path('profile/', ProfileView.as_view(),name='profile-page'),
     path('profile-add-info/', ProfileAddInfoView.as_view(),name='profile-add-info-page'),
+    path('profile-wish-list/', ProfileWishListView.as_view(),name='profile-wish-list-page'),
+    path('profile-order-list/', ProfileOrderListView.as_view(),name='profile-order-list-page'),
+
 
 ]
 
