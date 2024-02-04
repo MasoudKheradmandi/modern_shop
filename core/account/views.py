@@ -49,7 +49,10 @@ class LoginVerificationView(View):
         # context = {}
         #  TEMP
         phone_number = request.COOKIES.get('user_phone_number',None)
-        context = {'token':User.objects.filter(phone_number=phone_number).first().token}
+        context = {}
+        if User.objects.filter(phone_number=phone_number).first() is not None:
+            context = {'token':User.objects.filter(phone_number=phone_number).first().token}
+
         return render(request,'login-verification.html',context)
 
     def post(self,request):
