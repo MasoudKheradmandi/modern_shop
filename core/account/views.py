@@ -1,5 +1,6 @@
 from random import randint
 from django.shortcuts import render , redirect
+from django.contrib.auth import login
 from django.views.generic import View
 from django.contrib import messages
 from account.forms import LoginForm , LoginVerificationForm
@@ -38,10 +39,14 @@ class LoginView(View):
 
 class LoginVerificationView(View):
     def get(self,request):
+        if request.user.is_authenticated:
+            return redirect('/')
         context = {}
         return render(request,'login-verification.html',context)
 
     def post(self,request):
+        if request.user.is_authenticated:
+            return redirect('/')
         form = LoginVerificationForm(request.POST)
         if form.is_valid():
             verify_code = form.cleaned_data.get('verify_code')
@@ -62,7 +67,7 @@ class LoginVerificationView(View):
                 messages.error(request,error_msg)
                 return redirect('account:login-verification-page')
 
-            self._verify_user(request,user,verify_code)
+            login(request,user)
             return redirect('account:welcome-page')
         else:
             errors = form.errors
@@ -72,6 +77,8 @@ class LoginVerificationView(View):
 
 class WelcomePageView(View):
     def get(self,request):
+        if request.user.is_anonymous:
+            return redirect('home:index-page')
         context = {}
         return render(request,'welcome.html',context)
 
