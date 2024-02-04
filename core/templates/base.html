@@ -1474,5 +1474,20 @@
 <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
 <script src="{% static 'assets/js/sweetalert2.all.min.js' %}"></script>
 <script src="{% static 'assets/js/main.js' %}"></script>
+<script>
+{% for message in messages %}
+    {% if message.level == 40 %}
+    Swal.fire({
+        icon: 'error',
+        html: '{{message}}',
+    })
+    {% else %}
+    Swal.fire({
+        icon: 'success',
+        html: '{{message}}',
+    })
+    {% endif %}
+{% endfor %}
+</script>
 {% block js %} {% endblock %}
 </html>

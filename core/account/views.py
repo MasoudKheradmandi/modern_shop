@@ -7,9 +7,10 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
-from account.forms import LoginForm , LoginVerificationForm
+from account.forms import LoginForm , LoginVerificationForm , ProfileAddInfoForm
 from account.models import User , Profile
 # Create your views here.
+
 
 class LoginView(View):
     def get(self,request):
@@ -127,17 +128,37 @@ class ProfileAddInfoView(LoginRequiredMixin,View):
     login_url = reverse_lazy("account:login-page")
 
     def get(self,request):
-        context = {}
+        user = request.user
+        profile= get_object_or_404(Profile,user=user)
+        context = {
+            'profile' : profile,
+            'form' : ProfileAddInfoForm(instance=profile),
+        }
         return render(request,'profile-additional-info.html',context)
 
     def post(self,request):
-        pass
+        profile = get_object_or_404(Profile,user=request.user)
+        form = ProfileAddInfoForm(request.POST,instance=profile)
+        if form.is_valid():
+            form.cleaned_data.update({'user':request.user})
+            form.save()
+
+            messages.success(request,'تغییرات شما باموفقیت انجام شد.')
+            return redirect('account:profile-page')
+        else:
+            messages.error(request,form.errors)
+            return redirect('account:profile-add-info-page')
 
 
 class ProfileWishListView(LoginRequiredMixin,View):
     login_url = reverse_lazy("account:login-page")
     def get(self,request):
-        context = {}
+        user = request.user
+        profile = get_object_or_404(Profile,user=user)
+        context = {
+            'profile':profile,
+            'user': user,
+        }
         return render(request,'profile-favorites.html',context)
 
 
