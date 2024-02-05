@@ -101,7 +101,9 @@ class LogoutView(LoginRequiredMixin,View):
         return redirect("account:login-page")
 
 
-class ProfileSideBarView(View):
+class ProfileSideBarView(LoginRequiredMixin,View):
+    login_url = reverse_lazy("account:login-page")
+
     def get(self,request):
         user = request.user
         profile = get_object_or_404(Profile,user=user)
@@ -132,7 +134,6 @@ class ProfileAddInfoView(LoginRequiredMixin,View):
         profile= get_object_or_404(Profile,user=user)
         context = {
             'profile' : profile,
-            'form' : ProfileAddInfoForm(instance=profile),
         }
         return render(request,'profile-additional-info.html',context)
 

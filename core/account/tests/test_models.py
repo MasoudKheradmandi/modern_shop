@@ -1,6 +1,8 @@
 from django.test import TestCase , SimpleTestCase
 from django.core.exceptions import ValidationError
+
 from account.models import User ,Profile ,validate_phone_number ,validate_verification_code
+
 # Create your tests here.
 
 class UserModelTest(SimpleTestCase):
@@ -34,11 +36,11 @@ class ValidatePhoneNumberTest(SimpleTestCase):
         wrong_phone_number = "123456789"
         self.assertRaises(ValidationError,validate_phone_number,wrong_phone_number)
 
+
 class ValidateVerificationCodeTest(SimpleTestCase):
     def test_validation(self):
         self.assertRaises(ValidationError,validate_verification_code,100001)
         self.assertRaises(ValidationError,validate_verification_code,999)
-
 
 
 class UserManagerTest(TestCase):
@@ -68,7 +70,6 @@ class UserManagerTest(TestCase):
         self.assertTrue(self.user.is_staff)
         self.assertTrue(self.user.is_verified)
         self.assertRaises(ValueError,User.objects.create_staffuser,phone_number='09123456788',is_staff=False)
-
 
 
 class ProfileModelTest(TestCase):
