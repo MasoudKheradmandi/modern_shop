@@ -48,6 +48,15 @@ class ProductDetailView(View):
             return redirect('product:detail',category,id)
         
 
+
+class WishList(View):
+    def get(self,request):
+        context = {}
+        return render(request,'wishlist.html',context)
+
+
+
+
 def login_view(request):
     username = '09033152968'
     user = User.objects.get(phone_number=username)

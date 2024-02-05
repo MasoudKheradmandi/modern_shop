@@ -86,3 +86,11 @@ class Comment(models.Model):
     
     def __str__(self):
         return str(self.is_show)+" "+self.product.name + " "+ str(self._answer())
+    
+
+class WishList(models.Model):
+    profile = models.OneToOneField("account.Profile",on_delete=models.CASCADE)
+    product = models.ManyToManyField(Product)
+
+    def __str__(self):
+        return self.profile.full_name
