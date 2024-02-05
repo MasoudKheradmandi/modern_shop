@@ -66,7 +66,7 @@ def validate_phone_number(value,*args,custom_regex=None,**kwargs):
 
 
 def validate_verification_code(value,*args,**kwargs):
-    if value <= 1000 or value >= 100000:
+    if value < 1000 or value >= 100000:
         raise ValidationError(
             _('code is not valid'),
         )

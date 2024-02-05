@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.core.exceptions import ValidationError
-from account.forms import LoginForm
+from account.forms import LoginForm , LoginVerificationForm
 from account.models import User
 
 
@@ -27,6 +27,28 @@ class LoginFormTest(TestCase):
         self.assertEqual(User.objects.count(),2)
         self.assertFalse(User.objects.get(phone_number='09987654321').is_verified)
 
+class TestLoginVerification(TestCase):
+    def test_wrong_data(self):
+        form = LoginVerificationForm(data={})
+        self.assertFalse(form.is_valid())
+        self.assertIn('verify_code',form.errors.keys())
+
+        form = LoginVerificationForm(data={'verify_code':'999'})
+        self.assertFalse(form.is_valid())
+        self.assertIn('verify_code',form.errors.keys())
+
+        form = LoginVerificationForm(data={'verify_code':'100000'})
+        self.assertFalse(form.is_valid())
+        self.assertIn('verify_code',form.errors.keys())
+
+    def test_right_data(self):
+        form = LoginVerificationForm(data={'verify_code':'1000'})
+        self.assertTrue(form.is_valid())
+
+        form = LoginVerificationForm(data={'verify_code':'99999'})
+        self.assertTrue(form.is_valid())
+        form = LoginVerificationForm(data={'verify_code':'5000'})
+        self.assertTrue(form.is_valid())
 
 
 

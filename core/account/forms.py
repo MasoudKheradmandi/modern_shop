@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 
 from account.models import User, Profile, validate_phone_number, validate_verification_code
 
+
 class LoginForm(forms.Form):
     phone_number = forms.CharField(validators=[validate_phone_number])
 
@@ -18,10 +19,9 @@ class LoginForm(forms.Form):
         return self.cleaned_data
 
 
-
-
 class LoginVerificationForm(forms.Form):
     verify_code = forms.IntegerField(validators=[validate_verification_code])
+
 
 class ProfileAddInfoForm(forms.ModelForm):
     class Meta:

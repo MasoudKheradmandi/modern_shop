@@ -39,7 +39,7 @@ class ValidatePhoneNumberTest(SimpleTestCase):
 
 class ValidateVerificationCodeTest(SimpleTestCase):
     def test_validation(self):
-        self.assertRaises(ValidationError,validate_verification_code,100001)
+        self.assertRaises(ValidationError,validate_verification_code,100000)
         self.assertRaises(ValidationError,validate_verification_code,999)
 
 

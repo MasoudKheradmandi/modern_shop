@@ -87,7 +87,6 @@ class TestProfileAddInfoView(SpecialTestCase):
         profile_data = {
             'full_name' : 'e',
             'email' : 'test@gmail.com',
-            'shop_point' : '1',
             'address' : 'e',
             'postalcode' : '1',
             'birth_date' : '2021-1-1',
