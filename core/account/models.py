@@ -99,9 +99,9 @@ class Profile(models.Model):
     address = models.TextField(null=True)
 
     postalcode = models.CharField(max_length=20)
+    birth_date = models.DateField(null=True)
     recive_newsletter = models.BooleanField(default=False)
     recive_events = models.BooleanField(default=False)
-    birth_date = models.DateField(null=True)
 
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)

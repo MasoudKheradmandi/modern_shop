@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% load static %}
+{% load render_partial %}
+
+{% block breadcrumb %}
+<!--profile------------------------------------>
+<div class="container-main">
+    <div class="col-12">
+        <div class="breadcrumb-container">
+            <ul class="js-breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{% url "home:index-page" %}" class="breadcrumb-link">خانه</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="#" class="{% url "account:profile-page" %}">حساب کاربری من</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="#" class="breadcrumb-link active-breadcrumb">لیست علاقه مندی</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    {% render_partial  "account:profile-sidebar" %}
+{% endblock breadcrumb %}
+
+
+{% block main %}
+    <div class="col-lg-9 col-md-9 col-xs-12 pull-left">
+        <section class="page-contents">
+            <div class="profile-content">
+                <div class="headline-profile headline-profile-favorites">
+                    <ul class="pager-tabs">
+                        <li class="pager-tab">لیست علاقه‌مندی‌ها</li>
+                        <li class="pager-tab">نمایش
+                            <span class="js-favorite-from-count" data-value="1">۱</span> -
+                            <span class="js-favorite-to-count" data-value="3">۳</span> از
+                            <span class="js-favorite-total-count" data-value="3">۳</span>
+                            کالا
+                        </li>
+                    </ul>
+                </div>
+                <div class="profile-stats">
+                    <div class="profile-stats-row">
+                        <div class="profile-stats">
+                            <section class="profile-wishlist">
+                                <ul class="profile-wishlist-listing">
+                                    <li class="profile-wishlist-list-item">
+                                        <div class="profile-wishlist-list-item-thumb">
+                                            <a href="#" class="profile-wishlist-list-item-img">
+                                                <img src="{% static 'assets/images/cart/111460776.jpg' %}">
+                                            </a>
+                                            <button class="profile-wishlist-list-item-remove"><span
+                                                    class="mdi mdi-close"></span></button>
+                                        </div>
+                                        <div class="profile-wishlist-list-item-content">
+                                            <div class="profile-wishlist-list-item-content-container">
+                                                <a href="#">
+                                                    <h4>گوشی موبایل سامسونگ مدل Galaxy A50 SM-A505F/DS دو سیم کارت
+                                                        ظرفیت 128گیگابایت</h4>
+                                                </a>
+                                                <div class="stars-plp stars">
+                                                    <span class="mdi mdi-star active"></span>
+                                                    <span class="mdi mdi-star active"></span>
+                                                    <span class="mdi mdi-star active"></span>
+                                                    <span class="mdi mdi-star active"></span>
+                                                    <span class="mdi mdi-star active"></span>
+                                                </div>
+                                            </div>
+                                            <div class="profile-wishlist-list-item-content-container">
+                                                <div class="profile-wishlist-list-item-price">
+                                                    <span>۳,۳۹۷,۰۰۰</span>
+                                                    <span>تومان</span>
+
+                                                    <a href="#" class="profile-wishlist-list-item-button">مشاهده
+                                                        محصول</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="profile-wishlist-list-item">
+                                        <div class="profile-wishlist-list-item-thumb">
+                                            <a href="#" class="profile-wishlist-list-item-img">
+                                                <img src="{% static 'assets/images/cart/111460776.jpg' %}">
+                                            </a>
+                                            <button class="profile-wishlist-list-item-remove"><span
+                                                    class="mdi mdi-close"></span></button>
+                                        </div>
+                                        <div class="profile-wishlist-list-item-content">
+                                            <div class="profile-wishlist-list-item-content-container">
+                                                <a href="#">
+                                                    <h4>گوشی موبایل سامسونگ مدل Galaxy A50 SM-A505F/DS دو سیم کارت
+                                                        ظرفیت 128گیگابایت</h4>
+                                                </a>
+                                                <div class="stars-plp stars">
+                                                    <span class="mdi mdi-star active"></span>
+                                                    <span class="mdi mdi-star active"></span>
+                                                    <span class="mdi mdi-star active"></span>
+                                                    <span class="mdi mdi-star active"></span>
+                                                    <span class="mdi mdi-star"></span>
+                                                </div>
+                                            </div>
+                                            <div class="profile-wishlist-list-item-content-container">
+                                                <div class="profile-wishlist-list-item-price">
+                                                    <span>۳,۳۹۷,۰۰۰</span>
+                                                    <span>تومان</span>
+
+                                                    <a href="#" class="profile-wishlist-list-item-button">مشاهده
+                                                        محصول</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="profile-wishlist-list-item">
+                                        <div class="profile-wishlist-list-item-thumb">
+                                            <a href="#" class="profile-wishlist-list-item-img">
+                                                <img src="{% static 'assets/images/cart/111460776.jpg' %}">
+                                            </a>
+                                            <button class="profile-wishlist-list-item-remove"><span
+                                                    class="mdi mdi-close"></span></button>
+                                        </div>
+                                        <div class="profile-wishlist-list-item-content">
+                                            <div class="profile-wishlist-list-item-content-container">
+                                                <a href="#">
+                                                    <h4>گوشی موبایل سامسونگ مدل Galaxy A50 SM-A505F/DS دو سیم کارت
+                                                        ظرفیت 128گیگابایت</h4>
+                                                </a>
+                                                <div class="stars-plp stars">
+                                                    <span class="mdi mdi-star active"></span>
+                                                    <span class="mdi mdi-star active"></span>
+                                                    <span class="mdi mdi-star active"></span>
+                                                    <span class="mdi mdi-star"></span>
+                                                    <span class="mdi mdi-star"></span>
+                                                </div>
+                                            </div>
+                                            <div class="profile-wishlist-list-item-content-container">
+                                                <div class="profile-wishlist-list-item-price">
+                                                    <span>۳,۳۹۷,۰۰۰</span>
+                                                    <span>تومان</span>
+
+                                                    <a href="#" class="profile-wishlist-list-item-button">مشاهده
+                                                        محصول</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<!--profile------------------------------------>
+{% endblock main %}
