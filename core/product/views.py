@@ -4,9 +4,9 @@ from django.http import HttpResponse
 from django.views import View
 from django.contrib import messages
 
-from .models import Product,TvSize,Comment
+from .models import Product,TvSize,Comment,WishList
 from account.models import Profile,User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import login
 # Create your views here.
 
 
@@ -15,6 +15,8 @@ class ProductListView(View):
 
     def get(self,request):
         product_obj = Product.objects.filter(is_show=True)
+        for x in product_obj:
+            logger.warning(x.id)
         context = {'product_obj':product_obj}
         return render(request,'listview.html',context)
     
@@ -49,10 +51,23 @@ class ProductDetailView(View):
         
 
 
-class WishList(View):
+class WishListView(View):
     def get(self,request):
-        context = {}
-        return render(request,'wishlist.html',context)
+        if request.user.is_authenticated:
+            profile = Profile.objects.get(user=request.user)
+            obj = WishList.objects.filter(profile=profile).first()
+
+            if obj:
+                obj = obj.product.all()
+                context = {'products':obj,'obj_count':obj.count()}
+                return render(request,'wishlist.html',context)
+            else:
+                msg = 'سبد علاقمندی های شما خالی است'
+                return render(request,'wishlist.html',{'obj_count':0,'msg':msg})
+
+        else:
+            messages.error(request,'ابتدا وارد حساب کاربری خود شوید')
+            return redirect('/')
 
 
 

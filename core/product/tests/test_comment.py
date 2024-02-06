@@ -76,3 +76,4 @@ class CommentViewTest(TestCase):
         
         error_msg = 'شما نمیتوانید بیشتر از سه کامنت برای یک محصول ثبت کنید'
         self.assertEqual(str(messages[0]),str(error_msg))
+

@@ -32,7 +32,7 @@ class TvSize(models.Model):
 
 
 class Product(models.Model):
-    id = models.AutoField(primary_key=True, default=1000)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=450,verbose_name='نام محصول')
     image = models.ImageField(verbose_name="عکس محصول")
     image_1 = models.ImageField(verbose_name="عکس محصول",null=True)
@@ -60,13 +60,6 @@ class Product(models.Model):
     
     def __str__(self):
         return self.name
-    
-
-    def save(self, *args, **kwargs):
-        if  Product.objects.last():
-            last_id = Product.objects.last().id
-            self.id = last_id + 1
-        super(Product, self).save(*args, **kwargs)
     
 
 
