@@ -1,0 +1,162 @@
+<header>{% load static %}
+    <aside class="adplacement-top-header">
+        <a href="index.html" class="adplacement-item"style="
+        background-image: url({{site_setting.top_banner.url}});" title="شگفت سوپرمارکتی"></a>
+    </aside>
+    <div class="container-main">
+        <div class="col-lg-8 col-md-8 col-xs-12 pull-right">
+            <div class="header-right">
+                <div class="logo">
+                    <a href="#"><img src="{{site_setting.site_logo.url}}"></a>
+                </div>
+                <div class="col-lg-9 col-md-9 col-xs-12 pull-right">
+                    <div class="search-header">
+                        <form action="#">
+                            <input type="text" class="search-input"
+                                placeholder="نام کالا، برند و یا دسته مورد نظر خود را جستجو کنید…">
+                            <button type="submit" class="button-search">
+                                <img src="{% static 'assets/images/search.png' %}">
+                            </button>
+                        </form>
+                        <div class="search-result">
+                            <ul class="search-result-list mb-0">
+                                {% for navbar in navbars %}
+                                <li>
+                                    <a href="{{navbar.link}}"><i class="mdi mdi-clock-outline"></i>
+                                        {{navbar.name}}
+                                        <button class="btn btn-light btn-remove-search" type="submit">
+                                            <i class="mdi mdi-close"></i>
+                                        </button>
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-xs-12 pull-left">
+            <div class="header-left">
+                <ul class="nav-lr">
+                    <li class="nav-item-account">
+                        {% if request.user.is_authenticated %}
+                        <a href="#">
+                            <img src="{% static 'assets/images/user.png' %}" alt="user">
+                            حساب کاربری                                
+                            <div class="dropdown-menu">
+                                <ul>
+                                    <li class="dropdown-menu-item">
+                                        <a href="{% url "account:profile-page" %}" class="dropdown-item">
+                                            <i class="mdi mdi-account-card-details-outline"></i>
+                                            حساب کاربری من
+                                        </a>
+                                    </li>
+                                    <li class="dropdown-menu-item">
+                                        <a href="{% url "account:logout-page" %}" class="dropdown-item">
+                                            <i class="mdi mdi-logout-variant"></i>
+                                            خروج از حساب
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </a>
+                        {% else %}
+                        <a href="{% url "account:login-page" %}">
+                            <img src="{% static 'assets/images/user.png' %}" alt="user">
+                           ورود به حساب کاربری 
+                        </a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="overlay-search-box"></div>
+    </div>
+    <nav class="main-menu">
+        <div class="container-main">
+            <div>
+                <ul class="list-menu">
+                    {% for navbar in navbars %}
+                    <li class="item-list-menu megamenu">
+                        <a href="{{navbar.link}}" class="list-category"> {{navbar.name}}</a>
+                    </li>
+                    {% endfor %}
+                    <li class="nav-item-account nav-item-cart">
+                        <div class="header-cart-interest">
+                            <a href="#" class="d-block">
+                                <i class="fa fa-heart"></i>
+                                <span class="counter">۲</span>
+                            </a>
+                        </div>
+                        <div class="header-cart-basket">
+                            <a href="#">
+                                <span class="mdi mdi-shopping"></span>
+                                سبد خرید
+                                <span class="count">۴</span>
+                            </a>
+                            <div class="dropdown-menu-cart">
+                                <div class="dropdown-header">
+                                    <a href="#" class="view-cart">مشاهده سبد خرید</a>
+                                </div>
+                                <div class="wrapper">
+                                    <div class="scrollbar" id="style-1">
+                                        <div class="force-overflow">
+                                            <ul class="dropdown-list">
+                                                <a href="#">
+                                                    <li class="dropdown-item">
+                                                        <div class="title-cart">
+                                                            <img src="{% static 'assets/images/cart/lenovo-ideapadl3-15iml05.jpg' %}">
+                                                            <h3>لپ تاپ 15 اینچی لنوو مدل Ideapad L3 - 15IML05</h3>
+                                                            <div class="price">۲۶,۰۰۰,۰۰۰
+                                                                <span>تومان</span>
+                                                            </div>
+                                                            <button class="btn-delete">
+                                                                <span class="mdi mdi-close"></span>
+                                                            </button>
+                                                        </div>
+                                                    </li>
+                                                </a>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="footer-dropdown">
+                                    <div class="amount-total-buy">
+                                        <div class="price">
+                                            <span class="total">مبلغ کل خرید :</span>
+                                            <span class="toman">۱۰۰,۰۰۰,۰۰۰
+                                                <span>تومان</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="checkout">تسویه حساب</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="nav-btn nav-slider">
+            <span class="linee1"></span>
+            <span class="linee2"></span>
+            <span class="linee3"></span>
+        </div>
+    </nav>
+    <nav class="sidebar">
+        <div class="nav-header">
+            <div class="header-cover"></div>
+            <div class="logo-wrap">
+                <a class="logo-icon" href="#"><img alt="logo-icon" src="{% static 'assets/images/logo.png' %}" width="40"></a>
+            </div>
+        </div>
+        <ul class="nav-categories ul-base">
+            {% for navbar in navbars %}
+            <li><a href="{{navbar.link}}">{{navbar.name}}</a></li>
+            {% endfor %}
+        </ul>
+    </nav>
+    <div class="overlay"></div>
+
+</header>
