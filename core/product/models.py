@@ -32,7 +32,7 @@ class TvSize(models.Model):
 
 
 class Product(models.Model):
-    id = models.AutoField(primary_key=True, default=1000)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=450,verbose_name='نام محصول')
     image = models.ImageField(verbose_name="عکس محصول")
     image_1 = models.ImageField(verbose_name="عکس محصول",null=True)
@@ -62,13 +62,6 @@ class Product(models.Model):
         return self.name
     
 
-    def save(self, *args, **kwargs):
-        if  Product.objects.last():
-            last_id = Product.objects.last().id
-            self.id = last_id + 1
-        super(Product, self).save(*args, **kwargs)
-    
-
 
 class Comment(models.Model):
     product = models.ForeignKey(Product,on_delete=models.CASCADE)
@@ -86,3 +79,11 @@ class Comment(models.Model):
     
     def __str__(self):
         return str(self.is_show)+" "+self.product.name + " "+ str(self._answer())
+    
+
+class WishList(models.Model):
+    profile = models.OneToOneField("account.Profile",on_delete=models.CASCADE)
+    product = models.ManyToManyField(Product)
+
+    def __str__(self):
+        return self.profile.full_name
