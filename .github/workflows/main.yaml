@@ -11,4 +11,4 @@ jobs:
           - name: up the container
             run: docker-compose -f docker-compose-dev.yaml up -d
           - name: run tests
-            run:  docker exec backend bash -c "cd core && poetry run python3 manage.py test"
+            run:  docker exec backend bash -c "poetry run python3 manage.py test"

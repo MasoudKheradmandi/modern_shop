@@ -1,0 +1,34 @@
+version: '3.9'
+
+services:
+  backend:
+    build: .
+    container_name: 'backend'
+    command: poetry run gunicorn core.wsgi --bind 0.0.0.0:8000
+    # command: sleep infinity
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./core:/app
+    networks:
+      - postgres-network
+    depends_on:
+      - postgres
+      
+  postgres:
+    image: docker.arvancloud.ir/postgres:16.1-bullseye
+    container_name: db
+    environment:
+      - POSTGRES_DB=admin_db
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    volumes:
+      - postgres-volume:/var/lib/postgresql/data
+    networks:
+      - postgres-network
+
+volumes:
+  postgres-volume:
+
+networks:
+  postgres-network:
