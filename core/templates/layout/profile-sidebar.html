@@ -1,0 +1,65 @@
+{% load static %}
+<div class="col-lg-3 col-md-3 col-xs-12 pull-right">
+    <section class="page-aside">
+        <div class="sidebar-wrapper">
+            <div class="box-sidebar">
+                <div class="profile-box">
+                    <div class="profile-box-avator">
+                        <a href="#">
+                            <img src="{% static 'assets/images/profile/user-profile.svg' %}">
+                        </a>
+                    </div>
+                    <div class="profile-box-content">
+                        <span class="profile-box-nameuser">{{profile.full_name}}</span>
+                        <span class="profile-box-phone">شماره همراه : {{user.phone_number}}</span>
+                        <a href="#"><span class="profile-box-row-arrow">دیجی کلاب : {{profile.shop_point}} امتیاز</span></a>
+                    </div>
+                    <div class="profile-box-tabs">
+                        <a href="#" class="profile-box-tab">تغییر رمز</a>
+                        <a href="{% url "account:logout-page" %}" class="profile-box-tab-sign-out">خروج از حساب</a>
+                    </div>
+                </div>
+            </div>
+            <div class="box-sidebar">
+                <span class="box-header-sidebar">حساب کاربری شما</span>
+                <ul class="profile-menu-items">
+                    <li>
+                        <a href="{% url "account:profile-page" %}" class="profile-menu-url active-profile">
+                            <span class="mdi mdi-account-outline"></span>
+                            پروفایل</a>
+                    </li>
+                    <li>
+                        <a href="{% url "account:profile-order-list-page" %}" class="profile-menu-url">
+                            <span class="fa fa-shopping-basket"></span>
+                            همه سفارش ها</a>
+                    </li>
+                    <li>
+                        <a href="#" class="profile-menu-url">
+                            <span class="fa fa-file-text-o"></span>
+                            در خواست مرجوعی</a>
+                    </li>
+                    <li>
+                        <a href="{% url "account:profile-wish-list-page" %}" class="profile-menu-url">
+                            <span class="fa fa-star-o"></span>
+                            لیست علاقه مندی ها</a>
+                    </li>
+                    <li>
+                        <a href="#" class="profile-menu-url">
+                            <span class="fa fa-file-text-o"></span>
+                            نقد و نظرات</a>
+                    </li>
+                    <li>
+                        <a href="#" class="profile-menu-url">
+                            <span class="mdi mdi-map"></span>
+                            آدرس ها</a>
+                    </li>
+                    <li>
+                        <a href="#" class="profile-menu-url">
+                            <span class="fa fa-clock-o"></span>
+                            بازدید های اخیر</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</div>

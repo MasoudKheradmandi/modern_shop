@@ -23,15 +23,16 @@ class TvSize(models.Model):
     size = models.CharField(max_length=4,verbose_name='سایز')
     price_difference = models.IntegerField(verbose_name='اختلاف قیمت',default=0)
     count = models.PositiveIntegerField() # تعداد تلویزیون با سایز مشخص یا همون موجودی انبار
-    discount = models.OneToOneField(DiscountCode,on_delete=models.SET_NULL,null=True)
+    discount = models.OneToOneField(DiscountCode,on_delete=models.SET_NULL,null=True,blank=True)
     
     def __str__(self):
         return self.product.name + " " + self.size
     
+    
 
 
 class Product(models.Model):
-    id = models.AutoField(primary_key=True, default=1000)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=450,verbose_name='نام محصول')
     image = models.ImageField(verbose_name="عکس محصول")
     image_1 = models.ImageField(verbose_name="عکس محصول",null=True)
@@ -59,14 +60,30 @@ class Product(models.Model):
     
     def __str__(self):
         return self.name
+    
+
 
 class Comment(models.Model):
     product = models.ForeignKey(Product,on_delete=models.CASCADE)
     author = models.ForeignKey("account.Profile",on_delete=models.CASCADE)
-    title = models.CharField(max_length=150) 
     text = models.TextField()
+    answer = models.TextField(blank=True,null=True)
     created_date = models.DateTimeField(auto_now_add=True)
     is_show = models.BooleanField(default=False,verbose_name='نمایش داده شود؟')
+
+    def _answer(self):
+        if self.answer:
+            return 'جواب داده شد'
+        else:
+            return 'جواب داده نشد'
     
     def __str__(self):
-        return self.title + " " + self.product.name +" "+str(self.is_show)
+        return str(self.is_show)+" "+self.product.name + " "+ str(self._answer())
+    
+
+class WishList(models.Model):
+    profile = models.OneToOneField("account.Profile",on_delete=models.CASCADE)
+    product = models.ManyToManyField(Product)
+
+    def __str__(self):
+        return self.profile.full_name

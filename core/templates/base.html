@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
         name='viewport' />
-    <title>فروشگاه اینترنتی دیجی اسمارت</title>
+    <title>فروشگاه اینترنتی</title>
     <!--    font------------------------------------>
     <link rel="stylesheet" href="{% static 'assets/css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/materialdesignicons.css' %}">
@@ -27,7 +27,7 @@
 <body>
 
     {% render_partial 'home:header-layout' %}
-
+  
     {% block breadcrumb %}
     {% endblock breadcrumb %}
 
@@ -37,6 +37,7 @@
     {% render_partial 'home:footer-layout' %}
 
 
+
 </body>
 <script src="{% static 'assets/js/jquery-3.2.1.min.js' %}"></script>
 <script src="{% static 'assets/js/popper.min.js' %}"></script>
@@ -44,5 +45,20 @@
 <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
 <script src="{% static 'assets/js/sweetalert2.all.min.js' %}"></script>
 <script src="{% static 'assets/js/main.js' %}"></script>
-
+<script>
+{% for message in messages %}
+    {% if message.level == 40 %}
+    Swal.fire({
+        icon: 'error',
+        html: '{{message}}',
+    })
+    {% else %}
+    Swal.fire({
+        icon: 'success',
+        html: '{{message}}',
+    })
+    {% endif %}
+{% endfor %}
+</script>
+{% block js %} {% endblock %}
 </html>
