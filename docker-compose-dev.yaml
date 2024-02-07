@@ -4,11 +4,11 @@ services:
   backend:
     build: .
     container_name: 'backend'
-    command: poetry run python3 core/manage.py runserver 0.0.0.0:8000
+    command: poetry run python3 manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
     volumes:
-      - ./:/app
+      - ./core:/app
     networks:
       - postgres-network
     depends_on:
