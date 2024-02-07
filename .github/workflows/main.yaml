@@ -12,29 +12,29 @@ jobs:
             run: docker-compose -f docker-compose-dev.yaml up -d
           - name: run tests
             run:  docker exec backend bash -c "poetry run python3 manage.py test"
-    simple_CD:
-      name: Django CD
-      needs:
-        - simple_build
-      runs-on: ubuntu-latest
-      steps:
-        - name: Configure SSH
-          env:
-            SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-            SSH_HOST: ${{ secrets.HOST }}
-            SSH_USER: ${{ secrets.USER }}
-          run: |
-            mkdir -p ~/.ssh/
-            echo "$SSH_PRIVATE_KEY" > ~/.ssh/github
-            chmod 600 ~/.ssh/github
-            cat >>~/.ssh/config <<END
-            Host target
-              HostName $SSH_HOST
-              USER $SSH_USER
-              IdentityFile ~/.ssh/github
-              LogLevel ERROR
-              StrictHostKeyChecking no
-            END
-        - name: Run Deploy
-          run: |
-            ssh target "cd modern_shop && docker compose down && git pull && docker compose -f docker-compose-prod.yaml build && docker compose -f docker-compose-prod.yaml up -d --force-recreate"
+    # simple_CD:
+    #   name: Django CD
+    #   needs:
+    #     - simple_build
+    #   runs-on: ubuntu-latest
+    #   steps:
+    #     - name: Configure SSH
+    #       env:
+    #         SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+    #         SSH_HOST: ${{ secrets.HOST }}
+    #         SSH_USER: ${{ secrets.USER }}
+    #       run: |
+    #         mkdir -p ~/.ssh/
+    #         echo "$SSH_PRIVATE_KEY" > ~/.ssh/github
+    #         chmod 600 ~/.ssh/github
+    #         cat >>~/.ssh/config <<END
+    #         Host target
+    #           HostName $SSH_HOST
+    #           USER $SSH_USER
+    #           IdentityFile ~/.ssh/github
+    #           LogLevel ERROR
+    #           StrictHostKeyChecking no
+    #         END
+    #     - name: Run Deploy
+    #       run: |
+    #         ssh target "cd modern_shop && docker compose down && git pull && docker compose -f docker-compose-prod.yaml build && docker compose -f docker-compose-prod.yaml up -d --force-recreate"
