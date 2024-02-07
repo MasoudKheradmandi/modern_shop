@@ -4,6 +4,7 @@ ENV PYTHONDONTWRITEBYTECIDE=1
 ENV PTRHONUNBUFFERED=1
 
 WORKDIR /app
+COPY ./core /app/
 
 ARG UID=10001
 RUN adduser \
@@ -18,8 +19,6 @@ RUN adduser \
 RUN pip install poetry==1.4.2
 
 
-COPY pyproject.toml poetry.lock /app/
 RUN poetry install --no-dev
 
 
-COPY ./core /app/
