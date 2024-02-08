@@ -1,6 +1,6 @@
 <header>{% load static %}
     <aside class="adplacement-top-header">
-        <a href="index.html" class="adplacement-item"style="
+        <a href="#" class="adplacement-item"style="
         background-image: url({{site_setting.top_banner.url}});" title="شگفت سوپرمارکتی"></a>
     </aside>
     <div class="container-main">
@@ -42,7 +42,11 @@
                     <li class="nav-item-account">
                         {% if request.user.is_authenticated %}
                         <a href="#">
+                            {% if profile.avatar %}
+                            <img src="{{profile.avatar.url}}" height="32px" width="32px">
+                            {% else %}
                             <img src="{% static 'assets/images/user.png' %}" alt="user">
+                            {% endif %}
                             حساب کاربری                                
                             <div class="dropdown-menu">
                                 <ul>

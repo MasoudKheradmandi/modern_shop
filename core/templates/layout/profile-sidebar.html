@@ -6,7 +6,11 @@
                 <div class="profile-box">
                     <div class="profile-box-avator">
                         <a href="#">
+                            {% if profile.avatar %}
+                            <img src="{{profile.avatar.url}}">
+                            {% else %}
                             <img src="{% static 'assets/images/profile/user-profile.svg' %}">
+                            {% endif %}
                         </a>
                     </div>
                     <div class="profile-box-content">

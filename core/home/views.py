@@ -1,24 +1,34 @@
 from django.shortcuts import render
 from django.views.generic import View
+from django.shortcuts import get_object_or_404
 
-from home.models import Navbar , SiteSettings , Footer
+from home.models import Navbar , SiteSettings , Footer , Slider
 from product.models import Product
+from account.models import Profile
 
 class HomeView(View):
     def get(self,request):
-
-        context = {}
+        sliders = Slider.objects.all()
+        site_setting = SiteSettings.objects.filter(is_active=True).last()
+        context = {
+            'sliders' : sliders,
+            'site_setting' : site_setting,
+        }
         return render(request,'index.html',context)
+
 
 class HeaderView(View):
     def get(self,request):
+        profile = get_object_or_404(Profile,user=request.user)
         navbars = Navbar.objects.all()
         site_setting = SiteSettings.objects.filter(is_active=True).last()
         context = {
+            'profile' : profile,
             'navbars' : navbars,
             'site_setting' : site_setting,
         }
         return render(request,'layout/header.html',context)
+
 
 class FooterView(View):
     def get(self,request):

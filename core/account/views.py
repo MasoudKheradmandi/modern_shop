@@ -138,8 +138,9 @@ class ProfileAddInfoView(LoginRequiredMixin,View):
         return render(request,'profile-additional-info.html',context)
 
     def post(self,request):
+        print(request.FILES)
         profile = get_object_or_404(Profile,user=request.user)
-        form = ProfileAddInfoForm(request.POST,instance=profile)
+        form = ProfileAddInfoForm(request.POST,request.FILES,instance=profile)
         if form.is_valid():
             form.cleaned_data.update({'user':request.user})
             form.save()
