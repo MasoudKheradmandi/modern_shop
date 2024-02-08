@@ -19,7 +19,7 @@ class HomeView(View):
 
 class HeaderView(View):
     def get(self,request):
-        profile = get_object_or_404(Profile,user=request.user)
+        profile = Profile.objects.filter(user=request.user.id)
         navbars = Navbar.objects.all()
         site_setting = SiteSettings.objects.filter(is_active=True).last()
         context = {
