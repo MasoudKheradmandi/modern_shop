@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="profile-stats">
-                    <form class="profile-stats-row" method='post' action="{% url "account:profile-add-info-page" %}">
+                    <form class="profile-stats-row" method='post' enctype="multipart/form-data" action="{% url "account:profile-add-info-page" %}">
                         {% csrf_token %}
                         <fieldset class="form-legal-fieldset">
                             <h4 class="form-legal-headline">حساب شخصی</h4>
@@ -91,6 +91,17 @@
                                         <span class="profile-first-title">ادرس محل سکونت</span>
                                         <input class="ui-input-field" type="text" name="address" value="{{profile.address}}"
                                             placeholder="ادرس محل سکونت را وارد کنید">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-legal-center">
+                                <div class="profile-stats-col">
+                                    <div class="profile-stats-content">
+                                        <span class="profile-first-title">اواتار</span>
+                                        <input class="ui-input-field" type="file" name="avatar"style="height: auto;">
+                                        {% if profile.avatar %}
+                                        <a href="{{profile.avatar.url}}" target="_blank">عکس فعلی</a>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>

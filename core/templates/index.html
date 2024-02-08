@@ -14,18 +14,11 @@
                         <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
                     </ol>
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img class="d-block w-100" src="{% static 'assets/images/main-slider/1.jpg' %}" alt="First slide">
+                        {% for slider in sliders %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <img class="d-block w-100" src="{{slider.image.url}}" alt="First slide">
                         </div>
-                        <div class="carousel-item">
-                            <img class="d-block w-100" src="{% static 'assets/images/main-slider/2.jpg' %}" alt="Second slide">
-                        </div>
-                        <div class="carousel-item">
-                            <img class="d-block w-100" src="{% static 'assets/images/main-slider/3.jpg' %}" alt="Third slide">
-                        </div>
-                        <div class="carousel-item">
-                            <img class="d-block w-100" src="{% static 'assets/images/main-slider/4.jpg' %}" alt="Third slide">
-                        </div>
+                        {% endfor %}
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
                         data-slide="prev">
@@ -46,12 +39,12 @@
             <aside class="adplacement-container-column">
                 <a href="#" class="adplacement-item adplacement-item-column">
                     <div class="adplacement-sponsored-box">
-                        <img src="{% static 'assets/images/adplacement/1.gif' %}">
+                        <img src="{{site_setting.left_sidebar_banner_1.url}}">
                     </div>
                 </a>
                 <a href="#" class="adplacement-item adplacement-item-column">
                     <div class="adplacement-sponsored-box">
-                        <img src="{% static 'assets/images/banner.png' %}">
+                        <img src="{{site_setting.left_sidebar_banner_2.url}}">
                     </div>
                 </a>
             </aside>
@@ -553,61 +546,6 @@
                             class="owl-next"><span aria-label="Next">›</span></button>
                     </div>
                     <div class="owl-dots disabled"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-12">
-        <div class="promotion-categories-container mb-4">
-            <span class="promotion-categories-title">بیش از ۱،۵۰۰،۰۰۰ کالا در دسته‌بندی‌های مختلف</span>
-            <div class="category-container">
-                <div class="promotion-categories">
-                    <a href="#" class="promotion-category">
-                        <img src="{% static 'assets/images/category/macbook.png' %}">
-                        <div class="promotion-category-name">کالای دیجیتال</div>
-                        <div class="promotion-category-quantity">۲۰۳۰۰۰ کالا</div>
-                    </a>
-                    <a href="#" class="promotion-category">
-                        <img src="{% static 'assets/images/category/heart-shape-outline-with-lifeline.png' %}">
-                        <div class="promotion-category-name">لوازم آرایشی</div>
-                        <div class="promotion-category-quantity">۶۰۰۰۰ کالا</div>
-                    </a>
-                    <a href="#" class="promotion-category">
-                        <img src="{% static 'assets/images/category/support.png' %}">
-                        <div class="promotion-category-name">خودرو، ابزار و اداری</div>
-                        <div class="promotion-category-quantity">۷۲۰۰۰ کالا</div>
-                    </a>
-                    <a href="#" class="promotion-category">
-                        <img src="{% static 'assets/images/category/dress.png' %}">
-                        <div class="promotion-category-name">مد و پوشاک</div>
-                        <div class="promotion-category-quantity">۲۶۱۰۰۰ کالا</div>
-                    </a>
-                    <a href="#" class="promotion-category">
-                        <img src="{% static 'assets/images/category/sofa.png' %}">
-                        <div class="promotion-category-name">خانه و آشپزخانه</div>
-                        <div class="promotion-category-quantity">۲۷۷۰۰۰ کالا</div>
-                    </a>
-                    <a href="#" class="promotion-category">
-                        <img src="{% static 'assets/images/category/pen.png' %}">
-                        <div class="promotion-category-name">کتاب، لوازم تحریر و هنر</div>
-                        <div class="promotion-category-quantity">۱۰۴۰۰۰ کالا</div>
-                    </a>
-                    <a href="#" class="promotion-category">
-                        <img src="{% static 'assets/images/category/baby.png' %}">
-                        <div class="promotion-category-name">اسباب بازی، کودک و نوزاد</div>
-                        <div class="promotion-category-quantity">۳۷۰۰۰ کالا</div>
-                    </a>
-                    <a href="#" class="promotion-category">
-                        <img src="{% static 'assets/images/category/sports-and-competition.png' %}">
-                        <div class="promotion-category-name">ورزش و سفر</div>
-                        <div class="promotion-category-quantity">۱۹۰۰۰ کالا</div>
-                    </a>
-                    <a href="#" class="promotion-category">
-                        <img src="{% static 'assets/images/category/birthday-and-party.png' %}">
-                        <div class="promotion-category-name">خوردنی و آشامیدنی</div>
-                        <div class="promotion-category-quantity">۲۷۰۰۰ کالا</div>
-                    </a>
                 </div>
             </div>
         </div>

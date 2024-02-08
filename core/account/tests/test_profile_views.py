@@ -1,3 +1,5 @@
+from io import BytesIO
+
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.messages import get_messages
@@ -84,6 +86,12 @@ class TestProfileAddInfoView(SpecialTestCase):
 
     def test_post_method_right_data(self):
         self.client.force_login(self.test_user)
+
+        img = BytesIO(
+            b"GIF89a\x01\x00\x01\x00\x00\x00\x00!\xf9\x04\x01\x00\x00\x00"
+            b"\x00,\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x01\x00\x00"
+        )
+        img.name = "myimage.gif"
         profile_data = {
             'full_name' : 'e',
             'email' : 'test@gmail.com',
@@ -92,6 +100,7 @@ class TestProfileAddInfoView(SpecialTestCase):
             'birth_date' : '2021-1-1',
             'recive_newsletter': '1',
             'recive_events': '1',
+            'avatar': img,
         }
 
         response = self.client.post(self.url,data=profile_data)

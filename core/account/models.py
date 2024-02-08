@@ -97,6 +97,7 @@ class Profile(models.Model):
     email = models.EmailField(null=True)
     shop_point = models.PositiveIntegerField(default=0)
     address = models.TextField(null=True)
+    avatar = models.ImageField(null=True)
 
     postalcode = models.CharField(max_length=20)
     birth_date = models.DateField(null=True)
