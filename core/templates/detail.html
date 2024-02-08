@@ -52,7 +52,7 @@
                             فروش ویژه
                         </div>
                         {% endif %}
-                        <div class="countdown countdown-style-3 h4" data-date-time="10/10/2025 24:00"
+                        <div class="countdown countdown-style-3 h4" data-date-time="0/0/0 00:00"
                             data-labels='{"label-second": "", "label-minute": "", "label-hour": ""}'>
                         </div>
                     </div>
@@ -240,7 +240,7 @@
                                                 <li class="ui-variant">
                                                     <label for="#" class="ui-variant-color">
                                                         
-                                                        <input data-price="{{size.price_difference}}" data-count="{{size.count}}" type="radio" value="4" name="color" id="variant"
+                                                        <input data-price="{{size.price_difference}}" data-count="{{size.count}}" data-discount="{% if size.discount %}{{size.discount.discountـpercent}}{% else %}0{% endif %}" type="radio" value="4" name="color" id="variant"
                                                             class="js-variant-selector size-input">
                                                         <span class="ui-variant-check">{{size.size}}</span>
                                                     </label>
@@ -285,6 +285,24 @@
                                                     </span>
                                                 </div>
                                             </div>
+                                            <div class="product-seller-row price" id="selected-discount-div" >
+                                                <div class="product-seller-price-info price-value mb-3">
+                                                    <span class="title"> تخفیف:</span>
+                                                    <span id="selected-discount" class="amount text-danger">
+                                                       سایز مورد نظر را انتخاب کنید
+                                                        <span>تومان</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="product-seller-row price" id="final-total-price-div" >
+                                                <div class="product-seller-price-info price-value mb-3">
+                                                    <span class="title"> قیمت نهایی:</span>
+                                                    <span id="final-total-price" class="amount text-danger">
+                                                       سایز مورد نظر را انتخاب کنید
+                                                        <span>تومان</span>
+                                                    </span>
+                                                </div>
+                                            </div>
                                             <div class="parent-btn">
                                                 <button class="dk-btn dk-btn-info at-c as-c">
                                                     افزودن به سبد خرید
@@ -322,7 +340,7 @@
                                             <span class="mdi mdi-star active"></span>
                                         </div>
                                         <a href="#" class="d-inline-block">
-                                            <img src="{{obj.image.url}}" class="img-fluid" alt="">
+                                            <img src="{% static 'assets/images/slider-product/tev-1.jpg' %}" class="img-fluid" alt="">
                                         </a>
                                         <h2 class="post-title">
                                             <a href="#">
@@ -375,7 +393,7 @@
                                             <span class="mdi mdi-star active"></span>
                                         </div>
                                         <a href="#" class="d-inline-block">
-                                            <img src="assets/images/slider-product/tev-2.jpg" class="img-fluid" alt="">
+                                            <img src="{% static 'assets/images/slider-product/tev-2.jpg' %}" class="img-fluid" alt="">
                                         </a>
                                         <h2 class="post-title">
                                             <a href="#">
@@ -428,7 +446,7 @@
                                             <span class="mdi mdi-star active"></span>
                                         </div>
                                         <a href="#" class="d-inline-block">
-                                            <img src="assets/images/slider-product/tev-3.jpg" class="img-fluid" alt="">
+                                            <img src="{% static 'assets/images/slider-product/tev-3.jpg' %}" class="img-fluid" alt="">
                                         </a>
                                         <h2 class="post-title">
                                             <a href="#">
@@ -481,7 +499,7 @@
                                             <span class="mdi mdi-star active"></span>
                                         </div>
                                         <a href="#" class="d-inline-block">
-                                            <img src="assets/images/slider-product/tev-4.jpg" class="img-fluid" alt="">
+                                            <img src="{% static 'assets/images/slider-product/tev-4.jpg' %}" class="img-fluid" alt="">
                                         </a>
                                         <h2 class="post-title">
                                             <a href="#">
@@ -534,7 +552,7 @@
                                             <span class="mdi mdi-star active"></span>
                                         </div>
                                         <a href="#" class="d-inline-block">
-                                            <img src="assets/images/slider-product/tev-5.jpg" class="img-fluid" alt="">
+                                            <img src="{% static 'assets/images/slider-product/tev-5.jpg' %}" class="img-fluid" alt="">
                                         </a>
                                         <h2 class="post-title">
                                             <a href="#">
@@ -587,7 +605,7 @@
                                             <span class="mdi mdi-star active"></span>
                                         </div>
                                         <a href="#" class="d-inline-block">
-                                            <img src="assets/images/slider-product/tev-6.jpg" class="img-fluid" alt="">
+                                            <img src="{% static 'assets/images/slider-product/tev-6.jpg' %}" class="img-fluid" alt="">
                                         </a>
                                         <h2 class="post-title">
                                             <a href="#">
@@ -640,7 +658,7 @@
                                             <span class="mdi mdi-star active"></span>
                                         </div>
                                         <a href="#" class="d-inline-block">
-                                            <img src="assets/images/slider-product/tev-7.jpg" class="img-fluid" alt="">
+                                            <img src="{% static 'assets/images/slider-product/tev-7.jpg' %}" class="img-fluid" alt="">
                                         </a>
                                         <h2 class="post-title">
                                             <a href="#">
@@ -689,6 +707,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="col-12">
             <div class="tabs mt-4 pt-3 mb-5">
                 <div class="tabs-product">
@@ -885,22 +904,33 @@
 
 <script>
     $(document).ready(function() {
-       $('.size-input').click(function(){
+        $('#selected-discount-div').hide()
+        $('#final-total-price-div').hide()
+        $('.size-input').click(function(){
         input_count= $(this).data('count');
         $('#size-container').text(input_count);
        })
     });
     
-    
-    </script>
-    <script>
-    $(document).ready(function() {
+    $(document).ready(function(){
        $('.size-input').click(function(){
         input_price= $(this).data('price');
+        input_discount = $(this).data('discount');
         base_price = $('#base-price').data('obj');
-        total_price = base_price + input_price;
-        $('#total-price').text(total_price)
-    })
+
+        total_price = base_price + input_price
+        $('#total-price').text(total_price);
+        
+        if (input_discount != 0 ){
+            $('#selected-discount-div').show()
+            $('#selected-discount').text(input_discount + '%')
+
+            $('#final-total-price-div').show()
+            final_total_price = total_price  - total_price * (input_discount/100)
+            $('#final-total-price').text(final_total_price)
+            }
+
+        });
     });
     
     </script>
