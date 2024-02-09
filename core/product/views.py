@@ -19,7 +19,7 @@ class ProductListView(View):
             logger.warning(x.id)
         context = {'product_obj':product_obj}
         return render(request,'listview.html',context)
-    
+
     def post(self,request):
         pass
 
@@ -48,7 +48,7 @@ class ProductDetailView(View):
         else:
             messages.error(request,'لطفا ابتدا وارد حساب کاربری خود شوید')
             return redirect('product:detail',category,id)
-        
+
 
 
 class WishListView(View):

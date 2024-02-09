@@ -1,10 +1,14 @@
 from django.shortcuts import render
 from django.views.generic import View
-from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
+from django.contrib import messages
+
 
 from home.models import Navbar , SiteSettings , Footer , Slider
+from home.forms import NewsLetterForm
 from product.models import Product
 from account.models import Profile
+
 
 class HomeView(View):
     def get(self,request):
@@ -39,5 +43,14 @@ class FooterView(View):
             'site_setting' : site_setting,
         }
         return render(request,'layout/footer.html',context)
+
+    def post(self,request):
+        form = NewsLetterForm(request.POST)
+        if form.is_valid():
+            messages.success(request,'ایمیل شما با موفقیت ثبت شد.')
+        else:
+            messages.error(request,'مشکلی پیش امده است لطفا دوباره تلاش کنید.')
+
+        return redirect('home:index-page')
 
 
