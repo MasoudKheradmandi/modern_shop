@@ -15,6 +15,7 @@ class Slider(models.Model):
     image = models.ImageField()
 
 
+
 class NewsLatter(models.Model):
     email = models.EmailField(unique=True)
 

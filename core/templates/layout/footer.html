@@ -72,13 +72,14 @@
             </div>
             <div class="col-lg-4 col-md-4 col-xs-12 pull-left">
                 <div class="footer-form">
-                    <form action="#" class="form-newsletter mb-4 mt-4">
+                    <form action="{% url "home:footer-layout" %}" method='post' class="form-newsletter mb-4 mt-4">
+                        {% csrf_token %}
                         <fieldset>
                             <span class="form-newsletter-title">از تخفیف‌ها و جدیدترین‌های دیجی‌اسمارت
                                 باخبرشوید:</span>
                             <div class="form-newsletter-row">
-                                <input type="text" class="input-field-send-email"
-                                    placeholder="آدرس ایمیل خود را وارد کنید">
+                                <input name="email" type="email" class="input-field-send-email"
+                                    placeholder="آدرس ایمیل خود را وارد کنید" required>
                                 <button type="submit" class="btn-secondary-send">ارسال</button>
                             </div>
                         </fieldset>
