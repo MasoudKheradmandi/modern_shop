@@ -1,0 +1,36 @@
+name: CD for shop
+on:
+    pull_request:
+      branches:
+        - 'production'
+jobs:
+    quality-assurance:
+      name: check CI befor deploy 
+      uses: ./.github/workflows/ci.yaml
+
+    simple_CD:
+      name: Django CD
+      needs:
+        - quality-assurance
+      runs-on: ubuntu-latest
+      steps:
+        - name: Configure SSH
+          env:
+            SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+            SSH_HOST: ${{ secrets.HOST }}
+            SSH_USER: ${{ secrets.USER }}
+          run: |
+            mkdir -p ~/.ssh/
+            echo "$SSH_PRIVATE_KEY" > ~/.ssh/github
+            chmod 600 ~/.ssh/github
+            cat >>~/.ssh/config <<END
+            Host target
+              HostName $SSH_HOST
+              USER $SSH_USER
+              IdentityFile ~/.ssh/github
+              LogLevel ERROR
+              StrictHostKeyChecking no
+            END
+        - name: Run Deploy
+          run: |
+            ssh target "cd modern_shop && docker compose down && git pull && docker compose -f docker-compose-prod.yaml build && docker compose -f docker-compose-prod.yaml up -d --force-recreate"
