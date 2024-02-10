@@ -34,4 +34,4 @@ jobs:
             END
         - name: Run Deploy
           run: |
-            ssh target "cd modern_shop && docker compose down && git pull && docker compose -f docker-compose-prod.yaml build && docker compose -f docker-compose-prod.yaml up -d --force-recreate"
+            ssh target "cd modern_shop && docker compose -f docker-compose-prod.yaml down && git pull && docker compose -f docker-compose-prod.yaml up --build"

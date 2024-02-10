@@ -6,10 +6,12 @@ jobs:
       runs-on: ubuntu-latest
       steps:
           - name: Checkout code
-            uses: echo hello 
+            run: echo hello 
           # - name: up the container
           #   run: docker-compose -f docker-compose-dev.yaml up -d
           # - name: run tests
           #   run:  docker exec backend bash -c "poetry run python3 manage.py test"
-    
+          #
+          # final test
+          #
    
