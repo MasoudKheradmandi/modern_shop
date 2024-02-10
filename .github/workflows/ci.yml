@@ -1,6 +1,5 @@
 name: CI for shop
-on: ['push','pull_request']
-
+on: [push,pull_request, workflow_call]
 jobs:
   quality-assurance:
       name: Django CI
@@ -12,4 +11,5 @@ jobs:
           #   run: docker-compose -f docker-compose-dev.yaml up -d
           # - name: run tests
           #   run:  docker exec backend bash -c "poetry run python3 manage.py test"
+    
    

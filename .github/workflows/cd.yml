@@ -3,12 +3,13 @@ on:
     pull_request:
       branches:
         - production
+  
 jobs:
     quality-assurance:
       name: check CI befor deploy 
-      uses: ./.github/workflows/ci.yaml
+      uses: ./.github/workflows/ci.yml
 
-    simple_CD:
+0    simple_CD:
       name: Django CD
       needs:
         - quality-assurance
