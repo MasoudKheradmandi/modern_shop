@@ -9,7 +9,7 @@ jobs:
       name: check CI befor deploy 
       uses: ./.github/workflows/ci.yml
 
-0    simple_CD:
+    simple_CD:
       name: Django CD
       needs:
         - quality-assurance
