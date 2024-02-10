@@ -16,7 +16,7 @@ RUN adduser \
     --uid "${UID}" \
     appuser
 
-RUN pip install poetry==1.4.2
+RUN pip install poetry
 
 
 RUN poetry install --no-dev
