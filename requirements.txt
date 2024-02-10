@@ -1,4 +1,4 @@
-django >3.2,<3.3
+django 
 
 pillow
 django-ckeditor == 6.7.0

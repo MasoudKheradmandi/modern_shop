@@ -29,7 +29,7 @@ RUN adduser \
 COPY requirements.txt /app/
 
 RUN pip3 install --upgrade pip
-RUN pip3 install -r requirements.txt
+RUN pip3 --default-timeout=1000 install -r requirements.txt
 
 # Switch to the non-privileged user to run the application.
 USER appuser
