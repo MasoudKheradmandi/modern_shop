@@ -16,7 +16,7 @@ RUN adduser \
     --uid "${UID}" \
     appuser
 
-RUN pip install poetry
+RUN curl -sSL https://install.python-poetry.org | python3 - --git https://github.com/python-poetry/poetry.git@master
 
 
 RUN poetry install --no-dev
