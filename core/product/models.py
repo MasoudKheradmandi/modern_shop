@@ -4,7 +4,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 class Category(models.Model):
     name = models.CharField(max_length=100,verbose_name='نام دسته بندی')
     image = models.ImageField(verbose_name='عکس دسته بندی')
-    
+
     def __str__(self):
         return self.name
 
@@ -13,7 +13,7 @@ class DiscountCode(models.Model):
     count = models.PositiveIntegerField() # تعداد کد تخفیف برای محصول ->۵ نفر میتوانند استفاده کنند
     code_name = models.CharField(max_length=30)
     discountـpercent= models.PositiveIntegerField(validators=[MaxValueValidator(100),MinValueValidator(0)]) # درصد تخفیف
-    
+
     def __str__(self):
         return self.code_name + " " + str(self.count)
 
@@ -24,11 +24,11 @@ class TvSize(models.Model):
     price_difference = models.IntegerField(verbose_name='اختلاف قیمت',default=0)
     count = models.PositiveIntegerField() # تعداد تلویزیون با سایز مشخص یا همون موجودی انبار
     discount = models.OneToOneField(DiscountCode,on_delete=models.SET_NULL,null=True,blank=True)
-    
+
     def __str__(self):
         return self.product.name + " " + self.size
-    
-    
+
+
 
 
 class Product(models.Model):
@@ -41,7 +41,7 @@ class Product(models.Model):
 
 
     category = models.ForeignKey(Category,on_delete=models.PROTECT)
-    sales_number = models.IntegerField(default=0) #تعداد فروش 
+    sales_number = models.IntegerField(default=0) #تعداد فروش
     price = models.PositiveIntegerField()
 
     specification = models.TextField()
@@ -50,17 +50,17 @@ class Product(models.Model):
     quality = models.IntegerField(null=True)
     pannel_type = models.CharField(max_length=250,null=True)
     port = models.CharField(max_length=450,null=True)
-    
+
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True,null=True)
     is_special = models.BooleanField(default=False)
     is_show = models.BooleanField(default=True)
 
-    
-    
+
+
     def __str__(self):
         return self.name
-    
+
 
 
 class Comment(models.Model):
@@ -76,10 +76,10 @@ class Comment(models.Model):
             return 'جواب داده شد'
         else:
             return 'جواب داده نشد'
-    
+
     def __str__(self):
         return str(self.is_show)+" "+self.product.name + " "+ str(self._answer())
-    
+
 
 class WishList(models.Model):
     profile = models.OneToOneField("account.Profile",on_delete=models.CASCADE)
