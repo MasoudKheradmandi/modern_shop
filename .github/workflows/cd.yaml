@@ -2,7 +2,7 @@ name: CD for shop
 on:
     pull_request:
       branches:
-        - 'production'
+        - production
 jobs:
     quality-assurance:
       name: check CI befor deploy 
