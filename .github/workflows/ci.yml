@@ -6,7 +6,7 @@ jobs:
       runs-on: ubuntu-latest
       steps:
           - name: Checkout code
-            uses: echo hello 
+            run: echo hello 
           # - name: up the container
           #   run: docker-compose -f docker-compose-dev.yaml up -d
           # - name: run tests
