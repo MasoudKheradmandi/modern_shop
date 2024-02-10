@@ -12,5 +12,5 @@ jobs:
           # - name: run tests
           #   run:  docker exec backend bash -c "poetry run python3 manage.py test"
           #
-          #
+          # final test
    
