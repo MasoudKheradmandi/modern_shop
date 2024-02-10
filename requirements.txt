@@ -1,5 +1,5 @@
 django == 4.2.10
-pillow == 10.2.0
+pillow
 django-ckeditor == 6.7.0
 django-render-partial == 0.4
 django-split-settings == 1.2.0
