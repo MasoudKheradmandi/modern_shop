@@ -24,9 +24,9 @@ jobs:
           host: ${{secrets.HOST}}
           script: |
             cd modern_shop
-            docker compose -f docker-compose-stage.yml stop
+            docker compose -f docker-compose-dev.yaml stop
             git pull
-            docker compose -f docker-compose-stage.yml restart
+            docker compose -f docker-compose-dev.yaml restart
           #
 
 
