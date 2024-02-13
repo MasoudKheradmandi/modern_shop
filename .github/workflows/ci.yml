@@ -1,5 +1,16 @@
 name: CI for shop
-on: [push,pull_request, workflow_call]
+on: 
+  push:
+    branches:
+      - general
+      - account
+      - product
+      - feature
+  pull_request:
+    branches:
+      - main
+  workflow_call:
+
 jobs:
   quality-assurance:
       name: Django CI
