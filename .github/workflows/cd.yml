@@ -20,7 +20,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           username: ${{secrets.USER}}
-          key: ${{ secrets.PRIVATE_KEY }}
+          password: ${{ secrets.PRIVATE_KEY }}
           host: ${{secrets.HOST}}
           script: |
             cd modern_shop
