@@ -15,8 +15,8 @@ class ProductListView(View):
 
     def get(self,request):
         product_obj = Product.objects.filter(is_show=True)
-        for x in product_obj:
-            logger.warning(x.id)
+        # for x in product_obj:
+        #     logger.warning(x.id)
         context = {'product_obj':product_obj}
         return render(request,'listview.html',context)
 
@@ -75,7 +75,7 @@ class WishListView(View):
 def login_view(request):
     username = '09033152968'
     user = User.objects.get(phone_number=username)
-    logger.warning(user)
+    # logger.warning(user)
     if user is not None:
         login(request,user)
         return HttpResponse('s')
