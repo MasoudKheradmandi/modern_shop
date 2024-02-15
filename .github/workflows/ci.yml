@@ -6,6 +6,7 @@ on:
       - account
       - product
       - feature
+      - cart
   pull_request:
     branches:
       - main

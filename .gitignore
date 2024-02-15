@@ -29,7 +29,7 @@ todo.txt
 
 
 #SETTINGS 
-settings.dev.py
+dev.py
 
 # SQLITE
 *.sqlite3
