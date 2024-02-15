@@ -10,7 +10,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 
-ALLOWED_HOSTS = []
 
 DATABASES = {
     'default': {
@@ -114,6 +113,9 @@ USE_TZ = True
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'static_root/'
+
+
 MEDIA_URL = '/media/'
 MEDIA_URL2 = '/thumbnail/'
 STATICFILES_DIRS = [BASE_DIR / "static",]
