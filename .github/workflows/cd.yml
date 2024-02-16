@@ -28,5 +28,3 @@ jobs:
             git pull
             docker compose -f docker-compose-prod.yaml build
             docker compose -f docker-compose-prod.yaml up -d --force-recreate
-            docker exec backend bash -c "poetry run python3 manage.py migrate"
-
