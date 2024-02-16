@@ -6,19 +6,9 @@ ENV PTRHONUNBUFFERED=1
 WORKDIR /app
 COPY ./core /app/
 
-ARG UID=10001
-RUN adduser \
-    --disabled-password \
-    --gecos "" \
-    --home "/nonexistent" \
-    --shell "/sbin/nologin" \
-    --no-create-home \
-    --uid "${UID}" \
-    appuser
 
 RUN pip install poetry
+RUN poetry config virtualenvs.create false
+RUN poetry install --no-dev --no-root
 
-
-RUN poetry install --no-dev
-
-
+COPY ./scripts/entrypoint.sh /entrypoint.sh
