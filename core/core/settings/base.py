@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'home',
     'account',
     'product',
+    'cart',
 
     #-----------package--------
     'django_render_partial',
