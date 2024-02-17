@@ -9,7 +9,7 @@ COPY ./core /app/
 
 RUN pip install poetry
 RUN poetry config virtualenvs.create false
-RUN poetry install --no-dev --no-root
+RUN poetry install --no-root
 
 COPY ./scripts/entrypoint.sh /entrypoint.sh
 RUN chmod a+x /entrypoint.sh
