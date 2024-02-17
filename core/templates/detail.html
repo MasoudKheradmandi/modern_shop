@@ -240,7 +240,7 @@
                                                 <li class="ui-variant">
                                                     <label for="#" class="ui-variant-color">
                                                         
-                                                        <input data-price="{{size.price_difference}}" data-count="{{size.count}}" data-discount="{% if size.discount %}{{size.discount.discountـpercent}}{% else %}0{% endif %}" type="radio" value="4" name="color" id="variant"
+                                                        <input data-price="{{size.price_difference}}" data-id="{{size.id}}" data-count="{{size.count}}" data-discount="{% if size.discount %}{{size.discount.discountـpercent}}{% else %}0{% endif %}" type="radio" value="4" name="color" id="variant"
                                                             class="js-variant-selector size-input">
                                                         <span class="ui-variant-check">{{size.size}}</span>
                                                     </label>
@@ -263,7 +263,12 @@
                             <div class="col-lg-5 col-xs-12 pull-left">
                                 <div class="product-summary">
                                     <div class="product-seller-info">
-                                        <div class="seller-info-changable">
+                                        <form class="seller-info-changable" action="{% url "cart:add-to-cart" %}" method='get'>
+                                            <input type="hidden" name="next" value="{{ request.path }}">
+                                            <input type="hidden" name="quantity" value="1">
+                                            <input type="hidden" name="product_variant" id="product-variant" value="">
+
+
                                             <div class="product-seller-row vendor">
                                                 <span class="title"> فروشنده:</span>
                                                 <a href="#" class="product-name">دیجی اسمارت</a>
@@ -304,12 +309,12 @@
                                                 </div>
                                             </div>
                                             <div class="parent-btn">
-                                                <button class="dk-btn dk-btn-info at-c as-c">
+                                                <button type='submit' class="dk-btn dk-btn-info at-c as-c">
                                                     افزودن به سبد خرید
                                                     <i class="mdi mdi-cart"></i>
                                                 </button>
                                             </div>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -907,6 +912,9 @@
         $('#selected-discount-div').hide()
         $('#final-total-price-div').hide()
         $('.size-input').click(function(){
+        input_id = $(this).data('id')
+        $('#product-variant').val(input_id)
+
         input_count= $(this).data('count');
         $('#size-container').text(input_count);
        })
@@ -914,16 +922,17 @@
     
     $(document).ready(function(){
        $('.size-input').click(function(){
-        input_price= $(this).data('price');
+        input_price = $(this).data('price');
+
         input_discount = $(this).data('discount');
         base_price = $('#base-price').data('obj');
 
         total_price = base_price + input_price
         $('#total-price').text(total_price);
-        
+
         if (input_discount != 0 ){
             $('#selected-discount-div').show()
-            $('#selected-discount').text(input_discount + '%')
+            $('#selected-discount').text(input_discount + '%')            
 
             $('#final-total-price-div').show()
             final_total_price = total_price  - total_price * (input_discount/100)
