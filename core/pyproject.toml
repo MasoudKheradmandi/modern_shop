@@ -21,6 +21,7 @@ gunicorn = "^21.2.0"
 
 [tool.poetry.group.dev.dependencies]
 selenium = "^4.17.2"
+django-debug-toolbar = "^4.3.0"
 
 [build-system]
 requires = ["poetry-core"]

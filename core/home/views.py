@@ -14,6 +14,7 @@ class HomeView(View):
     def get(self,request):
         sliders = Slider.objects.all()
         site_setting = SiteSettings.objects.filter(is_active=True).last()
+
         context = {
             'sliders' : sliders,
             'site_setting' : site_setting,
