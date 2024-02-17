@@ -12,3 +12,4 @@ RUN poetry config virtualenvs.create false
 RUN poetry install --no-dev --no-root
 
 COPY ./scripts/entrypoint.sh /entrypoint.sh
+RUN chmod a+x /entrypoint.sh
