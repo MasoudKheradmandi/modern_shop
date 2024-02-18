@@ -10,21 +10,23 @@ from product.models import TvSize
 class AddToCartForm(forms.ModelForm):
     class Meta:
         model = OrderItem
-        exclude = ['order','final_price','calculated_discount']
+        fields = ['product_variant','quantity']
 
     def clean(self) -> dict[str, Any]:
-        product_variant_id = self.cleaned_data.get('product_variant',0)
-
-        product_variation = TvSize.objects.filter(id=product_variant_id).first()
+        product_variation = self.cleaned_data.get('product_variant',None)
         if product_variation is None:
-            raise ValidationError("some error caused.pleas try again later.1")
+            raise ValidationError("some error caused.pleas try again later")
 
         product = product_variation.product
         if product.is_show == False:
-            raise ValidationError("some error caused.pleas try again later.2")
+            raise ValidationError("some error caused.pleas try again later")
+
+        self.cleaned_data.update({'product':product})
 
 
-        quantity = self.cleaned_data.get('quantity',0)
+        quantity = self.cleaned_data.get('quantity')
         if quantity > product_variation.count :
-            raise ValidationError("تعداد انتخابی شما بیشتر از موجودی انبار می باشد.3")
+            raise ValidationError("تعداد انتخابی شما بیشتر از موجودی انبار می باشد")
+
+        return self.cleaned_data
 
