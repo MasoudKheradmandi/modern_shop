@@ -268,7 +268,6 @@
                                             <input type="hidden" name="quantity" value="1">
                                             <input type="hidden" name="product_variant" id="product-variant" value="">
 
-
                                             <div class="product-seller-row vendor">
                                                 <span class="title"> فروشنده:</span>
                                                 <a href="#" class="product-name">دیجی اسمارت</a>
@@ -309,7 +308,7 @@
                                                 </div>
                                             </div>
                                             <div class="parent-btn">
-                                                <button type='submit' class="dk-btn dk-btn-info at-c as-c">
+                                                <button type='submit' id="submit-button" class="dk-btn dk-btn-info at-c as-c" disabled>
                                                     افزودن به سبد خرید
                                                     <i class="mdi mdi-cart"></i>
                                                 </button>
@@ -911,9 +910,12 @@
     $(document).ready(function() {
         $('#selected-discount-div').hide()
         $('#final-total-price-div').hide()
+
         $('.size-input').click(function(){
         input_id = $(this).data('id')
         $('#product-variant').val(input_id)
+
+        $('#submit-button').prop("disabled", false); 
 
         input_count= $(this).data('count');
         $('#size-container').text(input_count);
