@@ -1,12 +1,15 @@
 from django.shortcuts import render , redirect
 from django.views.generic import View
 from django.contrib import messages
-
+from django.db.models import Sum
 from cart.forms import AddToCartForm
 from cart.models import Order , OrderItem
 from account.models import Profile
 # Create your views here.
 
+
+import logging
+logger = logging.getLogger(__name__)
 
 class AddToCart(View):
     def get(self,request):
@@ -37,4 +40,31 @@ class AddToCart(View):
         path = request.GET.get('next','/')
         return redirect(path)
 
+
+class ProfileCart(View):
+    def get(self,request):
+        user = Profile.objects.get(user = request.user)
+        orders = Order.objects.filter(profile=user)
+        context = {
+            'orders':orders,
+        }
+        return render(request,'profile-order.html',context)
+    
+
+class Factor(View):
+    def get(self,request,pk):
+        order = Order.objects.get(shopping_id=pk)
+        order_detail = OrderItem.objects.filter(order=order)
+        total_price = order_detail.aggregate(
+            total_price=Sum('final_price')
+        ) # TODO : fox this   {'total_price': Decimal('950000.00')}
+
+
+        logger.warning(total_price['total_price'])
+        context = {
+            'order_det':order,
+            'products':order_detail,
+            'total_price':total_price['total_price']
+        }
+        return render(request,'factor.html',context)
 
