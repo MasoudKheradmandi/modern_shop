@@ -1,8 +1,10 @@
 from django.urls import path
-from cart.views import AddToCart
+from cart import views
 
 app_name='cart'
 
 urlpatterns = [
-    path('add-to-cart/',AddToCart.as_view(),name='add-to-cart')
+    path('add-to-cart/',views.AddToCart.as_view(),name='add-to-cart'),
+    path('profile-order/',views.ProfileCart.as_view(),name='profile-order'),
+    path('profile-order/<str:pk>',views.Factor.as_view(),name='profile-order')
 ]
