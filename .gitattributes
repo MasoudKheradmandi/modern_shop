@@ -1,5 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 *.sh text eol=lf
-static/* linguist-vendored
-templates/* linguist-vendored
+core/static/** linguist-vendored
+core/templates/** linguist-vendored
