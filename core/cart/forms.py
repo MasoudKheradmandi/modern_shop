@@ -25,6 +25,9 @@ class AddToCartForm(forms.ModelForm):
 
 
         quantity = self.cleaned_data.get('quantity')
+        if quantity < 1 :
+            raise ValidationError("some error caused.pleas try again later")
+
         if quantity > product_variation.count :
             raise ValidationError("تعداد انتخابی شما بیشتر از موجودی انبار می باشد")
 
