@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+
 class Category(models.Model):
     name = models.CharField(max_length=100,verbose_name='نام دسته بندی')
     image = models.ImageField(verbose_name='عکس دسته بندی')
@@ -9,26 +10,17 @@ class Category(models.Model):
         return self.name
 
 
-class DiscountCode(models.Model):
-    count = models.PositiveIntegerField() # تعداد کد تخفیف برای محصول ->۵ نفر میتوانند استفاده کنند
-    code_name = models.CharField(max_length=30)
-    discountـpercent= models.PositiveIntegerField(validators=[MaxValueValidator(100),MinValueValidator(0)]) # درصد تخفیف
-
-    def __str__(self):
-        return self.code_name + " " + str(self.count)
-
-
 class TvSize(models.Model):
     product = models.ForeignKey("Product",on_delete=models.PROTECT)
     size = models.CharField(max_length=4,verbose_name='سایز')
     price_difference = models.IntegerField(verbose_name='اختلاف قیمت',default=0)
     count = models.PositiveIntegerField() # تعداد تلویزیون با سایز مشخص یا همون موجودی انبار
-    discount = models.OneToOneField(DiscountCode,on_delete=models.SET_NULL,null=True,blank=True)
 
     def __str__(self):
         return self.product.name + " " + self.size
 
-
+    def calculate_price(self):
+        return self.product.price + self.price_difference
 
 
 class Product(models.Model):
@@ -60,7 +52,6 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
-
 
 
 class Comment(models.Model):

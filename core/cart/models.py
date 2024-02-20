@@ -13,7 +13,7 @@ class Order(models.Model):
     address = models.TextField(null=True,blank=True)
     phone_number = models.CharField(max_length=15,null=True,blank=True)
     zip_code = models.CharField(max_length=30,null=True)
-    paid_amount = models.DecimalField(max_digits=8,decimal_places=2,blank=True,null=True)
+    paid_amount = models.IntegerField(blank=True,null=True)
 
     in_proccesing = models.BooleanField(default=False)
     is_confirmed = models.BooleanField(default=False)
@@ -44,8 +44,7 @@ class Order(models.Model):
 class OrderItem(models.Model):
     order = models.ForeignKey(Order,on_delete=models.CASCADE)
     product_variant = models.ForeignKey('product.TvSize',on_delete=models.CASCADE)
-    final_price = models.DecimalField(max_digits=8,decimal_places=2,blank=True,null=True)
-    calculated_discount = models.PositiveIntegerField(validators=[MaxValueValidator(100),MinValueValidator(0)]) # درصد تخفیف
+    final_price = models.IntegerField(blank=True,null=True)
     quantity = models.IntegerField()
 
     def __str__(self):

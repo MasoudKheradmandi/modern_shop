@@ -21,9 +21,6 @@ class AddToCartForm(forms.ModelForm):
         if product.is_show == False:
             raise ValidationError("some error caused.pleas try again later")
 
-        self.cleaned_data.update({'product':product})
-
-
         quantity = self.cleaned_data.get('quantity')
         if quantity < 1 :
             raise ValidationError("some error caused.pleas try again later")

@@ -4,7 +4,7 @@ from django.urls import reverse
 from model_bakery import baker
 
 from cart.forms import AddToCartForm
-from product.models import Product , TvSize , DiscountCode
+from product.models import Product , TvSize
 
 class TestAddToCartForm(TestCase):
     @classmethod

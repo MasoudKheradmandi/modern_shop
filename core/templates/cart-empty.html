@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+
+<div class="container-main">
+    <div class="col-12">
+        <div class="cart-page">
+            <div class="container">
+                <div class="checkout-empty">
+                    <div class="checkout-empty-empty-cart-icon"></div>
+                    <div class="checkout-empty-title">سبد خرید شما خالی است!</div>
+                    <div class="col-lg-6 col-md-6!important col-xs-12 mx-auto">
+                        <div class="checkout-empty-links">
+
+                            <p>
+                                می‌توانید برای مشاهده محصولات بیشتر به صفحات زیر بروید
+                            </p>
+                            <div class="checkout-empty-link-urls">
+                                <a href="#">
+                                    تخفیف‌ها و پیشنهادها
+                                </a>
+                                <a href="#">
+                                    محصولات پرفروش روز
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="adplacement-container-row mb-4">
+            <div class="col-6 col-lg-3 pull-right" style="padding-left:0;">
+                <a href="#" class="adplacement-item mb-4">
+                    <div class="adplacement-sponsored-box">
+                        <img src="{% static 'assets/images/adplacement/3.jpg' %}" alt="خرید خانه - نوشیدنی"
+                            title="خرید خانه - نوشیدنی">
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-6 col-lg-3 pull-right" style="padding-left:0;">
+                <a href="#" class="adplacement-item mb-4">
+                    <div class="adplacement-sponsored-box">
+                        <img src="{% static 'assets/images/adplacement/4.jpg' %}" alt="خرید خانه - پروتئینی"
+                            title="خرید خانه - پروتئینی">
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-6 col-lg-3 pull-right" style="padding-left:0;">
+                <a href="#" class="adplacement-item mb-4">
+                    <div class="adplacement-sponsored-box">
+                        <img src="{% static 'assets/images/adplacement/5.jpg' %}" alt="داده پرداز" title="داده پرداز">
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-6 col-lg-3 pull-right" style="padding-left:0;">
+                <a href="#" class="adplacement-item mb-4">
+                    <div class="adplacement-sponsored-box">
+                        <img src="{% static 'assets/images/adplacement/6.jpg' %}" alt="خرید خانه - شوینده و سلولزی"
+                            title="خرید خانه - شوینده و سلولزی">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock main %}
