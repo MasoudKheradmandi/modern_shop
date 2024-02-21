@@ -2,6 +2,8 @@ from django.shortcuts import render , redirect
 from django.views.generic import View
 from django.contrib import messages
 from django.db.models import Sum
+from django.http import JsonResponse
+
 from cart.forms import AddToCartForm
 from cart.models import Order , OrderItem
 from account.models import Profile
@@ -47,9 +49,36 @@ class CartListView(View):
             return render(request,'cart-empty.html')
 
         context = {
-            'order' : order, # TODO: we need better quary to avoid n+1 problem
+            'order' : order,  # TODO: we need better quary to avoid n+1 problem (select related?)
         }
         return render(request,'cart.html',context)
+
+
+class DeleteCartItemView(View):
+    def get(self,request,order_item_id):
+        order_item = OrderItem.objects.filter(id=order_item_id)
+        if order_item.exists():
+            order_item.delete()
+            msg = 'محصول با موفقیت از سبد خرید شما حذف شد'
+            messages.success(request,msg)
+        else:
+            msg = 'مشکلی در سیستم رخ داده است. لطفا بعدا دوباره انمتحان کنید.'
+            messages.error(request,msg)
+        return redirect("cart:cart-list")
+
+
+class ChangeOrderItemQuantityView(View):
+    def get(self,request):
+        order_item_id = request.GET.get('order_item_id')
+        quantity = request.GET.get('quantity_value')
+
+        order_item = OrderItem.objects.filter(id=order_item_id)
+        if order_item.exists() and int(quantity) >= 1:
+            order_item.update(quantity=quantity)
+            msg = 'تعداد محصول با موفقیت تغییر کرد'
+        else:
+            msg = 'مشکلی در سیستم رخ داده است. لطفا بعدا دوباره انمتحان کنید.'
+        return JsonResponse({'msg':msg})
 
 
 class ProfileCart(View):
@@ -68,7 +97,7 @@ class Factor(View):
         order_detail = OrderItem.objects.filter(order=order)
         total_price = order_detail.aggregate(
             total_price=Sum('final_price')
-        ) # TODO : fox this   {'total_price': Decimal('950000.00')}
+        )
 
 
         logger.warning(total_price['total_price'])

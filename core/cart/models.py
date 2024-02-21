@@ -1,7 +1,7 @@
 import random , string
 
 from django.db import models
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db.models import Sum , F
 # Create your models here.
 
 
@@ -26,6 +26,16 @@ class Order(models.Model):
 
     def __str__(self):
         return str(self.profile) + " ////////// " + str(self.id)
+
+    def calculate_paid_amount_needed(self):
+        order_detail = OrderItem.objects.filter(order=self)
+        total_price = order_detail.aggregate(
+            total_spent=Sum(
+            F('quantity') * (F('product_variant__price_difference') + F('product_variant__product__price')),
+            output_field=models.IntegerField()
+            )
+        )
+        return total_price['total_spent']
 
     def save(self, *args, **kwargs):
         while not self.shopping_id:

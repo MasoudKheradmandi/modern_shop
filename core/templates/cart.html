@@ -40,7 +40,7 @@
                 <div class="page-content-cart">
                     <div class="checkout-body">
                         <div class="product-name before">
-                            <a href="#" class="remove-from-cart">
+                            <a href="{% url "cart:delete-cart-item" order_item.id %}" class="remove-from-cart">
                                 <i class="fa fa-trash"></i>
                             </a>
                             <a href="#" class="col-thumb">
@@ -59,7 +59,7 @@
                         </div>
                         <div class="required-number before">
                             <div class="quantity">
-                                <input type="number" min="1" max="10" step="1" value="1">
+                                <input type="number" min="1" step="1" value="{{order_item.quantity}}" data-oi-id="{{order_item.id}}" class="quantity-class">
                             </div>
                         </div>
                         <div class="unit-price before">
@@ -72,7 +72,7 @@
                         </div>
                         <div class="total before">
                             <div class="product-price">
-                                ۳,۴۲۰,۰۰۰
+                                {% widthratio order_item.product_variant.calculate_price 1 order_item.quantity %}
                                 <span>
                                     تومان
                                 </span>
@@ -92,29 +92,9 @@
                                 دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده
                                 قرار گیرد.</p>
                         </div>
-                        <div class="discount-code mb-4">
-                            <form action="#" class="discount-form">
-                                <label for="discount">کد تخفیف</label>
-                                <input type="text" id="discount" class="input-discount"
-                                    placeholder="کد تخفیف خود را وارد کنید">
-                                <a href="#">
-                                    <button class="btn-discount">اعمال</button>
-                                </a>
-                            </form>
-                        </div>
-                        <div class="discount-code mb-2">
-                            <form action="#" class="discount-form">
-                                <label for="discount">کد هدیه</label>
-                                <input type="text" id="discount" class="input-discount"
-                                    placeholder="کد هدیه خود را وارد کنید">
-                                <a href="#">
-                                    <button class="btn-discount">اعمال</button>
-                                </a>
-                            </form>
-                        </div>
                         <div class="amount-of-payable mt-4">
                             <span class="payable">مبلغ قابل پرداخت</span>
-                            <span class="amount-of">۳,۴۲۰,۰۰۰
+                            <span class="amount-of">{{order.calculate_paid_amount_needed}}
                                 <span>تومان</span>
                             </span>
                             <a href="#">
@@ -130,4 +110,29 @@
 
 {% endblock main %}
 
-   
+
+{% block js %}
+<script>
+    $(document).ready(function(){
+        $('.quantity-class').change(function(){
+            quantity_value = $(this).val()
+            order_item_id = $(this).data('oi-id')
+            
+            $.ajax({
+                type : 'GET',
+                url : '{% url "cart:change-cart-quantity" %}',
+                data : {'order_item_id': order_item_id,'quantity_value':quantity_value}, 
+                dataType : 'json', 
+                success : function (data) { 
+                    alert(data.msg); 
+                    location.reload();
+                },
+                error: function(data){ alert('error'); }
+            })
+        }
+        )
+    });
+</script>
+{% endblock js %}
+
+
