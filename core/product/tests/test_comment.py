@@ -15,7 +15,7 @@ class CommentTest(TestCase):
 
     def test_str_obj(self):
         contain_answer = 'جواب داده شد'
-        
+
         doesnt_contain_answer = 'جواب داده نشد'
         self.assertEqual(str(self.comm_by_answer),f'True TV1 {contain_answer}')
 
@@ -35,9 +35,9 @@ class CommentViewTest(TestCase):
     def test_get_comment_in_product_detail(self):
         url = reverse('product:detail',args=[self.product.category.name,self.product.id])
         resp = self.client.get(url)
-        
+
         self.assertIn(self.comm_show,resp.context['comments'])
-        
+
         self.assertNotIn(self.comm_dontshow,resp.context['comments'])
 
         self.assertEqual(resp.context['comments'].count(),1)
@@ -45,14 +45,14 @@ class CommentViewTest(TestCase):
     def test_post_comment_in_product_detail_in_signout_mode(self):
         url = reverse('product:detail',args=[self.product.category.name,self.product.id])
         resp = self.client.post(url,data={'text':'from masoud'})
-        
+
         error_msg = 'لطفا ابتدا وارد حساب کاربری خود شوید'
         # self.assertEqual()
         messages = list(get_messages(resp.wsgi_request))
         self.assertEqual(len(messages),1)
-        
+
         self.assertEqual(str(messages[0]),str(error_msg))
-    
+
     def test_post_comment_in_product_detail_in_signin_mode(self):
         self.client.force_login(self.user)
         url = reverse('product:detail',args=[self.product.category.name,self.product.id])
@@ -60,7 +60,7 @@ class CommentViewTest(TestCase):
 
         messages = list(get_messages(resp.wsgi_request))
         self.assertEqual(len(messages),1)
-        
+
         sucess_msg  = 'پیام شما با موفقیت دریافت شد'
 
         self.assertEqual(str(messages[0]),str(sucess_msg))
@@ -69,11 +69,11 @@ class CommentViewTest(TestCase):
         self.client.force_login(self.user)
         for _ in range(4):
             self.comm_show =baker.make(Comment,product=self.product,author=self.profile,text='masoud')
-        
+
         url = reverse('product:detail',args=[self.product.category.name,self.product.id])
         resp = self.client.post(url,data={'text':'from masoud'})
         messages = list(get_messages(resp.wsgi_request))
-        
+
         error_msg = 'شما نمیتوانید بیشتر از سه کامنت برای یک محصول ثبت کنید'
         self.assertEqual(str(messages[0]),str(error_msg))
 
