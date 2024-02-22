@@ -2,7 +2,9 @@ from django.shortcuts import render , redirect
 from django.views.generic import View
 from django.contrib import messages
 from django.db.models import Sum
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
+from django.urls import reverse_lazy
 
 from cart.forms import AddToCartForm
 from cart.models import Order , OrderItem
@@ -40,7 +42,9 @@ class AddToCart(View):
         return redirect(path)
 
 
-class CartListView(View):
+class CartListView(LoginRequiredMixin,View):
+    login_url = reverse_lazy("account:login-page")
+
     def get(self,request):
         profile = Profile.objects.get(user=request.user)
         order , created = Order.objects.get_or_create(profile=profile,in_proccesing=False)
@@ -54,30 +58,34 @@ class CartListView(View):
         return render(request,'cart.html',context)
 
 
-class DeleteCartItemView(View):
+class DeleteCartItemView(LoginRequiredMixin,View):
+    login_url = reverse_lazy("account:login-page")
+
     def get(self,request,order_item_id):
-        order_item = OrderItem.objects.filter(id=order_item_id)
+        order_item = OrderItem.objects.filter(id=order_item_id,order__profile__user=request.user)
         if order_item.exists():
             order_item.delete()
             msg = 'محصول با موفقیت از سبد خرید شما حذف شد'
             messages.success(request,msg)
         else:
-            msg = 'مشکلی در سیستم رخ داده است. لطفا بعدا دوباره انمتحان کنید.'
+            msg = 'مشکلی در سیستم رخ داده است. لطفا بعدا دوباره امتحان کنید.'
             messages.error(request,msg)
         return redirect("cart:cart-list")
 
 
-class ChangeOrderItemQuantityView(View):
-    def get(self,request):
-        order_item_id = request.GET.get('order_item_id')
-        quantity = request.GET.get('quantity_value')
+class ChangeOrderItemQuantityView(LoginRequiredMixin,View):
+    login_url = reverse_lazy("account:login-page")
 
-        order_item = OrderItem.objects.filter(id=order_item_id)
-        if order_item.exists() and int(quantity) >= 1:
-            order_item.update(quantity=quantity)
+    def get(self,request):
+        form = AddToCartForm(request.GET)
+        if form.is_valid():
+            product_variation = form.cleaned_data.get('product_variant')
+            quantity = form.cleaned_data.get('quantity')
+            OrderItem.objects.filter(product_variant=product_variation).update(quantity=quantity)
             msg = 'تعداد محصول با موفقیت تغییر کرد'
         else:
-            msg = 'مشکلی در سیستم رخ داده است. لطفا بعدا دوباره انمتحان کنید.'
+            msg = 'مشکلی در سیستم رخ داده است. لطفا بعدا دوباره امتحان کنید.'
+
         return JsonResponse({'msg':msg})
 
 

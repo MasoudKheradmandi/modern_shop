@@ -59,7 +59,7 @@
                         </div>
                         <div class="required-number before">
                             <div class="quantity">
-                                <input type="number" min="1" step="1" value="{{order_item.quantity}}" data-oi-id="{{order_item.id}}" class="quantity-class">
+                                <input type="number" min="1" step="1" value="{{order_item.quantity}}" data-pv-id="{{order_item.product_variant_id}}" class="quantity-class">
                             </div>
                         </div>
                         <div class="unit-price before">
@@ -116,12 +116,12 @@
     $(document).ready(function(){
         $('.quantity-class').change(function(){
             quantity_value = $(this).val()
-            order_item_id = $(this).data('oi-id')
+            product_variant = $(this).data('pv-id')
             
             $.ajax({
                 type : 'GET',
                 url : '{% url "cart:change-cart-quantity" %}',
-                data : {'order_item_id': order_item_id,'quantity_value':quantity_value}, 
+                data : {'product_variant': product_variant,'quantity':quantity_value}, 
                 dataType : 'json', 
                 success : function (data) { 
                     alert(data.msg); 
