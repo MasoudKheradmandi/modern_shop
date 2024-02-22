@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+
+<div class="container-main">
+    <div class="col-12">
+        <div class="breadcrumb-container">
+            <ul class="js-breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#" class="breadcrumb-link">خانه</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="#" class="breadcrumb-link active-breadcrumb">سبد خرید</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="cart-title-top">سبد خرید</div>
+        <div class="cart-main">
+            <div class="col-lg-9 col-md-9 col-xs-12 pull-right">
+                <div class="title-content">
+                    <ul class="title-ul">
+                        <li class="title-item product-name">
+                            نام کالا
+                        </li>
+                        <li class="title-item required-number">
+                            تعداد مورد نیاز
+                        </li>
+                        <li class="title-item unit-price">
+                            قیمت واحد
+                        </li>
+                        <li class="title-item total">
+                            مجموع
+                        </li>
+                    </ul>
+                </div>
+                {% for order_item in order.orderitem_set.all %}
+                <div class="page-content-cart">
+                    <div class="checkout-body">
+                        <div class="product-name before">
+                            <a href="{% url "cart:delete-cart-item" order_item.id %}" class="remove-from-cart">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                            <a href="#" class="col-thumb">
+                                <img src="{{order_item.product_variant.product.image.url}}">
+                            </a>
+                            <div class="checkout-col-desc">
+                                <a href="#">
+                                    <h1>{{order_item.product_variant.product.name}}
+                                    </h1>
+                                </a>
+                                <div class="checkout-variant-color">
+                                    <span class="checkout-variant-title" style="direction: ltr;">{{order_item.product_variant.size}}:سایز</span>
+                                    <div class="checkout-variant-shape"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="required-number before">
+                            <div class="quantity">
+                                <input type="number" min="1" step="1" value="{{order_item.quantity}}" data-oi-id="{{order_item.id}}" class="quantity-class">
+                            </div>
+                        </div>
+                        <div class="unit-price before">
+                            <div class="product-price">
+                                {{order_item.product_variant.calculate_price}}
+                                <span>
+                                    تومان
+                                </span>
+                            </div>
+                        </div>
+                        <div class="total before">
+                            <div class="product-price">
+                                {% widthratio order_item.product_variant.calculate_price 1 order_item.quantity %}
+                                <span>
+                                    تومان
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+            <div class="col-lg-3 col-md-3 col-xs-12 pull-left">
+                <div class="page-aside">
+                    <div class="checkout-summary">
+                        <div class="comment-summary mb-3">
+                            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
+                                گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم ی
+                                دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده
+                                قرار گیرد.</p>
+                        </div>
+                        <div class="amount-of-payable mt-4">
+                            <span class="payable">مبلغ قابل پرداخت</span>
+                            <span class="amount-of">{{order.calculate_paid_amount_needed}}
+                                <span>تومان</span>
+                            </span>
+                            <a href="#">
+                                <button class="setlement-account">تسویه حساب</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock main %}
+
+
+{% block js %}
+<script>
+    $(document).ready(function(){
+        $('.quantity-class').change(function(){
+            quantity_value = $(this).val()
+            order_item_id = $(this).data('oi-id')
+            
+            $.ajax({
+                type : 'GET',
+                url : '{% url "cart:change-cart-quantity" %}',
+                data : {'order_item_id': order_item_id,'quantity_value':quantity_value}, 
+                dataType : 'json', 
+                success : function (data) { 
+                    alert(data.msg); 
+                    location.reload();
+                },
+                error: function(data){ alert('error'); }
+            })
+        }
+        )
+    });
+</script>
+{% endblock js %}
+
+

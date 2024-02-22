@@ -1,6 +1,6 @@
 from django.test import TestCase
 from model_bakery import baker
-from product.models import Product,Category,DiscountCode,TvSize,Comment
+from product.models import Product,Category,TvSize,Comment
 from django.urls import reverse
 
 # Create your tests here.
@@ -11,13 +11,6 @@ class ProductTest(TestCase):
     def test_str_obj(self):
         self.assertEqual(str(self.product),'TV1')
 
-
-class DiscountTest(TestCase):
-    def setUp(self):
-        self.discount = baker.make(DiscountCode,code_name='index1212',count=2)
-
-    def test_str_obj(self):
-        self.assertEqual(str(self.discount),"index1212" + " "+"2")
 
 
 class CategoryTest(TestCase):
