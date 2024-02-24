@@ -1,5 +1,7 @@
 from .base import *
+from dotenv import load_dotenv
 
-ALLOWED_HOSTS = ['185.252.31.34',]
-SECRET_KEY='test'
-DEBUG = False
+load_dotenv()
+ALLOWED_HOSTS =  os.environ.get('ALLOWED_HOSTS').split(' ')
+SECRET_KEY= os.environ.get('SECRET_KEY')
+DEBUG =  os.environ.get('DEBUG')
