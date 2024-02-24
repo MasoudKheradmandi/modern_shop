@@ -17,10 +17,12 @@ psycopg2-binary = "^2.9.9"
 djangorestframework = "^3.14.0"
 model-bakery = "^1.17.0"
 gunicorn = "^21.2.0"
+python-dotenv = "^1.0.1"
 
 
 [tool.poetry.group.dev.dependencies]
 selenium = "^4.17.2"
+django-debug-toolbar = "^4.3.0"
 
 [build-system]
 requires = ["poetry-core"]

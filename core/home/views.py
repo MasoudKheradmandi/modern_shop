@@ -14,6 +14,7 @@ class HomeView(View):
     def get(self,request):
         sliders = Slider.objects.all()
         site_setting = SiteSettings.objects.filter(is_active=True).last()
+
         context = {
             'sliders' : sliders,
             'site_setting' : site_setting,
@@ -36,7 +37,7 @@ class HeaderView(View):
 
 class FooterView(View):
     def get(self,request):
-        footers = Footer.objects.all()
+        footers = Footer.objects.all().prefetch_related('subfooter_set')
         site_setting = SiteSettings.objects.filter(is_active=True).last()
         context = {
             'footers' : footers,

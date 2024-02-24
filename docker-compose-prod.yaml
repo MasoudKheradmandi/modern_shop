@@ -4,7 +4,7 @@ services:
   backend:
     build: .
     container_name: 'backend'
-    command: poetry run gunicorn core.wsgi --bind 0.0.0.0:8000
+    entrypoint: /entrypoint.sh
     # command: sleep infinity
     volumes:
       - ./core:/app

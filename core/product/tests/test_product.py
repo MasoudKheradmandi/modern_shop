@@ -1,6 +1,6 @@
 from django.test import TestCase
 from model_bakery import baker
-from product.models import Product,Category,DiscountCode,TvSize,Comment
+from product.models import Product,Category,TvSize,Comment
 from django.urls import reverse
 
 # Create your tests here.
@@ -12,18 +12,11 @@ class ProductTest(TestCase):
         self.assertEqual(str(self.product),'TV1')
 
 
-class DiscountTest(TestCase):
-    def setUp(self):
-        self.discount = baker.make(DiscountCode,code_name='index1212',count=2)
-
-    def test_str_obj(self):
-        self.assertEqual(str(self.discount),"index1212" + " "+"2")
-
 
 class CategoryTest(TestCase):
     def setUp(self):
         self.cat = baker.make(Category,name='SAMSUNG')
-    
+
     def test_str_obj(self):
         self.assertEqual(str(self.cat),'SAMSUNG')
 
@@ -45,8 +38,8 @@ class ProductListViewTest(TestCase):
     def test_product_list_view(self):
         response = self.client.get(reverse('product:listview'))
         obj = response.context['product_obj']
-        
-        
+
+
         self.assertEqual(obj.count(),2)
         self.assertNotEqual(obj.count(),3)
         self.assertTemplateUsed(response,'listview.html')
@@ -62,12 +55,12 @@ class ProductDetailViewTest(TestCase):
         resp = self.client.get(reverse('product:detail',args=[self.product.category.name,self.product.id]))
 
         self.assertEqual(resp.context['obj'],self.product)
-        
+
         self.assertTemplateUsed(resp,'detail.html')
-        
+
         self.assertIn('obj',resp.context)
 
         self.assertIn(self.tv_size,resp.context['obj_size'])
-        
+
         for x in resp.context.get('obj_size'):
             self.assertEqual(self.tv_size.product.name,x.product.name)

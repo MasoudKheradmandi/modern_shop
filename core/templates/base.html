@@ -54,6 +54,11 @@
         icon: 'error',
         html: '{{message}}',
     })
+    {% elif message.level == 20 %}
+    Swal.fire({
+        icon: 'info',
+        html: '{{message}}',
+    })
     {% else %}
     Swal.fire({
         icon: 'success',
