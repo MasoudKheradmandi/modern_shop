@@ -1,7 +1,13 @@
 from .base import *
-from dotenv import load_dotenv
 
-load_dotenv()
-ALLOWED_HOSTS =  os.environ.get('ALLOWED_HOSTS','* ').split(' ')
-SECRET_KEY= os.environ.get('SECRET_KEY','test') 
-DEBUG =  os.environ.get('DEBUG',False)
+from decouple import config
+
+
+ALLOWED_HOSTS = config(
+    "ALLOWED_HOSTS",
+    cast=lambda v: [s.strip() for s in v.split(",")],
+    default="*",
+)
+SECRET_KEY = config("SECRET_KEY", default="test")
+
+DEBUG = config("DEBUG", cast=bool, default=True)
