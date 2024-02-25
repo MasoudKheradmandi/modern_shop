@@ -1729,7 +1729,7 @@ li.nav-item-account .header-cart-interest .counter{
     word-wrap: break-word;
     overflow: hidden;
     line-height: 25px;
-    height: 70px;
+    height: unset;
     padding-top: 15px;
 }
 
@@ -1745,7 +1745,6 @@ li.nav-item-account .header-cart-interest .counter{
     font-size: 20px;
     height: auto;
     cursor: pointer;
-    text-align: left;
 }
 
 .section-slider-product .widget-product .product-carousel .item .discount{
