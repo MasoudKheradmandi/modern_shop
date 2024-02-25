@@ -1,0 +1,41 @@
+<div class="owl-item active" style="width: 309.083px; margin-left: 10px;">
+    <div class="item">
+        <a href="#" class="d-inline-block">
+            <img src="{{product.image.url}}" class="img-fluid" alt="">
+        </a>
+        <h2 class="post-title">
+            <a href="#">
+                {{product.name}}
+            </a>
+        </h2>
+        <div class="price">
+            <ins>
+                <span> {% for tvsize in product.tvsize_set.all %}{% if forloop.first %}{{tvsize.calculate_price}}{% endif %}{% endfor %} 
+                    <span>تومان</span>
+                </span>
+            </ins>
+        </div>
+        <div class="actions">
+            <ul>
+                <li class="action-item like">
+                    <button class="btn btn-light add-favorites add-product-wishes"
+                        type="submit" title="علاقه مندی">
+                        <i class="mdi mdi-heart"></i>
+                    </button>
+                </li>
+                <li class="action-item compare">
+                    <button class="btn btn-light btn-compare" type="submit"
+                        title="مقایسه">
+                        <i class="mdi mdi-compare"></i>
+                    </button>
+                </li>
+                <li class="action-item add-to-cart">
+                    <button class="btn btn-light btn-add-to-cart" type="submit"
+                        title="سبد خرید">
+                        <i class="mdi mdi-shopping"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

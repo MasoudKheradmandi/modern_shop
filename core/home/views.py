@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import View
 from django.shortcuts import redirect
 from django.contrib import messages
+from django.db.models.aggregates import Count
 
 
 from home.models import Navbar , SiteSettings , Footer , Slider
@@ -14,10 +15,16 @@ class HomeView(View):
     def get(self,request):
         sliders = Slider.objects.all()
         site_setting = SiteSettings.objects.filter(is_active=True).last()
+        all_products = Product.objects.filter(is_show=True).prefetch_related('tvsize_set').order_by('-updated_date')[:8]
+        most_sell_products = Product.objects.filter(is_show=True).prefetch_related('tvsize_set').order_by('-sales_number')[:8]
+        popular_products = Product.objects.filter(is_show=True).annotate(cat_count=Count('category__product')).prefetch_related('tvsize_set').order_by('-cat_count')[:8]
 
         context = {
             'sliders' : sliders,
             'site_setting' : site_setting,
+            'all_products' : all_products,
+            'most_sell_products' : most_sell_products,
+            'popular_products' : popular_products,
         }
         return render(request,'index.html',context)
 

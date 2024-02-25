@@ -1,7 +1,11 @@
 from django.test import TestCase
+from django.urls import reverse
+
 from model_bakery import baker
 from product.models import Product,Category,TvSize,Comment
-from django.urls import reverse
+
+import logging
+logger = logging.getLogger(__name__)
 
 # Create your tests here.
 class ProductTest(TestCase):
