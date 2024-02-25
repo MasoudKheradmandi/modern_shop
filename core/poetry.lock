@@ -271,6 +271,17 @@ files = [
 ]
 
 [[package]]
+name = "jdatetime"
+version = "4.1.1"
+description = "Jalali datetime binding for python"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "jdatetime-4.1.1-py3-none-any.whl", hash = "sha256:8b56c702406eaf84d2ad673c41180488f8c77f156c3ac0630ce0caabaf6af5b8"},
+    {file = "jdatetime-4.1.1.tar.gz", hash = "sha256:1dd0ee210160c7bd30002803c443e6260ac602ea65b065652a1d567d3bfdca7a"},
+]
+
+[[package]]
 name = "model-bakery"
 version = "1.17.0"
 description = "Smart object creation facility for Django."
@@ -664,4 +675,4 @@ h11 = ">=0.9.0,<1"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "1dad0f67fcee7b0bfbac1c84e184e4a20bf24fea8b2fe84f80b9b1af85cbd0aa"
+content-hash = "84dc7b46676f08637a92b3157d24167c54cedc8f8bf04d8900cab56cc0173733"
