@@ -17,6 +17,7 @@ psycopg2-binary = "^2.9.9"
 djangorestframework = "^3.14.0"
 model-bakery = "^1.17.0"
 gunicorn = "^21.2.0"
+python-decouple = "^3.8"
 jdatetime = "^4.1.1"
 
 
