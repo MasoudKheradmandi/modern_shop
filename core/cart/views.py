@@ -49,7 +49,7 @@ class CartListView(LoginRequiredMixin,View):
 
     def get(self,request):
         profile = Profile.objects.get(user=request.user)
-        order , created = Order.objects.get_or_create(profile=profile,in_proccesing=False)
+        order , created = Order.objects.prefetch_related('orderitem_set').get_or_create(profile=profile,in_proccesing=False)
 
         if created or not order.orderitem_set.exists():
             return render(request,'cart-empty.html')
@@ -94,21 +94,11 @@ class ChangeOrderItemQuantityView(LoginRequiredMixin,View):
 class ShippingView(LoginRequiredMixin,View):
     login_url = reverse_lazy("account:login-page")
     def get(self,request):
-        jdatetime.set_locale(jdatetime.FA_LOCALE)
-        today = jdatetime.date.today()
-
-        start_delta_time = jdatetime.timedelta(days=4)
-        finish_delta_time = jdatetime.timedelta(days=8)
-
-        start_date = today + start_delta_time
-        finish_date = today + finish_delta_time
-
-        formatted_start_date = f"{start_date.year}-{start_date.jmonth()}-{start_date.day}"
-        formatted_finish_date = f"{finish_date.year}-{finish_date.jmonth()}-{finish_date.day}"
+        profile = Profile.objects.get(user=request.user)
+        order , created = Order.objects.prefetch_related('orderitem_set').get_or_create(profile=profile,in_proccesing=False)
 
         context = {
-            'start_date' : formatted_start_date,
-            'finish_date' : formatted_finish_date,
+            'order' : order,
         }
         return render(request,'shipping-payment.html',context)
 
