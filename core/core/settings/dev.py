@@ -1,5 +1,6 @@
 from pathlib import Path
 import sys
+from decouple import config
 
 from .base import *
 DEBUG = True
@@ -38,7 +39,7 @@ if sys.argv[1:2] == ['test']:
             "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
         },
     }
-
+MERCHANTID = config("MerchantID")
 # DATABASES = {
 #     'default':{
 #         "ENGINE": "django.db.backends.sqlite3",
