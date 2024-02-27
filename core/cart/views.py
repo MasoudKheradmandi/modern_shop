@@ -201,10 +201,6 @@ class AfterPaymentView(LoginRequiredMixin,View):
             TvSize.objects.filter(id=order_item.product_variant.id).update(count=F('count') - order_item.quantity)
 
 
-
-
-
-
 class SucessPaymentView(LoginRequiredMixin,View):
     login_url = reverse_lazy("account:login-page")
     def get(self,request,order_id):
@@ -224,32 +220,4 @@ class FailurePaymentView(LoginRequiredMixin,View):
         }
         return render(request,'shipping-no-complate-buy.html',context)
 
-
-class ProfileCart(View):
-    def get(self,request):
-        user = Profile.objects.get(user = request.user)
-        orders = Order.objects.filter(profile=user)
-        context = {
-            'orders':orders,
-        }
-        ##
-        return render(request,'profile-order.html',context)
-
-
-class Factor(View):
-    def get(self,request,pk):
-        order = Order.objects.get(shopping_id=pk)
-        order_detail = OrderItem.objects.filter(order=order)
-        total_price = order_detail.aggregate(
-            total_price=Sum('final_price')
-        )
-
-
-        logger.warning(total_price['total_price'])
-        context = {
-            'order_det':order,
-            'products':order_detail,
-            'total_price':total_price['total_price']
-        }
-        return render(request,'factor.html',context)
 
