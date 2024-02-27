@@ -8,11 +8,9 @@ import jdatetime
 class Order(models.Model):
     shopping_id = models.SlugField(unique=True, blank=True,null=True,db_index=True)
     profile = models.ForeignKey('account.Profile',on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=250,null=True,blank=True)
-    last_name = models.CharField(max_length=250,null=True,blank=True)
+    full_name = models.CharField(max_length=250,null=True,blank=True)
     address = models.TextField(null=True,blank=True)
     phone_number = models.CharField(max_length=15,null=True,blank=True)
-    zip_code = models.CharField(max_length=30,null=True)
     paid_amount = models.IntegerField(blank=True,null=True)
 
     in_proccesing = models.BooleanField(default=False)
@@ -79,13 +77,12 @@ class Order(models.Model):
         return order_item_quantity['total_quantity']
 
 
-
-
 class OrderItem(models.Model):
     order = models.ForeignKey(Order,on_delete=models.CASCADE)
     product_variant = models.ForeignKey('product.TvSize',on_delete=models.CASCADE)
     final_price = models.IntegerField(blank=True,null=True)
-    quantity = models.IntegerField()
+    selected_size = models.CharField(max_length=25,null=True,blank=True)
+    quantity = models.PositiveIntegerField()
 
     def __str__(self):
         return str(self.order_id) + " ////////// " + self.product_variant.product.name

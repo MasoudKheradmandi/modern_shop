@@ -1,18 +1,21 @@
 import requests
 import json
 
-from django.shortcuts import render , redirect
+from django.shortcuts import render , redirect ,get_object_or_404
 from django.views.generic import View
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Sum
+from django.db.models import Sum , F
+from django.db import transaction
 from django.http import JsonResponse
 from django.urls import reverse_lazy , reverse
 from django.conf import settings
+from django.utils import timezone
 
 from cart.forms import AddToCartForm
 from cart.models import Order , OrderItem
 from account.models import Profile
+from product.models import TvSize
 # Create your views here.
 
 
@@ -99,6 +102,8 @@ class ShippingView(LoginRequiredMixin,View):
     def get(self,request):
         profile = Profile.objects.get(user=request.user)
         order , created = Order.objects.prefetch_related('orderitem_set').get_or_create(profile=profile,in_proccesing=False)
+        if  not order.orderitem_set.exists():
+            return render(request,'cart-empty.html')
 
         context = {
             'order' : order,
@@ -110,21 +115,18 @@ class PaymentView(LoginRequiredMixin,View):
     login_url = reverse_lazy("account:login-page")
     def get(self,request):
         profile = Profile.objects.get(user=request.user)
-        order = Order.objects.prefetch_related('orderitem_set').filter(profile=profile,in_proccesing=False).last()
+        order = Order.objects.filter(profile=profile,in_proccesing=False).last()
 
         if  not order.orderitem_set.exists():
             return render(request,'cart-empty.html')
 
-        description = f"این تراکنش صرفا جهت تست می باشد"
-        phone = 'YOUR_PHONE_NUMBER'  # Optional
-        # Important: need to edit for realy server.
         CallbackURL = request.build_absolute_uri(reverse('cart:verify'))
 
         data = {
-        "MerchantID": '9fcdf799-adcd-42aa-99c0-35169d838586', # TODO:make this into .env
+        "MerchantID": settings.MERCHANTID,
         "Amount": order.calculate_paid_amount_needed(),
-        "Description": description,
-        "Phone": phone,
+        "Description": "این تراکنش صرفا جهت تست می باشد",
+        "Phone": 'YOUR_PHONE_NUMBER',
         "CallbackURL": CallbackURL,
         }
         data = json.dumps(data)
@@ -154,21 +156,22 @@ class PaymentView(LoginRequiredMixin,View):
 
 class AfterPaymentView(LoginRequiredMixin,View):
     login_url = reverse_lazy("account:login-page")
+    @transaction.atomic
     def get(self,request):
-
         profile = Profile.objects.get(user=request.user)
         order = Order.objects.prefetch_related('orderitem_set').filter(profile=profile,in_proccesing=False).last()
 
         if  not order.orderitem_set.exists():
             return render(request,'cart-empty.html')
 
+        amount = order.calculate_paid_amount_needed()
         data = {
         "MerchantID": settings.MERCHANTID,
-        "Amount": order.calculate_paid_amount_needed(),
+        "Amount": amount,
         "Authority": request.GET.get('Authority'),
         }
+
         data = json.dumps(data)
-        # set content length by data
         headers = {'content-type': 'application/json', 'content-length': str(len(data)) }
         response = requests.post(settings.ZP_API_VERIFY, data=data,headers=headers)
 
@@ -176,24 +179,50 @@ class AfterPaymentView(LoginRequiredMixin,View):
             response = response.json()
             ref_id = response['RefID']
             if response['Status'] == 100:
-                messages.success(request,f'پرداخت شما با موفقیت انجام شد.\nکد پیگیری درگاه پرداختی :{ref_id}')
-                return redirect('cart:success-payment-page')
+                self.save_order_and_orderitem_data(request.user.phone_number,profile,amount)
+                return redirect('cart:success-payment-page',order_id=order.id)
             else:
-                messages.success(request,f'خرید شما با مشکل مواجه شد یا از طریق شما لغو شد.\nکد پیگیری درگاه پرداختی :{ref_id}')
-                return redirect('cart:failure-payment-page')
+                return redirect('cart:failure-payment-page',order_id=order.id)
         return JsonResponse(response.json(),safe=False)
+
+    @transaction.atomic
+    def save_order_and_orderitem_data(self,phone_number,profile,amount) -> None:
+        now = timezone.now()
+        order = Order.objects.filter(profile=profile,in_proccesing=False)
+        order.update(full_name=profile.full_name,address=profile.address,phone_number=phone_number,
+                        paid_amount=amount,in_proccesing=True,payment_date=now) # update order
+
+        order = Order.objects.prefetch_related('orderitem_set').get(profile=profile,in_proccesing=True,payment_date=now)
+        for order_item in order.orderitem_set.all(): # update order items
+            order_item.final_price= order_item.product_variant.price_difference + order_item.product_variant.product.price
+            order_item.selected_size = order_item.product_variant.size
+            order_item.save()
+
+            TvSize.objects.filter(id=order_item.product_variant.id).update(count=F('count') - order_item.quantity)
+
+
+
+
 
 
 class SucessPaymentView(LoginRequiredMixin,View):
     login_url = reverse_lazy("account:login-page")
-    def get(self,request):
-        return render(request,'shipping-complate-buy.html')
+    def get(self,request,order_id):
+        order = get_object_or_404(Order,id=order_id)
+        context = {
+            'order' : order
+        }
+        return render(request,'shipping-complate-buy.html',context)
 
 
 class FailurePaymentView(LoginRequiredMixin,View):
     login_url = reverse_lazy("account:login-page")
-    def get(self,request):
-        return render(request,'shipping-no-complate-buy.html')
+    def get(self,request,order_id):
+        order = get_object_or_404(Order,id=order_id)
+        context = {
+            'order' : order
+        }
+        return render(request,'shipping-no-complate-buy.html',context)
 
 
 class ProfileCart(View):
