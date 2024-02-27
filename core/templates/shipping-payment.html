@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+
+<section class="page-shipping">
+    <div class="page-row">
+        <div class="col-lg-8 col-md-8 col-xs-12 pull-right">
+            <div class="shipment-page-container">
+                <section class="page-content">
+                    <div class="payment">
+                        <div class="payment-payment-types">
+                            <div class="payment-header">
+                                <span>
+                                    شیوه پرداخت
+                                </span>
+                            </div>
+                            <ul class="payment-paymethod">
+                                <li>
+                                    <div class="payment-paymethod-item">
+                                        <label for="#" class="outline-radio">
+                                            <input type="radio" name="payment_method" id="payment-option-online" checked="checked">
+                                            <span class="outline-radio-check"></span>
+                                        </label>
+                                        <label for="#" class="payment-paymethod-title-row">
+                                            <div class="payment-paymethod-title">      پرداخت اینترنتی</div>
+                                            <div class="payment-paymethod-dsc">آنلاین با تمامی کارت‌های بانکی</div>
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="payment-paymethod-item">
+                                        <label for="#" class="outline-radio">
+                                            <input type="radio" name="payment_method" id="payment-option-online">
+                                            <span class="outline-radio-check"></span>
+                                        </label>
+                                        <label for="#" class="payment-paymethod-title-row">
+                                            <div class="payment-paymethod-title">      پرداخت اعتباری</div>
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="payment-summary">
+                            <div class="payment-header">
+                                <span>خلاصه سفارش</span>
+                            </div>
+                            <section class="payment-summary-item">
+                                <div class="payment-summary-row-header">
+                                    <button class="btn btn-block text-center collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <div class="payment-summary-col">
+                                        مرسوله ۱
+                                        <span>
+                                            ۱
+                                            کالا
+                                        </span>
+                                    </div>
+                                    <div class="payment-summary-col">
+                                        ارسال با پست پیشتاز
+                                        <span>
+                                            بازه {{start_date}} تا {{finish_date}}
+                                        </span>
+                                    </div>
+                                    <div class="payment-summary-col payment-summary-col-package-amount">
+                                        <span>مبلغ مرسوله : </span>
+                                        <div class="payment-summary-price">
+                                            ۴,۰۴۸,۰۰۰
+                                            <span>تومان</span>
+                                        </div>
+                                    </div>
+                                    <i class="mdi mdi-chevron-down"></i>
+                                    </button>
+                                </div>
+                                <section class="payment-summary-swiper">
+                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample" style="">
+                                        <div class="swiper-container">
+                                            <div class="swiper-wrapper">
+                                                <div class="product-box">
+                                                    <a href="#" class="product-box-img">
+                                                        <img src="{% static 'assets/images/shipping/1.jpg' %}">
+                                                    </a>
+                                                    <div class="product-box-swiper-title">
+                                                        گوشی موبایل سامسونگ مدل Galaxy A50s SM-A507FN/DS...
+                                                    </div>
+                                                    <div class="product-box-variant">
+                                                        <span style="background-color: #FFFFFF;"></span>
+                                                        سفید
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </section>
+                        </div>
+                    </div>
+                </section>
+                <div class="checkout-actions">
+                    <a href="#" class="checkout-actions-back"><i class="fa fa-angle-right" aria-hidden="true"></i>بازگشت به سبد خرید</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-xs-12 pull-left">
+            <div class="page-aside">
+                <div class="checkout-aside">
+                    <div class="checkout-bill">
+                        <ul class="checkout-bill-summary">
+                            <li>
+                                <span class="checkout-bill-item-title">قیمت کالاها(۱)</span>
+                                <span class="checkout-bill-price">
+                                    ۴,۰۴۵,۰۰۰
+                                    <span class="checkout-bill-currency">
+                                        تومان
+                                    </span>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="checkout-bill-item-title">هزینه ارسال</span>
+                                <span class="checkout-bill-item-title js-free-shipping">رایگان</span>
+                            </li>
+                            <li class="checkout-bill-total-price">
+                                <span class="checkout-bill-total-price-title">مبلغ قابل پرداخت</span>
+                                <span class="checkout-bill-total-price-amount">
+                                    <span class="js-price">۴,۰۴۵,۰۰۰ </span>
+                                    <span class="checkout-bill-total-price-currency">تومان</span>
+                                </span>
+                                <div class="parent-btn">
+                                    <button class="dk-btn dk-btn-info payment-link">
+                                                ادامه فرآیند خرید
+                                        <i class="mdi mdi-arrow-left"></i>
+                                    </button>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="checkout-bill-digiclub">
+                            <span class="wiki-holder">امتیاز دیجی‌کلاب</span>
+                            <span class="checkout-bill-digiclub-point">
+                                ۱۵۰
+                                <span class="checkout-bill-currency">
+                                    امتیاز
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock main %}

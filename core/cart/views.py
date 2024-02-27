@@ -6,6 +6,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.urls import reverse_lazy
 
+import jdatetime
+
 from cart.forms import AddToCartForm
 from cart.models import Order , OrderItem
 from account.models import Profile
@@ -87,6 +89,28 @@ class ChangeOrderItemQuantityView(LoginRequiredMixin,View):
             msg = 'مشکلی در سیستم رخ داده است. لطفا بعدا دوباره امتحان کنید.'
 
         return JsonResponse({'msg':msg})
+
+
+class ShippingView(LoginRequiredMixin,View):
+    login_url = reverse_lazy("account:login-page")
+    def get(self,request):
+        jdatetime.set_locale(jdatetime.FA_LOCALE)
+        today = jdatetime.date.today()
+
+        start_delta_time = jdatetime.timedelta(days=4)
+        finish_delta_time = jdatetime.timedelta(days=8)
+
+        start_date = today + start_delta_time
+        finish_date = today + finish_delta_time
+
+        formatted_start_date = f"{start_date.year}-{start_date.jmonth()}-{start_date.day}"
+        formatted_finish_date = f"{finish_date.year}-{finish_date.jmonth()}-{finish_date.day}"
+
+        context = {
+            'start_date' : formatted_start_date,
+            'finish_date' : formatted_finish_date,
+        }
+        return render(request,'shipping-payment.html',context)
 
 
 class ProfileCart(View):

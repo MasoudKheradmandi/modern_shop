@@ -37,6 +37,8 @@ class Order(models.Model):
         )
         return total_price['total_spent']
 
+    # def shiping_date
+
     def save(self, *args, **kwargs):
         while not self.shopping_id:
             new_shopping_id = ''.join(
