@@ -23,8 +23,8 @@ services:
     env_file:
       - path: ./default.env
         required: true 
-      # - path: ./.database.env
-      #   required: false
+      - path: ./.database.env
+        required: false
         
     volumes:
       - postgres-volume:/var/lib/postgresql/data
