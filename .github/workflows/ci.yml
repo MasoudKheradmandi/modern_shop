@@ -20,8 +20,8 @@ jobs:
           - name: Checkout code
             uses: actions/checkout@v4
           - name: Check Docker Version
-            run: docker compose --version
+            run: docker-compose --version
           - name: up the container
-            run: docker compose -f docker-compose-prod.yaml up -d
+            run: docker-compose -f docker-compose-prod.yaml up -d
           - name: run tests
             run:  docker exec backend bash -c "poetry run python3 manage.py test --no-input"
