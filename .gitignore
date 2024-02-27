@@ -16,7 +16,7 @@ coverage.xml
 
 
 # Environments
-.env
+*.env
 .venv
 env/
 venv/

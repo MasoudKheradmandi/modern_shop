@@ -3,6 +3,7 @@ import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+from decouple import config
 
 
 # Quick-start development settings - unsuitable for production
@@ -14,9 +15,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 DATABASES = {
     'default': {
     'ENGINE': 'django.db.backends.postgresql',
-    'NAME': 'admin_db',
-    'USER': 'admin',
-    'PASSWORD': 'admin',
+    'NAME': config("POSTGRES_DB", default="test"),
+    'USER': config("POSTGRES_USER", default="test"),
+    'PASSWORD': config("POSTGRES_PASSWORD", default="test"),
     'HOST': 'db',
     'PORT': 5432,
     }
