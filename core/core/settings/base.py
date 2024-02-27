@@ -15,9 +15,9 @@ from decouple import config
 DATABASES = {
     'default': {
     'ENGINE': 'django.db.backends.postgresql',
-    'NAME': config("POSTGRES_DB", default="test"),
-    'USER': config("POSTGRES_USER", default="test"),
-    'PASSWORD': config("POSTGRES_PASSWORD", default="test"),
+    'NAME': config("POSTGRES_DB", default="admin_db"),
+    'USER': config("POSTGRES_USER", default="admin"),
+    'PASSWORD': config("POSTGRES_PASSWORD", default="admin"),
     'HOST': 'db',
     'PORT': 5432,
     }
