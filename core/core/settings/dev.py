@@ -39,7 +39,7 @@ if sys.argv[1:2] == ['test']:
             "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
         },
     }
-MERCHANTID = config("MerchantID")
+MERCHANTID = config("MerchantID",default="test")
 # DATABASES = {
 #     'default':{
 #         "ENGINE": "django.db.backends.sqlite3",
