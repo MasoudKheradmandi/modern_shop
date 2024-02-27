@@ -19,6 +19,8 @@ jobs:
       steps:
           - name: Checkout code
             uses: actions/checkout@v4
+          - name: Check Docker Version
+            run: docker --version
           - name: up the container
             run: docker-compose -f docker-compose-prod.yaml up -d
           - name: run tests
