@@ -1,12 +1,14 @@
+import requests
+import json
+
 from django.shortcuts import render , redirect
 from django.views.generic import View
 from django.contrib import messages
-from django.db.models import Sum
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Sum
 from django.http import JsonResponse
-from django.urls import reverse_lazy
-
-import jdatetime
+from django.urls import reverse_lazy , reverse
+from django.conf import settings
 
 from cart.forms import AddToCartForm
 from cart.models import Order , OrderItem
@@ -16,6 +18,7 @@ from account.models import Profile
 
 import logging
 logger = logging.getLogger(__name__)
+
 
 class AddToCart(View):
     def get(self,request):
@@ -49,7 +52,7 @@ class CartListView(LoginRequiredMixin,View):
 
     def get(self,request):
         profile = Profile.objects.get(user=request.user)
-        order , created = Order.objects.get_or_create(profile=profile,in_proccesing=False)
+        order , created = Order.objects.prefetch_related('orderitem_set').get_or_create(profile=profile,in_proccesing=False)
 
         if created or not order.orderitem_set.exists():
             return render(request,'cart-empty.html')
@@ -94,23 +97,103 @@ class ChangeOrderItemQuantityView(LoginRequiredMixin,View):
 class ShippingView(LoginRequiredMixin,View):
     login_url = reverse_lazy("account:login-page")
     def get(self,request):
-        jdatetime.set_locale(jdatetime.FA_LOCALE)
-        today = jdatetime.date.today()
-
-        start_delta_time = jdatetime.timedelta(days=4)
-        finish_delta_time = jdatetime.timedelta(days=8)
-
-        start_date = today + start_delta_time
-        finish_date = today + finish_delta_time
-
-        formatted_start_date = f"{start_date.year}-{start_date.jmonth()}-{start_date.day}"
-        formatted_finish_date = f"{finish_date.year}-{finish_date.jmonth()}-{finish_date.day}"
+        profile = Profile.objects.get(user=request.user)
+        order , created = Order.objects.prefetch_related('orderitem_set').get_or_create(profile=profile,in_proccesing=False)
 
         context = {
-            'start_date' : formatted_start_date,
-            'finish_date' : formatted_finish_date,
+            'order' : order,
         }
         return render(request,'shipping-payment.html',context)
+
+
+class PaymentView(LoginRequiredMixin,View):
+    login_url = reverse_lazy("account:login-page")
+    def get(self,request):
+        profile = Profile.objects.get(user=request.user)
+        order = Order.objects.prefetch_related('orderitem_set').filter(profile=profile,in_proccesing=False).last()
+
+        if  not order.orderitem_set.exists():
+            return render(request,'cart-empty.html')
+
+        description = f"این تراکنش صرفا جهت تست می باشد"
+        phone = 'YOUR_PHONE_NUMBER'  # Optional
+        # Important: need to edit for realy server.
+        CallbackURL = request.build_absolute_uri(reverse('cart:verify'))
+
+        data = {
+        "MerchantID": '9fcdf799-adcd-42aa-99c0-35169d838586', # TODO:make this into .env
+        "Amount": order.calculate_paid_amount_needed(),
+        "Description": description,
+        "Phone": phone,
+        "CallbackURL": CallbackURL,
+        }
+        data = json.dumps(data)
+        # set content length by data
+        headers = {'content-type': 'application/json', 'content-length': str(len(data)) }
+        try:
+            response = requests.post(settings.ZP_API_REQUEST, data=data,headers=headers, timeout=100)
+
+            if response.status_code == 200:
+                response = response.json()
+                if response['Status'] == 100:
+                    return redirect(settings.ZP_API_STARTPAY + str(response['Authority']))
+                else:
+                    messages.error(request,str(response['Status']))
+                    return redirect('cart:shipping-page')
+            return JsonResponse(response.json(),safe=False)
+
+        except requests.exceptions.Timeout:
+            # return {'status': False, 'code': 'timeout'}
+            messages.error(request,'timeout')
+            return redirect('cart:shipping-page')
+        except requests.exceptions.ConnectionError:
+            # return {'status': False, 'code': 'connection error'}
+            messages.error(request,'connection error')
+            return redirect('cart:shipping-page')
+
+
+class AfterPaymentView(LoginRequiredMixin,View):
+    login_url = reverse_lazy("account:login-page")
+    def get(self,request):
+
+        profile = Profile.objects.get(user=request.user)
+        order = Order.objects.prefetch_related('orderitem_set').filter(profile=profile,in_proccesing=False).last()
+
+        if  not order.orderitem_set.exists():
+            return render(request,'cart-empty.html')
+
+        data = {
+        "MerchantID": settings.MERCHANTID,
+        "Amount": order.calculate_paid_amount_needed(),
+        "Authority": request.GET.get('Authority'),
+        }
+        data = json.dumps(data)
+        # set content length by data
+        headers = {'content-type': 'application/json', 'content-length': str(len(data)) }
+        response = requests.post(settings.ZP_API_VERIFY, data=data,headers=headers)
+
+        if response.status_code == 200:
+            response = response.json()
+            ref_id = response['RefID']
+            if response['Status'] == 100:
+                messages.success(request,f'پرداخت شما با موفقیت انجام شد.\nکد پیگیری درگاه پرداختی :{ref_id}')
+                return redirect('cart:success-payment-page')
+            else:
+                messages.success(request,f'خرید شما با مشکل مواجه شد یا از طریق شما لغو شد.\nکد پیگیری درگاه پرداختی :{ref_id}')
+                return redirect('cart:failure-payment-page')
+        return JsonResponse(response.json(),safe=False)
+
+
+class SucessPaymentView(LoginRequiredMixin,View):
+    login_url = reverse_lazy("account:login-page")
+    def get(self,request):
+        return render(request,'shipping-complate-buy.html')
+
+
+class FailurePaymentView(LoginRequiredMixin,View):
+    login_url = reverse_lazy("account:login-page")
+    def get(self,request):
+        return render(request,'shipping-no-complate-buy.html')
 
 
 class ProfileCart(View):

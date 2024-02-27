@@ -8343,7 +8343,7 @@ header.js-header .shipment-page  ul.checkout-steps li a.active-link-shopping:aft
 }
 
 .payment .payment-summary .payment-summary-item .payment-summary-swiper .swiper-container .swiper-wrapper .product-box{
-    display: block;
+    display: inline-block;
     background: #fff;
     height: 100%;
     position: relative;
@@ -8364,6 +8364,7 @@ header.js-header .shipment-page  ul.checkout-steps li a.active-link-shopping:aft
 
 .payment .payment-summary .payment-summary-item .payment-summary-swiper .swiper-container .swiper-wrapper .product-box .product-box-swiper-title{
     color: #424750;
+    height: 55px;
     font-size: 12px;
     line-height: 21px;
     display: block;
