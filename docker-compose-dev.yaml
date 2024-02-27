@@ -19,8 +19,10 @@ services:
   postgres:
     image: docker.arvancloud.ir/postgres:16.1-bullseye
     container_name: db
-    env_file:
-      - database.env
+    environment:
+      - POSTGRES_DB=admin_db
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
     volumes:
       - postgres-volume:/var/lib/postgresql/data
     networks:
