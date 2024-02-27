@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load humanize %}
 
 {% block main %}
 
@@ -49,22 +50,22 @@
                                 <div class="payment-summary-row-header">
                                     <button class="btn btn-block text-center collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                     <div class="payment-summary-col">
-                                        مرسوله ۱
+                                        مرسوله {{order.orderitem_set.count}}
                                         <span>
-                                            ۱
+                                            {{order.get_all_quantity}}
                                             کالا
                                         </span>
                                     </div>
                                     <div class="payment-summary-col">
                                         ارسال با پست پیشتاز
                                         <span>
-                                            بازه {{start_date}} تا {{finish_date}}
+                                            بازه {{order.start_ship_date}} تا {{order.end_ship_date}}
                                         </span>
                                     </div>
                                     <div class="payment-summary-col payment-summary-col-package-amount">
                                         <span>مبلغ مرسوله : </span>
                                         <div class="payment-summary-price">
-                                            ۴,۰۴۸,۰۰۰
+                                            {{order.calculate_paid_amount_needed|intcomma}}
                                             <span>تومان</span>
                                         </div>
                                     </div>
@@ -75,18 +76,20 @@
                                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample" style="">
                                         <div class="swiper-container">
                                             <div class="swiper-wrapper">
+                                                {% for orderitem in order.orderitem_set.all %}
                                                 <div class="product-box">
                                                     <a href="#" class="product-box-img">
-                                                        <img src="{% static 'assets/images/shipping/1.jpg' %}">
+                                                        <img src="{{orderitem.product_variant.product.image.url}}">
                                                     </a>
                                                     <div class="product-box-swiper-title">
-                                                        گوشی موبایل سامسونگ مدل Galaxy A50s SM-A507FN/DS...
+                                                        {{orderitem.product_variant.product.name}}
                                                     </div>
                                                     <div class="product-box-variant">
                                                         <span style="background-color: #FFFFFF;"></span>
-                                                        سفید
+                                                        {{orderitem.product_variant.size}}
                                                     </div>
                                                 </div>
+                                                {% endfor %}
                                             </div>
                                         </div>
                                     </div>
@@ -96,7 +99,7 @@
                     </div>
                 </section>
                 <div class="checkout-actions">
-                    <a href="#" class="checkout-actions-back"><i class="fa fa-angle-right" aria-hidden="true"></i>بازگشت به سبد خرید</a>
+                    <a href="{% url "cart:cart-list" %}" class="checkout-actions-back"><i class="fa fa-angle-right" aria-hidden="true"></i>بازگشت به سبد خرید</a>
                 </div>
             </div>
         </div>
@@ -106,9 +109,9 @@
                     <div class="checkout-bill">
                         <ul class="checkout-bill-summary">
                             <li>
-                                <span class="checkout-bill-item-title">قیمت کالاها(۱)</span>
+                                <span class="checkout-bill-item-title">قیمت کالاها({{order.get_all_quantity}})</span>
                                 <span class="checkout-bill-price">
-                                    ۴,۰۴۵,۰۰۰
+                                    {{order.calculate_paid_amount_needed|intcomma}}
                                     <span class="checkout-bill-currency">
                                         تومان
                                     </span>
@@ -121,14 +124,16 @@
                             <li class="checkout-bill-total-price">
                                 <span class="checkout-bill-total-price-title">مبلغ قابل پرداخت</span>
                                 <span class="checkout-bill-total-price-amount">
-                                    <span class="js-price">۴,۰۴۵,۰۰۰ </span>
+                                    <span class="js-price">{{order.calculate_paid_amount_needed|intcomma}} </span>
                                     <span class="checkout-bill-total-price-currency">تومان</span>
                                 </span>
                                 <div class="parent-btn">
+                                    <a href="{% url "cart:request" %}">
                                     <button class="dk-btn dk-btn-info payment-link">
                                                 ادامه فرآیند خرید
                                         <i class="mdi mdi-arrow-left"></i>
                                     </button>
+                                    </a>
                                 </div>
                             </li>
                         </ul>

@@ -2,8 +2,8 @@ import random , string
 
 from django.db import models
 from django.db.models import Sum , F
-# Create your models here.
 
+import jdatetime
 
 class Order(models.Model):
     shopping_id = models.SlugField(unique=True, blank=True,null=True,db_index=True)
@@ -27,7 +27,7 @@ class Order(models.Model):
     def __str__(self):
         return str(self.profile) + " ////////// " + str(self.id)
 
-    def calculate_paid_amount_needed(self):
+    def calculate_paid_amount_needed(self) -> int:
         order_detail = OrderItem.objects.filter(order=self)
         total_price = order_detail.aggregate(
             total_spent=Sum(
@@ -37,7 +37,24 @@ class Order(models.Model):
         )
         return total_price['total_spent']
 
-    # def shiping_date
+    @staticmethod
+    def start_ship_date() -> str:
+        jdatetime.set_locale(jdatetime.FA_LOCALE)
+        today = jdatetime.date.today()
+        start_delta_time = jdatetime.timedelta(days=4)
+        start_date = today + start_delta_time
+        formatted_start_date = f"{start_date.year}-{start_date.jmonth()}-{start_date.day}"
+        return formatted_start_date
+
+    @staticmethod
+    def end_ship_date() -> str:
+        jdatetime.set_locale(jdatetime.FA_LOCALE)
+        today = jdatetime.date.today()
+        finish_delta_time = jdatetime.timedelta(days=8)
+        finish_date = today + finish_delta_time
+        formatted_finish_date = f"{finish_date.year}-{finish_date.jmonth()}-{finish_date.day}"
+        return formatted_finish_date
+
 
     def save(self, *args, **kwargs):
         while not self.shopping_id:
@@ -51,6 +68,17 @@ class Order(models.Model):
                 self.shopping_id = new_shopping_id
 
         super().save(*args, **kwargs)
+
+    def get_all_quantity(self):
+        order_detail = OrderItem.objects.filter(order=self)
+        order_item_quantity = order_detail.aggregate(
+            total_quantity=Sum(
+            F('quantity')
+            )
+        )
+        return order_item_quantity['total_quantity']
+
+
 
 
 class OrderItem(models.Model):

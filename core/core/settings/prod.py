@@ -11,3 +11,5 @@ ALLOWED_HOSTS = config(
 SECRET_KEY = config("SECRET_KEY", default="test")
 
 DEBUG = config("DEBUG", cast=bool, default=True)
+
+MERCHANTID = config("MerchantID",default="test")
