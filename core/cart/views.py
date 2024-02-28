@@ -193,6 +193,7 @@ class AfterPaymentView(LoginRequiredMixin,View):
                         paid_amount=amount,in_proccesing=True,payment_date=now) # update order
 
         order = Order.objects.prefetch_related('orderitem_set').get(profile=profile,in_proccesing=True,payment_date=now)
+        order.calculate_score()
         for order_item in order.orderitem_set.all(): # update order items
             order_item.final_price= order_item.product_variant.price_difference + order_item.product_variant.product.price
             order_item.selected_size = order_item.product_variant.size
