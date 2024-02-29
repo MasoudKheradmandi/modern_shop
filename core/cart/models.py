@@ -24,6 +24,9 @@ class Order(models.Model):
 
     payment_date = models.DateTimeField(null=True,blank=True)
 
+    order_uuid = models.UUIDField(editable = False,null=True)
+    fail_uuid = models.UUIDField(editable = False,null=True)
+
     def __str__(self):
         return str(self.profile) + " ////////// " + str(self.id)
 

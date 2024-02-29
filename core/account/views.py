@@ -176,19 +176,17 @@ class ProfileCart(View):
         ##
         return render(request,'profile-order.html',context)
 
+import logging
+logger = logging.getLogger(__name__)
 
 class Factor(View):
     def get(self,request,pk):
         order = Order.objects.get(shopping_id=pk)
-        order_detail = OrderItem.objects.filter(order=order)
-        total_price = order_detail.aggregate(
-            total_price=Sum('final_price')
-        )
-
+        order_item = OrderItem.objects.filter(order=order)
+        
         context = {
-            'order_det':order,
-            'products':order_detail,
-            'total_price':total_price['total_price']
+            'order':order,
+            'order_item':order_item,
         }
         return render(request,'factor.html',context)
 
