@@ -27,6 +27,12 @@ services:
       - postgres-volume:/var/lib/postgresql/data
     networks:
       - postgres-network
+  
+  redis: 
+    image: docker.arvancloud.ir/redis
+    container_name: redis
+    networks:
+      - postgres-network
 
 volumes:
   postgres-volume:

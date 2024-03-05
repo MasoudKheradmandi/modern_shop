@@ -46,3 +46,15 @@ MERCHANTID = config("MerchantID",default="test")
 #         "NAME": BASE_DIR / "db.sqlite3",
 #     },
 # }
+
+
+# REDIS CACHE SETTING
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://redis:6379/",
+        "KEY_PREFIX": "html_",
+        "TIMEOUT": 60 * 15,  # in seconds: 60 * 15 (15 minutes)
+    }
+}
