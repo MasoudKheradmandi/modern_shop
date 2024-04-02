@@ -1,5 +1,6 @@
 import requests
 import json
+import uuid
 
 from django.shortcuts import render , redirect ,get_object_or_404
 from django.views.generic import View
@@ -7,7 +8,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Sum , F
 from django.db import transaction
-from django.http import JsonResponse
+from django.http import JsonResponse,Http404
 from django.urls import reverse_lazy , reverse
 from django.conf import settings
 from django.utils import timezone
@@ -179,10 +180,13 @@ class AfterPaymentView(LoginRequiredMixin,View):
             response = response.json()
             ref_id = response['RefID']
             if response['Status'] == 100:
-                self.save_order_and_orderitem_data(request.user.phone_number,profile,amount)
-                return redirect('cart:success-payment-page',order_id=order.id)
+                order_after_save=self.save_order_and_orderitem_data(request.user.phone_number,profile,amount)
+                
+                return redirect('cart:success-payment-page',order_id=order.id,order_uuid=order_after_save.order_uuid)
             else:
-                return redirect('cart:failure-payment-page',order_id=order.id)
+                order.fail_uuid = uuid.uuid4()
+                order.save()
+                return redirect('cart:failure-payment-page',order_id=order.id,fail_uuid=order.fail_uuid)
         return JsonResponse(response.json(),safe=False)
 
     @transaction.atomic
@@ -191,33 +195,56 @@ class AfterPaymentView(LoginRequiredMixin,View):
         order = Order.objects.filter(profile=profile,in_proccesing=False)
         order.update(full_name=profile.full_name,address=profile.address,phone_number=phone_number,
                         paid_amount=amount,in_proccesing=True,payment_date=now) # update order
-
         order = Order.objects.prefetch_related('orderitem_set').get(profile=profile,in_proccesing=True,payment_date=now)
+        z = uuid.uuid4()
+        order.order_uuid =z
+        order.save()
+        order.calculate_score()
         for order_item in order.orderitem_set.all(): # update order items
             order_item.final_price= order_item.product_variant.price_difference + order_item.product_variant.product.price
             order_item.selected_size = order_item.product_variant.size
             order_item.save()
 
             TvSize.objects.filter(id=order_item.product_variant.id).update(count=F('count') - order_item.quantity)
+        return order
 
 
 class SucessPaymentView(LoginRequiredMixin,View):
     login_url = reverse_lazy("account:login-page")
-    def get(self,request,order_id):
-        order = get_object_or_404(Order,id=order_id)
-        context = {
-            'order' : order
-        }
-        return render(request,'shipping-complate-buy.html',context)
+    def get(self,request,order_id,order_uuid):
+        if self.is_valid_uuid(val=order_uuid):
+            order = get_object_or_404(Order,id=order_id,order_uuid=order_uuid)
+            context = {
+                'order' : order
+            }
+            return render(request,'shipping-complate-buy.html',context)
+        else:
+            raise Http404()
+    @staticmethod
+    def is_valid_uuid(val):
+        try:
+            uuid.UUID(str(val))
+            return True
+        except ValueError:
+            return False
 
 
 class FailurePaymentView(LoginRequiredMixin,View):
     login_url = reverse_lazy("account:login-page")
-    def get(self,request,order_id):
-        order = get_object_or_404(Order,id=order_id)
-        context = {
-            'order' : order
-        }
-        return render(request,'shipping-no-complate-buy.html',context)
-
+    def get(self,request,order_id,fail_uuid):
+        if self.is_valid_uuid(val=fail_uuid):
+            order = get_object_or_404(Order,id=order_id,fail_uuid=fail_uuid)
+            context = {
+                'order' : order
+            }
+            return render(request,'shipping-no-complate-buy.html',context)
+        else:
+            raise Http404()
+    @staticmethod
+    def is_valid_uuid(val):
+        try:
+            uuid.UUID(str(val))
+            return True
+        except ValueError:
+            return False
 

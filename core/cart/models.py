@@ -20,7 +20,12 @@ class Order(models.Model):
     delivered = models.BooleanField(default=False)
     cancelled = models.BooleanField(default=False)
 
+    score = models.IntegerField(default=0)
+
     payment_date = models.DateTimeField(null=True,blank=True)
+
+    order_uuid = models.UUIDField(editable = False,null=True)
+    fail_uuid = models.UUIDField(editable = False,null=True)
 
     def __str__(self):
         return str(self.profile) + " ////////// " + str(self.id)
@@ -52,6 +57,11 @@ class Order(models.Model):
         finish_date = today + finish_delta_time
         formatted_finish_date = f"{finish_date.year}-{finish_date.jmonth()}-{finish_date.day}"
         return formatted_finish_date
+    
+    def calculate_score(self) -> None:
+        if self.paid_amount is not None:
+            self.score = self.paid_amount / 1000
+            self.save()
 
 
     def save(self, *args, **kwargs):

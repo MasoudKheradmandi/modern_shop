@@ -1,3 +1,4 @@
+{% load humanize %}
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -28,32 +29,30 @@
     </style>
 </head>
 <body>
-    <h2>فاکتور فروش {{order_det.shopping_id}}</h2>
+    <h2>فاکتور فروش {{order.shopping_id}}</h2>
     <table>
         <thead>
             <tr>
                 <th>مورد</th>
                 <th>تعداد</th>
                 <th>قیمت</th>
-                <th>درصدتخفیف</th>
                 <th>جمع</th>
             </tr>
         </thead>
         <tbody>
-            {% for product in products %}
+            {% for product in order_item %}
             <tr>
                 <td>{{product.product_variant.product.name}} با سایز  {{product.product_variant.size}}</td>
                 <td>{{product.quantity}}</td>
-                <td>$10.00</td>
-                <td>{{product.calculated_discount}}</td>
-                <td>{{product.final_price}}</td>
+                <td>{{product.final_price | intcomma}}</td>
+                <td>{% widthratio product.quantity 1 product.final_price as total_value%} {{total_value | intcomma }} </td>
             </tr>
             {% endfor %}
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="4" class="total">جمع کل</td>
-                <td class="total">{{total_price}}</td>
+                <td colspan="3" class="total">جمع کل</td>
+                <td class="total">{{order.paid_amount | intcomma}}</td>
             </tr>
         </tfoot>
     </table>
