@@ -19,7 +19,7 @@ jobs:
       steps:
           - name: Checkout code
             uses: actions/checkout@v4
-          - name: update docker compose
+          - name: install docker
             run: |
                 sudo apt-get update 
                 sudo apt-get install ca-certificates curl 
