@@ -33,11 +33,11 @@
                     <div class="profile-navbar-back-alignment">
                         <a href="#" class="profile-navbar-btn-back">بازگشت</a>
                         <h4>سفارش {{order.shopping_id}}
-                            <span>ثبت شده در تاریخ ۸ خرداد ۱۳۹۸</span>
+                            <span>ثبت شده در تاریخ {{order.payment_date.year}}/{{order.payment_date.month}}/{{order.payment_date.day}}</span>
                         </h4>
                     </div>
                     <div class="profile-navbar-invoice">
-                        <a href="{{order.shopping_id}}">
+                        <a href="{% url "account:factor-page" pk=order.shopping_id %}">
                             <button class="profile-navbar-btn-invoice">مشاهده فاکتور</button>
                         </a>
                     </div>
@@ -47,11 +47,7 @@
 
             
             <div class="col-xs-12">
-                <div class="headline-profile" style="margin-top:15px;">
-                    <span>مرسوله ۱ از ۱</span>
-                    <span class="profile-order-cancel-button">لغو دریافت مرسوله
-                    </span>
-                </div>
+                
                 <div class="profile-stats profile-order">
                     <div class="profile-order-steps-note">
                         <span>
@@ -128,7 +124,7 @@
                                 اسمارت
                             </div>
                             <div class="table-draught-col">هزینه ارسال
-                                : ۸,۰۰۰ تومان
+                                : رایگان
 
                             </div>
                         </div>
@@ -156,10 +152,18 @@
                         </div>
                     </div>
                 </div> {% endcomment %}
+
             </div>
             {% endfor %}
         </section>
     </div>
 </div>
-<!--profile------------------------------------>
 {% endblock main %}
+
+{% block js %}
+<script>
+    $(document).ready(function(){
+        $('#orders').addClass('active-profile')
+    });
+</script>
+{% endblock js %}

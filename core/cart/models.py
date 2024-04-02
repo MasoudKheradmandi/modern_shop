@@ -8,11 +8,9 @@ import jdatetime
 class Order(models.Model):
     shopping_id = models.SlugField(unique=True, blank=True,null=True,db_index=True)
     profile = models.ForeignKey('account.Profile',on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=250,null=True,blank=True)
-    last_name = models.CharField(max_length=250,null=True,blank=True)
+    full_name = models.CharField(max_length=250,null=True,blank=True)
     address = models.TextField(null=True,blank=True)
     phone_number = models.CharField(max_length=15,null=True,blank=True)
-    zip_code = models.CharField(max_length=30,null=True)
     paid_amount = models.IntegerField(blank=True,null=True)
 
     in_proccesing = models.BooleanField(default=False)
@@ -22,7 +20,12 @@ class Order(models.Model):
     delivered = models.BooleanField(default=False)
     cancelled = models.BooleanField(default=False)
 
+    score = models.IntegerField(default=0)
+
     payment_date = models.DateTimeField(null=True,blank=True)
+
+    order_uuid = models.UUIDField(editable = False,null=True)
+    fail_uuid = models.UUIDField(editable = False,null=True)
 
     def __str__(self):
         return str(self.profile) + " ////////// " + str(self.id)
@@ -54,6 +57,11 @@ class Order(models.Model):
         finish_date = today + finish_delta_time
         formatted_finish_date = f"{finish_date.year}-{finish_date.jmonth()}-{finish_date.day}"
         return formatted_finish_date
+    
+    def calculate_score(self) -> None:
+        if self.paid_amount is not None:
+            self.score = self.paid_amount / 1000
+            self.save()
 
 
     def save(self, *args, **kwargs):
@@ -79,13 +87,12 @@ class Order(models.Model):
         return order_item_quantity['total_quantity']
 
 
-
-
 class OrderItem(models.Model):
     order = models.ForeignKey(Order,on_delete=models.CASCADE)
     product_variant = models.ForeignKey('product.TvSize',on_delete=models.CASCADE)
     final_price = models.IntegerField(blank=True,null=True)
-    quantity = models.IntegerField()
+    selected_size = models.CharField(max_length=25,null=True,blank=True)
+    quantity = models.PositiveIntegerField()
 
     def __str__(self):
         return str(self.order_id) + " ////////// " + self.product_variant.product.name

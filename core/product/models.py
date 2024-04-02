@@ -12,7 +12,7 @@ class Category(models.Model):
 
 class TvSize(models.Model):
     product = models.ForeignKey("Product",on_delete=models.PROTECT)
-    size = models.CharField(max_length=4,verbose_name='سایز')
+    size = models.CharField(max_length=25,verbose_name='سایز')
     price_difference = models.IntegerField(verbose_name='اختلاف قیمت',default=0)
     count = models.PositiveIntegerField() # تعداد تلویزیون با سایز مشخص یا همون موجودی انبار
 
