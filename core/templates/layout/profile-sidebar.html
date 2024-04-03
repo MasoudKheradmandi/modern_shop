@@ -28,12 +28,12 @@
                 <span class="box-header-sidebar">حساب کاربری شما</span>
                 <ul class="profile-menu-items">
                     <li>
-                        <a href="{% url "account:profile-page" %}" class="profile-menu-url active-profile">
+                        <a href="{% url "account:profile-page" %}" id='profile' class="profile-menu-url">
                             <span class="mdi mdi-account-outline"></span>
                             پروفایل</a>
                     </li>
                     <li>
-                        <a href="{% url "account:profile-order-list-page" %}" class="profile-menu-url">
+                        <a href="{% url "account:profile-order-list-page" %}" id='orders'  class="profile-menu-url">
                             <span class="fa fa-shopping-basket"></span>
                             همه سفارش ها</a>
                     </li>
@@ -43,7 +43,7 @@
                             در خواست مرجوعی</a>
                     </li>
                     <li>
-                        <a href="{% url "account:profile-wish-list-page" %}" class="profile-menu-url">
+                        <a href="{% url "account:profile-wish-list-page" %}" id="wish-list" class="profile-menu-url">
                             <span class="fa fa-star-o"></span>
                             لیست علاقه مندی ها</a>
                     </li>

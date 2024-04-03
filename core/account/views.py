@@ -6,9 +6,12 @@ from django.views.generic import View
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.db.models import Sum
 
 from account.forms import LoginForm , LoginVerificationForm , ProfileAddInfoForm
 from account.models import User , Profile
+from cart.models import Order , OrderItem
+
 # Create your views here.
 
 
@@ -163,9 +166,29 @@ class ProfileWishListView(LoginRequiredMixin,View):
         return render(request,'profile-favorites.html',context)
 
 
-class ProfileOrderListView(LoginRequiredMixin,View):
-    login_url = reverse_lazy("account:login-page")
+class ProfileCart(View):
     def get(self,request):
-        context = {}
-        return render(request,'profile-order-2.html',context)
+        user = Profile.objects.get(user = request.user)
+        orders = Order.objects.filter(profile=user,in_proccesing=True).order_by('-payment_date')
+        context = {
+            'orders':orders,
+        }
+        ##
+        return render(request,'profile-order.html',context)
+
+import logging
+logger = logging.getLogger(__name__)
+
+class Factor(View):
+    def get(self,request,pk):
+        order = Order.objects.get(shopping_id=pk)
+        order_item = OrderItem.objects.filter(order=order)
+        
+        context = {
+            'order':order,
+            'order_item':order_item,
+        }
+        return render(request,'factor.html',context)
+
+
 
