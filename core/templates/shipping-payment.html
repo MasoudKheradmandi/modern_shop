@@ -65,7 +65,7 @@
                                     <div class="payment-summary-col payment-summary-col-package-amount">
                                         <span>مبلغ مرسوله : </span>
                                         <div class="payment-summary-price">
-                                            {{order.calculate_paid_amount_needed|intcomma}}
+                                            {{paid_amount_needed}}
                                             <span>تومان</span>
                                         </div>
                                     </div>
@@ -111,7 +111,7 @@
                             <li>
                                 <span class="checkout-bill-item-title">قیمت کالاها({{order.get_all_quantity}})</span>
                                 <span class="checkout-bill-price">
-                                    {{order.calculate_paid_amount_needed|intcomma}}
+                                    {{paid_amount_needed}}
                                     <span class="checkout-bill-currency">
                                         تومان
                                     </span>
@@ -124,7 +124,7 @@
                             <li class="checkout-bill-total-price">
                                 <span class="checkout-bill-total-price-title">مبلغ قابل پرداخت</span>
                                 <span class="checkout-bill-total-price-amount">
-                                    <span class="js-price">{{order.calculate_paid_amount_needed|intcomma}} </span>
+                                    <span class="js-price">{{paid_amount_needed}} </span>
                                     <span class="checkout-bill-total-price-currency">تومان</span>
                                 </span>
                                 <div class="parent-btn">
