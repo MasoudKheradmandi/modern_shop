@@ -33,7 +33,7 @@ services:
       - postgres-network
   
   nginx:
-    image: nginx:1.25.3-alpine
+    image: docker.arvancloud.ir/nginx:1.25.3-alpine
     container_name: nginx
     restart: unless-stopped
     ports:
@@ -52,7 +52,7 @@ services:
       - postgres-network
       
   certbot:
-    image: certbot/certbot
+    image: docker.arvancloud.ir/certbot/certbot
     container_name: certbot
     volumes: 
       - ./certbot/conf:/etc/letsencrypt
