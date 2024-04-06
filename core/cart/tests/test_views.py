@@ -1,12 +1,14 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.messages import get_messages
+from django.http import Http404
 
 from model_bakery import baker
 
 from account.models import User , Profile
-from cart.models import Order , OrderItem
 from product.models import Product , TvSize
+from cart.models import Order , OrderItem
+from cart.views import SuccessPaymentView
 
 
 class TestAddToCart(TestCase):
@@ -183,4 +185,53 @@ class TestChangeOrderItemQuantityView(TestCase):
         self.assertJSONEqual(str(response.content, encoding='utf8'),{'msg': self.success_message})
 
 
+class TestShippingView(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = baker.make(User)
+        cls.url = reverse('cart:shipping-page')
+
+        cls.product = baker.make(Product,is_show=True,_fill_optional=True,_create_files=True)
+        cls.product_variation_1 = baker.make(TvSize,product=cls.product,size='1',count=2)
+        cls.product_variation_2 = baker.make(TvSize,product=cls.product,size='2',count=3)
+
+        cls.success_message = 'تعداد محصول با موفقیت تغییر کرد'
+        cls.failure_msg = 'مشکلی در سیستم رخ داده است. لطفا بعدا دوباره امتحان کنید.'
+
+
+    def test_empty_cart(self):
+        self.client.force_login(self.user)
+        response = self.client.get(self.url)
+
+        self.assertTemplateUsed(response,'cart-empty.html')
+
+
+    def test_in_proccesing_cart(self):
+        profile = Profile.objects.get(user=self.user)
+        order = baker.make(Order,profile=profile,in_proccesing=True)
+        order_item = baker.make(OrderItem,order=order,product_variant=self.product_variation_1,quantity=1)
+
+        self.client.force_login(self.user)
+        response = self.client.get(self.url)
+
+        self.assertTemplateUsed(response,'cart-empty.html')
+
+
+    def test_no_in_proccesing_cart(self):
+        profile = Profile.objects.get(user=self.user)
+        order = baker.make(Order,profile=profile,in_proccesing=False)
+        order_item1 = baker.make(OrderItem,order=order,product_variant=self.product_variation_1,quantity=1)
+        order_item2 = baker.make(OrderItem,order=order,product_variant=self.product_variation_2,quantity=1)
+
+        first_variation_price = self.product.price + order_item1.product_variant.price_difference
+        second_variation_price = self.product.price + order_item2.product_variant.price_difference
+
+        final_price = first_variation_price + second_variation_price
+
+        self.client.force_login(self.user)
+        response = self.client.get(self.url)
+
+        self.assertTemplateUsed(response,'shipping-payment.html')
+        self.assertEqual(response.context['order'],order)
+        self.assertEqual(response.context['paid_amount_needed'],final_price)
 
