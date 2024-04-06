@@ -213,7 +213,7 @@ class AfterPaymentView(LoginRequiredMixin,View):
             TvSize.objects.filter(id=order_item.product_variant.id).update(count=F('count') - order_item.quantity)
 
 
-class SucessPaymentView(LoginRequiredMixin,View):
+class SuccessPaymentView(LoginRequiredMixin,View):
     login_url = reverse_lazy("account:login-page")
     def get(self,request,order_id):
         if request.session.get('state') == 'success':

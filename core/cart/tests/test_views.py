@@ -1,12 +1,14 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.messages import get_messages
+from django.http import Http404
 
 from model_bakery import baker
 
 from account.models import User , Profile
-from cart.models import Order , OrderItem
 from product.models import Product , TvSize
+from cart.models import Order , OrderItem
+from cart.views import SuccessPaymentView
 
 
 class TestAddToCart(TestCase):
@@ -232,5 +234,39 @@ class TestShippingView(TestCase):
         self.assertTemplateUsed(response,'shipping-payment.html')
         self.assertEqual(response.context['order'],order)
         self.assertEqual(response.context['paid_amount_needed'],final_price)
+
+class TestSuccessPaymentView(TestCase):
+    def setUp(self):
+        self.user = baker.make(User)
+        self.profile = Profile.objects.get(user=self.user)
+        self.order = Order.objects.create(id=1,profile_id=self.profile.id)
+        self.url = 'cart:success-payment-page'
+
+    def test_get_success(self):
+        request = self.client.get(reverse(self.url, kwargs={'order_id': self.order.id}))
+        request.user = self.user
+        request.session = {'state': 'success'}
+        response = SuccessPaymentView.as_view()(request, order_id=self.order.id)
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_failure(self):
+        request = self.client.get(reverse(self.url, kwargs={'order_id': self.order.id}))
+        request.user = self.user
+        request.session = {'state': 'failure'}
+        self.assertRaises(Http404,SuccessPaymentView.as_view()(request, order_id=self.order.id))
+
+
+    def test_get_no_session(self):
+        request = self.client.get(reverse(self.url, kwargs={'order_id': self.order.id}))
+        request.user = self.user
+        with self.assertRaises(KeyError):
+            SuccessPaymentView.as_view()(request, order_id=self.order.id)
+
+    def test_get_invalid_order_id(self):
+        request = self.client.get(reverse(self.url, kwargs={'order_id': 999}))
+        request.user = self.user
+        request.session = {'state': 'success'}
+        with self.assertRaises(Http404):
+            SuccessPaymentView.as_view()(request, order_id=999)
 
 
