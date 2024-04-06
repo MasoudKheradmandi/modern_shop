@@ -57,7 +57,7 @@ services:
     volumes: 
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
-    command: certonly --webroot -w /var/www/certbot --force-renewal --email h410mi3@gmail.com -d babolsarbyte.com --agree-tos
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email h410mi3@gmail.com -d babolsarbyte.ir --agree-tos
 
 volumes:
   postgres-volume:
