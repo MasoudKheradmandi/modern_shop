@@ -13,7 +13,7 @@ coverage.xml
 *.cover
 .hypothesis/
 .pytest_cache/
-
+certbot/
 
 # Environments
 .env

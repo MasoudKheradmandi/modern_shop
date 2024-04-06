@@ -1,6 +1,5 @@
 import requests
 import json
-import uuid
 
 from django.shortcuts import render , redirect ,get_object_or_404
 from django.views.generic import View
@@ -102,12 +101,16 @@ class ShippingView(LoginRequiredMixin,View):
     login_url = reverse_lazy("account:login-page")
     def get(self,request):
         profile = Profile.objects.get(user=request.user)
-        order , created = Order.objects.prefetch_related('orderitem_set').get_or_create(profile=profile,in_proccesing=False)
+        order , _ = Order.objects.prefetch_related('orderitem_set').get_or_create(profile=profile,in_proccesing=False)
+
         if  not order.orderitem_set.exists():
             return render(request,'cart-empty.html')
 
+        paid_amount_needed = order.calculate_paid_amount_needed()
+
         context = {
             'order' : order,
+            'paid_amount_needed' : paid_amount_needed,
         }
         return render(request,'shipping-payment.html',context)
 
@@ -118,21 +121,23 @@ class PaymentView(LoginRequiredMixin,View):
         profile = Profile.objects.get(user=request.user)
         order = Order.objects.filter(profile=profile,in_proccesing=False).last()
 
-        if  not order.orderitem_set.exists():
+        if not order.orderitem_set.exists():
             return render(request,'cart-empty.html')
 
         CallbackURL = request.build_absolute_uri(reverse('cart:verify'))
 
         data = {
-        "MerchantID": settings.MERCHANTID,
-        "Amount": order.calculate_paid_amount_needed(),
-        "Description": "این تراکنش صرفا جهت تست می باشد",
-        "Phone": 'YOUR_PHONE_NUMBER',
-        "CallbackURL": CallbackURL,
+            "MerchantID": settings.MERCHANTID,
+            "Amount": order.calculate_paid_amount_needed(),
+            "Description": "این تراکنش صرفا جهت تست می باشد",
+            "Phone": 'YOUR_PHONE_NUMBER',
+            "CallbackURL": CallbackURL,
         }
+
         data = json.dumps(data)
-        # set content length by data
+
         headers = {'content-type': 'application/json', 'content-length': str(len(data)) }
+
         try:
             response = requests.post(settings.ZP_API_REQUEST, data=data,headers=headers, timeout=100)
 
@@ -146,30 +151,29 @@ class PaymentView(LoginRequiredMixin,View):
             return JsonResponse(response.json(),safe=False)
 
         except requests.exceptions.Timeout:
-            # return {'status': False, 'code': 'timeout'}
             messages.error(request,'timeout')
             return redirect('cart:shipping-page')
+
         except requests.exceptions.ConnectionError:
-            # return {'status': False, 'code': 'connection error'}
             messages.error(request,'connection error')
             return redirect('cart:shipping-page')
 
 
 class AfterPaymentView(LoginRequiredMixin,View):
     login_url = reverse_lazy("account:login-page")
-    @transaction.atomic
+
     def get(self,request):
         profile = Profile.objects.get(user=request.user)
         order = Order.objects.prefetch_related('orderitem_set').filter(profile=profile,in_proccesing=False).last()
 
-        if  not order.orderitem_set.exists():
+        if not order.orderitem_set.exists():
             return render(request,'cart-empty.html')
 
         amount = order.calculate_paid_amount_needed()
         data = {
-        "MerchantID": settings.MERCHANTID,
-        "Amount": amount,
-        "Authority": request.GET.get('Authority'),
+            "MerchantID": settings.MERCHANTID,
+            "Amount": amount,
+            "Authority": request.GET.get('Authority'),
         }
 
         data = json.dumps(data)
@@ -177,74 +181,62 @@ class AfterPaymentView(LoginRequiredMixin,View):
         response = requests.post(settings.ZP_API_VERIFY, data=data,headers=headers)
 
         if response.status_code == 200:
-            response = response.json()
-            ref_id = response['RefID']
-            if response['Status'] == 100:
-                order_after_save=self.save_order_and_orderitem_data(request.user.phone_number,profile,amount)
-                
-                return redirect('cart:success-payment-page',order_id=order.id,order_uuid=order_after_save.order_uuid)
+            response_data = response.json()
+
+            if response_data.get('Status') == 100:
+                self.save_order_and_orderitem_data(order,profile,request.user.phone_number, amount)
+                request.session['state'] = 'success'
+                return redirect('cart:success-payment-page', order_id=order.id)
             else:
-                order.fail_uuid = uuid.uuid4()
-                order.save()
-                return redirect('cart:failure-payment-page',order_id=order.id,fail_uuid=order.fail_uuid)
-        return JsonResponse(response.json(),safe=False)
+                request.session['state'] = 'unsuccess'
+                return redirect('cart:failure-payment-page', order_id=order.id)
+
+        return JsonResponse(response.json(), safe=False)
 
     @transaction.atomic
-    def save_order_and_orderitem_data(self,phone_number,profile,amount) -> None:
-        now = timezone.now()
-        order = Order.objects.filter(profile=profile,in_proccesing=False)
-        order.update(full_name=profile.full_name,address=profile.address,phone_number=phone_number,
-                        paid_amount=amount,in_proccesing=True,payment_date=now) # update order
-        order = Order.objects.prefetch_related('orderitem_set').get(profile=profile,in_proccesing=True,payment_date=now)
-        z = uuid.uuid4()
-        order.order_uuid =z
+    def save_order_and_orderitem_data(self,order,profile,phone_number,amount) -> None:
+        order.full_name = profile.full_name
+        order.address = profile.address
+        order.phone_number = phone_number
+        order.paid_amount = amount
+        order.in_proccesing = True
+        order.payment_date = timezone.now()
+        order.score = order.calculate_score(amount)
         order.save()
-        order.calculate_score()
-        for order_item in order.orderitem_set.all(): # update order items
-            order_item.final_price= order_item.product_variant.price_difference + order_item.product_variant.product.price
+
+        for order_item in order.orderitem_set.all():
+            final_price = order_item.product_variant.price_difference + order_item.product_variant.product.price
+            order_item.final_price = final_price
             order_item.selected_size = order_item.product_variant.size
             order_item.save()
 
             TvSize.objects.filter(id=order_item.product_variant.id).update(count=F('count') - order_item.quantity)
-        return order
 
 
 class SucessPaymentView(LoginRequiredMixin,View):
     login_url = reverse_lazy("account:login-page")
-    def get(self,request,order_id,order_uuid):
-        if self.is_valid_uuid(val=order_uuid):
-            order = get_object_or_404(Order,id=order_id,order_uuid=order_uuid)
+    def get(self,request,order_id):
+        if request.session.get('state') == 'success':
+            del request.session['state']
+            order = get_object_or_404(Order,id=order_id)
             context = {
                 'order' : order
             }
             return render(request,'shipping-complate-buy.html',context)
         else:
             raise Http404()
-    @staticmethod
-    def is_valid_uuid(val):
-        try:
-            uuid.UUID(str(val))
-            return True
-        except ValueError:
-            return False
 
 
 class FailurePaymentView(LoginRequiredMixin,View):
     login_url = reverse_lazy("account:login-page")
-    def get(self,request,order_id,fail_uuid):
-        if self.is_valid_uuid(val=fail_uuid):
-            order = get_object_or_404(Order,id=order_id,fail_uuid=fail_uuid)
+    def get(self,request,order_id):
+        if request.session.get('state') == 'unsuccess':
+            del request.session['state']
+            order = get_object_or_404(Order,id=order_id)
             context = {
                 'order' : order
             }
             return render(request,'shipping-no-complate-buy.html',context)
         else:
             raise Http404()
-    @staticmethod
-    def is_valid_uuid(val):
-        try:
-            uuid.UUID(str(val))
-            return True
-        except ValueError:
-            return False
 
