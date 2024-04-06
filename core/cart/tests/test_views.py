@@ -1,14 +1,12 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.messages import get_messages
-from django.http import Http404
 
 from model_bakery import baker
 
 from account.models import User , Profile
-from product.models import Product , TvSize
 from cart.models import Order , OrderItem
-from cart.views import SuccessPaymentView
+from product.models import Product , TvSize
 
 
 class TestAddToCart(TestCase):
@@ -234,4 +232,5 @@ class TestShippingView(TestCase):
         self.assertTemplateUsed(response,'shipping-payment.html')
         self.assertEqual(response.context['order'],order)
         self.assertEqual(response.context['paid_amount_needed'],final_price)
+
 

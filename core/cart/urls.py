@@ -12,7 +12,7 @@ urlpatterns = [
 
     path('request/', views.PaymentView.as_view(), name='request'),
     path('verify/', views.AfterPaymentView.as_view() , name='verify'),
-    path('success-payment/<int:order_id>/', views.SuccessPaymentView.as_view() , name='success-payment-page'),
+    path('success-payment/<int:order_id>/', views.SucessPaymentView.as_view() , name='success-payment-page'),
     path('failure-payment/<int:order_id>/', views.FailurePaymentView.as_view() , name='failure-payment-page'),
 
 
