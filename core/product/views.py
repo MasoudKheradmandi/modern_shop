@@ -71,6 +71,15 @@ class WishListView(View):
 
 
 
+class Search(View):
+    def get(self,request):
+        para=request.GET.get('para')
+        objects = Product.objects.filter(is_show=True,name__icontains=para)
+
+        context = {'product_obj':objects}
+        return render(request,'listview.html',context)
+
+
 
 def login_view(request):
     username = '09033152968'
@@ -80,3 +89,5 @@ def login_view(request):
         login(request,user)
         return HttpResponse('s')
     return HttpResponse('d')
+
+
