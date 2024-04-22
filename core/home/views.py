@@ -7,8 +7,9 @@ from django.db.models.aggregates import Count
 
 from home.models import Navbar , SiteSettings , Footer , Slider
 from home.forms import NewsLetterForm
-from product.models import Product
+from product.models import Product , WishList
 from account.models import Profile
+from cart.models import Order , OrderItem
 
 
 class HomeView(View):
@@ -31,13 +32,23 @@ class HomeView(View):
 
 class HeaderView(View):
     def get(self,request):
-        profile = Profile.objects.filter(user=request.user.id)
+        profile = Profile.objects.filter(user=request.user.id).first()
         navbars = Navbar.objects.all()
         site_setting = SiteSettings.objects.filter(is_active=True).last()
+        wishlist = ''
+        cart_items = ''
+        if profile:
+            wishlist = WishList.objects.filter(profile=profile).first()
+            order = Order.objects.filter(profile=profile,in_proccesing=False).last()
+            cart_items = OrderItem.objects.filter(order=order)
+        # if:
+        #     'sa'
         context = {
             'profile' : profile,
             'navbars' : navbars,
             'site_setting' : site_setting,
+            'wishlist' : wishlist,
+            'cart_items' : cart_items,
         }
         return render(request,'layout/header.html',context)
 
