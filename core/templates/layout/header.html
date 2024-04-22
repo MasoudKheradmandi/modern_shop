@@ -90,14 +90,14 @@
                         <div class="header-cart-interest">
                             <a href="#" class="d-block">
                                 <i class="fa fa-heart"></i>
-                                <span class="counter">۲</span>
+                                <span class="counter">{{wishlist.product.count}}</span>
                             </a>
                         </div>
                         <div class="header-cart-basket">
                             <a href="#">
                                 <span class="mdi mdi-shopping"></span>
                                 سبد خرید
-                                <span class="count">۴</span>
+                                <span class="count">{{cart_items.count}}</span>
                             </a>
                             <div class="dropdown-menu-cart">
                                 <div class="dropdown-header">
@@ -107,12 +107,13 @@
                                     <div class="scrollbar" id="style-1">
                                         <div class="force-overflow">
                                             <ul class="dropdown-list">
-                                                <a href="#">
+                                                {% for cart in cart_items %}
+                                                <a href="{% url "product:detail" category=cart.product_variant.product.category.name id=cart.product_variant.product.id %}">
                                                     <li class="dropdown-item">
                                                         <div class="title-cart">
-                                                            <img src="{% static 'assets/images/cart/lenovo-ideapadl3-15iml05.jpg' %}">
-                                                            <h3>لپ تاپ 15 اینچی لنوو مدل Ideapad L3 - 15IML05</h3>
-                                                            <div class="price">۲۶,۰۰۰,۰۰۰
+                                                            <img src="{{cart.product_variant.product.image.url}}">
+                                                            <h3>{{cart.product_variant.product.name}}</h3>
+                                                            <div class="price">{{cart.product_variant.product.price}}
                                                                 <span>تومان</span>
                                                             </div>
                                                             <button class="btn-delete">
@@ -121,20 +122,15 @@
                                                         </div>
                                                     </li>
                                                 </a>
+                                                {% endfor %}
+                                                
+
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="footer-dropdown">
-                                    <div class="amount-total-buy">
-                                        <div class="price">
-                                            <span class="total">مبلغ کل خرید :</span>
-                                            <span class="toman">۱۰۰,۰۰۰,۰۰۰
-                                                <span>تومان</span>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="checkout">تسویه حساب</a>
+                                    <a href="{% url "cart:cart-list" %}" class="checkout">تسویه حساب</a>
                                 </div>
                             </div>
                         </div>
