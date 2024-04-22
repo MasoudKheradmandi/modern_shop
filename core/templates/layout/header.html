@@ -11,8 +11,8 @@
                 </div>
                 <div class="col-lg-9 col-md-9 col-xs-12 pull-right">
                     <div class="search-header">
-                        <form action="#">
-                            <input type="text" class="search-input"
+                        <form method='GET' action="{% url 'product:search' %}">
+                            <input name='para' type="text" class="search-input"
                                 placeholder="نام کالا، برند و یا دسته مورد نظر خود را جستجو کنید…">
                             <button type="submit" class="button-search">
                                 <img src="{% static 'assets/images/search.png' %}">
