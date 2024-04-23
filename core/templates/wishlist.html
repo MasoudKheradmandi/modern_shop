@@ -45,7 +45,7 @@
                                     {% for obj in products %}
                                     <li class="profile-wishlist-list-item">
                                         <div class="profile-wishlist-list-item-thumb">
-                                            <a href="#" class="profile-wishlist-list-item-img">
+                                            <a href="{% url 'product:detail' obj.category obj.id %}" class="profile-wishlist-list-item-img">
                                                 <img src="{{obj.image.url}}">
                                             </a>
                                             <button class="profile-wishlist-list-item-remove"><span
@@ -53,7 +53,7 @@
                                         </div>
                                         <div class="profile-wishlist-list-item-content">
                                             <div class="profile-wishlist-list-item-content-container">
-                                                <a href="#">
+                                                <a href="{% url 'product:detail' obj.category obj.id %}">
                                                     <h4>{{obj.name}}</h4>
                                                 </a>
                                                

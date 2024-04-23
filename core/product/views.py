@@ -68,7 +68,14 @@ class WishListView(View):
         else:
             messages.error(request,'ابتدا وارد حساب کاربری خود شوید')
             return redirect('/')
-
+        
+    # def post(self,request,id):
+    #     profile = Profile.objects.get(user=request.user)
+    #     obj = Product.objects.get(id=request.POST.get('id'))
+    #     wish=WishList.objects.create(profile=profile)
+    #     wish.product.add(obj)
+    #     wish.save()
+        
 
 
 class Search(View):

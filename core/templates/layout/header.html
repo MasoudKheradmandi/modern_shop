@@ -88,20 +88,20 @@
                     {% endfor %}
                     <li class="nav-item-account nav-item-cart">
                         <div class="header-cart-interest">
-                            <a href="#" class="d-block">
+                            <a href="{% url 'product:wish_list' %}" class="d-block">
                                 <i class="fa fa-heart"></i>
                                 <span class="counter">{{wishlist.product.count}}</span>
                             </a>
                         </div>
                         <div class="header-cart-basket">
-                            <a href="#">
+                            <a href="{% url 'cart:cart-list' %}">
                                 <span class="mdi mdi-shopping"></span>
                                 سبد خرید
                                 <span class="count">{{cart_items.count}}</span>
                             </a>
                             <div class="dropdown-menu-cart">
                                 <div class="dropdown-header">
-                                    <a href="#" class="view-cart">مشاهده سبد خرید</a>
+                                    <a href="{% url 'cart:cart-list' %}" class="view-cart">مشاهده سبد خرید</a>
                                 </div>
                                 <div class="wrapper">
                                     <div class="scrollbar" id="style-1">
