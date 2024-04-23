@@ -23,8 +23,10 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class AddToCart(View):
+class AddToCart(LoginRequiredMixin,View):
+    login_url = reverse_lazy("account:login-page")
     def get(self,request):
+
         form = AddToCartForm(request.GET)
         if form.is_valid():
             profile = Profile.objects.get(user=request.user)
@@ -39,7 +41,7 @@ class AddToCart(View):
                 messages.info(request,msg)
             else:
                 OrderItem.objects.create(order=order,product_variant=product_variation,
-                                         quantity=quantity)
+                                        quantity=quantity)
                 msg = 'این محصول با موفقیت به سبد محصول شما اضافه شد'
                 messages.success(request,msg)
         else:
@@ -48,6 +50,7 @@ class AddToCart(View):
 
         path = request.GET.get('next','/')
         return redirect(path)
+
 
 
 class CartListView(LoginRequiredMixin,View):
