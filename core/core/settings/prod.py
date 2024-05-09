@@ -14,6 +14,6 @@ DEBUG = config("DEBUG", cast=bool, default=False)
 
 CSRF_COOKIE_SECURE = config("CSRF_COOKIE_SECURE", cast=bool, default=False)
 CSRF_USE_SESSIONS = config("CSRF_USE_SESSIONS", cast=bool, default=False)
-CSRF_COOKIE_DOMAIN = config("CSRF_USE_SESSIONS",default='*')
+CSRF_COOKIE_DOMAIN = config("CSRF_COOKIE_DOMAIN",default='*')
 
 MERCHANTID = config("MerchantID",default="test")
