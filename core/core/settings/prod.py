@@ -13,3 +13,9 @@ SECRET_KEY = config("SECRET_KEY", default="test")
 DEBUG = config("DEBUG", cast=bool, default=True)
 
 MERCHANTID = config("MerchantID",default="test")
+
+CSRF_TRUSTED_ORIGINS = config(
+    "TRUSTED_ORIGINS",
+    cast=lambda v: [s.strip() for s in v.split(",")],
+    default="*",
+)
