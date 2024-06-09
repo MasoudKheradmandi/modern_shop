@@ -13,8 +13,6 @@ services:
       - postgres-network
     depends_on:
       - postgres
-    environment:
-      - is_production=false
       
   postgres:
     image: docker.arvancloud.ir/postgres:16.1-bullseye

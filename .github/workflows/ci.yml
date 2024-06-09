@@ -19,24 +19,7 @@ jobs:
       steps:
           - name: Checkout code
             uses: actions/checkout@v4
-          - name: install docker
-            run: |
-                sudo apt-get update 
-                sudo apt-get install ca-certificates curl 
-                sudo install -m 0755 -d /etc/apt/keyrings
-                sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-                sudo chmod a+r /etc/apt/keyrings/docker.asc
-                
-                echo \
-                  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-                  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-                  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-                sudo apt-get update
-          - name: update docker compose
-            run: sudo apt-get install docker-compose-plugin
-          - name: Check Docker Compose Version
-            run: docker compose --version
           - name: up the container
-            run: docker compose -f docker-compose-prod.yaml up -d
+            run: docker compose -f docker-compose-stage.yaml up -d
           - name: run tests
-            run:  docker exec backend bash -c "poetry run python3 manage.py test --no-input"
+            run:  docker exec backend bash -c "poetry run python3 manage-prod.py test --no-input"
