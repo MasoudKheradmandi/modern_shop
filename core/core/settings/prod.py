@@ -17,3 +17,9 @@ CSRF_USE_SESSIONS = config("CSRF_USE_SESSIONS", cast=bool, default=False)
 CSRF_COOKIE_DOMAIN = config("CSRF_COOKIE_DOMAIN",default='*')
 
 MERCHANTID = config("MerchantID",default="test")
+
+CSRF_TRUSTED_ORIGINS = config(
+    "TRUSTED_ORIGINS",
+    cast=lambda v: [s.strip() for s in v.split(",")],
+    default="http://*",
+)

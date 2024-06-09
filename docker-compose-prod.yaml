@@ -14,17 +14,12 @@ services:
       - postgres-network
     depends_on:
       - postgres
-    environment:
-      - is_production=true
       
   postgres:
     image: docker.arvancloud.ir/postgres:16.1-bullseye
     container_name: db
     env_file:
-      - path: ./default.env
-        required: true 
-      - path: ./.database.env
-        required: false
+      - ./.database.env
     command: ["postgres", "-c", "log_statement=all"]
         
     volumes:
